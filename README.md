@@ -3,7 +3,7 @@
 stp25output
 ===========
 
-Laden der Experimentelle Funktionen von Statistik-Peter
+Die Scripten dienen der Erstellung von Reports als HTML aber auch von PDF über knit. Zum Teil handelt es sich um modifizerte Funktionen von Hmisc, car, reshape2, R2HTML, texreg oder htmlTable.
 
 Overview
 --------
@@ -46,7 +46,7 @@ Projekt("", "Beispiel Projekt")
 #> 
 #> Kontraste von  contr.treatment, contr.poly auf  contr.Treatment, contr.poly  umgestellt!
 #> Beispiel Projekt 
-#>  Datum:  Thu Jan 25 11:37:48 2018 , Software:  R version 3.4.3 (2017-11-30) , Link: www.R-project.org/
+#>  Datum:  Thu Jan 25 18:11:02 2018 , Software:  R version 3.4.3 (2017-11-30) , Link: www.R-project.org/
 #> File:  README.Rmd
 APA2(.~ gruppe , hkarz, caption="Deskriptive Analyse")
 #> 

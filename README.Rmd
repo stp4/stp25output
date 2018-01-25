@@ -14,9 +14,8 @@ knitr::opts_chunk$set(
 
 # stp25output
 
- 
-
-Laden der Experimentelle Funktionen von Statistik-Peter
+ Die Scripten dienen der Erstellung von Reports als HTML aber auch von PDF über knit.
+Zum Teil handelt es sich um modifizerte Funktionen von Hmisc, car, reshape2,  R2HTML, texreg oder htmlTable.
 
 Overview
 --------

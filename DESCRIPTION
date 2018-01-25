@@ -2,14 +2,13 @@ Package: stp25output
 Type: Package
 Encoding: UTF-8
 Title: Reports und Auswertungen
-Version: 0.1.2
-Date: 2017-02-24
+Version: 0.2.0
+Date: 2018-01-25
 Author: Wolfgang Peter
 Maintainer: Wolfgang Peter <w.peter@statistik-peter.at>
-Description: STP25 ist eine Sammlung von Skripten zur Ergebnisdarstellung in APA-Style. Reports werden dabei als HTML ausgegeben.
+Description: stp25output ist eine Sammlung von Skripten zur Ergebnisdarstellung in APA-Style. Reports werden dabei als HTML ausgegeben.
 License: GPL-3
-Depends:
-    R (>= 3.2)
+Depends: R (>= 3.2)
 Imports: stats, utils, Hmisc, magrittr, car
 Suggests:
     haven, knitr, rmarkdown, reshape2,
@@ -18,7 +17,7 @@ Suggests:
     caret, diagram, vcd, latticeExtra,
     installr, RColorBrewer, lmtest, Formula,
     effects, broom, dplyr, tidyr,
-    lattice, lmerTest, stp5
+    lattice, lmerTest
 VignetteBuilder: knitr
 LazyData: TRUE
 RoxygenNote: 6.0.1
