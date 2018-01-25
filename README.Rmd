@@ -1,0 +1,47 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# stp25output
+
+ 
+
+Laden der Experimentelle Funktionen von Statistik-Peter
+
+Overview
+--------
+
+
+-   `Projekt()` Initialisiert ein neues Projekt
+-   `APA2()` Erstellt Tabellen
+-   `Text()` Schreibt HTML Text
+-   `End()` Aufruf der Seite
+
+
+### Usage
+
+```{r}
+# devtools::install_github("stp4/stp25output")
+require(stp25vers)
+set_my_options(prozent=list(digits=c(1,0), style=2))
+get_my_options()$apa.style$prozent
+ 
+#Projekt("html", "Beispiel Projekt")
+Projekt("", "Beispiel Projekt")
+APA2(.~ gruppe , hkarz, caption="Deskriptive Analyse")
+
+End()
+
+```
+
+
