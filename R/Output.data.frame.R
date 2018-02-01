@@ -123,7 +123,7 @@ Output.data.frame <-
             escape.html = FALSE,
             css.table = css.table, css.cell = css.table,
             ...)
-        # für markdown  else
+        # fuer markdown  else
        # print(res)
 
         if (output == "html" ) HTML_CENTER(res)

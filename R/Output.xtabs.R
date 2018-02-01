@@ -1,6 +1,6 @@
 #which_output()
 #' @rdname Output
-#' @description Output.xtabs und Output.tabl und Output.ftable für Tabellen Objekte
+#' @description Output.xtabs und Output.tabl und Output.ftable fuer Tabellen Objekte
 #' @export
 Output.table<- function(x,
                         caption =  attr(x, "caption") ,

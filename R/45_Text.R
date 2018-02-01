@@ -154,7 +154,7 @@ Arbeitszeit<- function(Lines,
 #' @param include.poisso Regression Poisson
 #' @param include.rangreihe Rangreihe
 #' @param include.aufbau Uberschriften Aufbau
-#' @param include.abkuerzung Abkürzungen
+#' @param include.abkuerzung Abkuerzungen
 #'
 #' @export
 Anhang <- function(include.literatur=TRUE,
@@ -177,7 +177,7 @@ Anhang <- function(include.literatur=TRUE,
 
   libs <-search()
   myCitation<-  c(
-    "Achim Buehl, (2014), SPSS 22 Einfuehrung in die moderne Datenanalyse, 14. aktualisierte Auflage, Pearson",
+    "Achim Buehl, (2014), SPss 22 Einfuehrung in die moderne Datenanalyse, 14. aktualisierte Auflage, Pearson",
     "APA, 2009, Publication Manual of the American Psychological Association",
     "Daniel Wollschlaeger (2012), Grundlagen der Datenanalyse mit R: Eine anwendungsorientierte Einfaehrung 2. Aufl., Heidelberg: Springer",
     "Juergen Bortz,  Nicola Doering, (2006), Forschungsmethoden und Evaluation, Heidelberg: Springer",

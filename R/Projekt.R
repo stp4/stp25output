@@ -3,7 +3,7 @@
 #' @name Projekt
 #' @description Diese Funktion Projektet das Projekt Optionen sind ab jetzt ueber die
 #' settings zu erledigen.
-#' HTML Ausgabe wird ueber  R2HTML::HTMLChangeCSS("R2HTML") Formatiert es gigt aber seltsame Effekte dass das letzte Design gespeichert bleibt
+#' HTML Ausgabe wird ueber  R2HTML::HTMLChangeCss("R2HTML") Formatiert es gigt aber seltsame Effekte dass das letzte Design gespeichert bleibt
 #' daher Vorsicht beim aendern.
 #
 #' \link{CreateProjekt}: Projekt neu erstellen
@@ -13,12 +13,12 @@
 #' \link{folder} Verzeichnis Estellen
 #'   MySet  Grafik-Optionen
 #' @param myformat  HTML oder plane Test
-#' @param Projektname Bezeichnung auch für die HTML Seite
+#' @param Projektname Bezeichnung auch fuer die HTML Seite
 #' @param datum  Datum zur Dokumentation
 #' @param fig_folder  Folder wenn ein ander Ort gewuenscht
 #' @param html_folder Folderwenn ein ander Ort gewuenscht
 #' @param OutDec Komma oder Punkt
-#' @param contrasts default wie SPSS
+#' @param contrasts default wie SPss
 #' @param html_name  intern nicht aendern
 #' @param ... weitere Objekte nicht benutzt
 #' @return A \code{\link[tibble]{tibble}} with counted tagged NA values.
@@ -46,8 +46,8 @@ Projekt <- function (myformat = "",
                     html_folder = "Results",
 
                     OutDec = NULL,
-                    contrasts =  c("contr.Treatment", "contr.poly"), ## SPSS
-                    html_name = Clean_Umlaute2(Projektname),
+                    contrasts =  c("contr.Treatment", "contr.poly"), ## SPss
+                    html_name = stpvers::Clean_Umlaute2(Projektname),
                     ...)
 {
 
@@ -128,7 +128,7 @@ Projekt <- function (myformat = "",
     )
 
     cat( "\n",output.dir, html_name , myformat, "\n")
-   # R2HTML::HTMLChangeCSS("gridR2HTML")
+   # R2HTML::HTMLChangeCss("gridR2HTML")
     #    options(prompt="HTML> ")
    # set_default_params(list(myURL = myURL))
   } else{
@@ -146,7 +146,7 @@ Projekt <- function (myformat = "",
 
 
 
-#' Ausführendes File finden
+#' Ausfuehrendes File finden
 #'
 #' In Projekt verwendet um den Namen des Fils zu dokumentieren https://stackoverflow.com/questions/18000708/find-location-of-current-r-file
 #' @return String

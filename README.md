@@ -1,17 +1,22 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-stp25output
-===========
 
-Die Scripten dienen der Erstellung von Reports als HTML aber auch von PDF über knit. Zum Teil handelt es sich um modifizerte Funktionen von Hmisc, car, reshape2, R2HTML, texreg oder htmlTable.
+# stp25output
 
-Overview
---------
+Die Scripten dienen der Erstellung von Reports als HTML aber auch von
+PDF ueber knit. Zum Teil handelt es sich um modifizerte Funktionen von
+Hmisc, car, reshape2, R2HTML, texreg oder htmlTable.
 
--   `Projekt()` Initialisiert ein neues Projekt
--   `APA2()` Erstellt Tabellen
--   `Text()` Schreibt HTML Text
--   `End()` Aufruf der Seite
+## Overview
+
+  - `Projekt` und `End` Initialisiert ein neues Projekt und aufruf der
+    HTML-Seite.
+  - `Output` Erstellt Tabellen
+  - `Text`, `HTML_P` und `HTML_...` Schreibt HTML Text.
+  - `SaveDate` Speichert Bilder in den Arbeitsfolder.
+  - `fix_irgendwas` Repariert Levels und Labels und Zahlen fuer die
+    Ausgabe.
+  - `set_my_options` und `get_my_options` Formatierungs-Optionen
 
 ### Usage
 
@@ -46,7 +51,7 @@ Projekt("", "Beispiel Projekt")
 #> 
 #> Kontraste von  contr.treatment, contr.poly auf  contr.Treatment, contr.poly  umgestellt!
 #> Beispiel Projekt 
-#>  Datum:  Thu Jan 25 18:11:02 2018 , Software:  R version 3.4.3 (2017-11-30) , Link: www.R-project.org/
+#>  Datum:  Tue Jan 30 09:33:18 2018 , Software:  R version 3.4.3 (2017-11-30) , Link: www.R-project.org/
 #> File:  README.Rmd
 APA2(.~ gruppe , hkarz, caption="Deskriptive Analyse")
 #> 

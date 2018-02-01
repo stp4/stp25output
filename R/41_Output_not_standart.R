@@ -1,5 +1,5 @@
 #' @rdname Output
-#' @description Output.Reliability für eigenes Objekt Reliability
+#' @description Output.Reliability fuer eigenes Objekt Reliability
 #' @export
 Output.Reliability <- function(x,
                                caption = NULL ,
@@ -46,7 +46,7 @@ Output.Reliability <- function(x,
 
 
 #' @rdname Output
-#' @description Output.bland_altman für eigenes Objekt bland_altman
+#' @description Output.bland_altman fuer eigenes Objekt bland_altman
 #' @export
 Output.bland_altman<- function(x,
                                caption= paste0("Difference (", x$name.diff,

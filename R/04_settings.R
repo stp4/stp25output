@@ -145,7 +145,7 @@ default_stp25_opt <-
             temp_dir =  tempdir(),
             data_folder = "Raw data",
             html_folder = "Results",
-          #  html_name = Clean_Umlaute2(Projektname),
+         
             OutDec = ".",
             Align = "center",
 

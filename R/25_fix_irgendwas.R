@@ -39,7 +39,7 @@ NULL
 #' @param  df1,df2, Dichte
 #' @param  p P-Wert
 #' @description fix_format_p sucht automatisch nach den p-Werten die meist an der Letzten stelle sind
-#' und gibt einen Vector-String mit der Länge drei aus.
+#' und gibt einen Vector-String mit der LAenge drei aus.
 #' Nicht zu verwechseln mit \code{rndr_P()}
 fix_format_p<- function(x, df1=NULL,df2=null, p=NULL){
   if(is.vector(x) ){

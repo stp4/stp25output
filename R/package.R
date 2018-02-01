@@ -21,7 +21,7 @@
 #'  \code{Result} erstellten.
 #' }
 #' \subsection{Daten}{
-#'  Unterschiedliche Daten-Formate einlesen (SPSS, csv usw) mit
+#'  Unterschiedliche Daten-Formate einlesen (SPss, csv usw) mit
 #'  \code{GetData}. Schreiben lassen sich die
 #'  Daten (auch Grafiken) mit \code{SaveDate}
 #'  }

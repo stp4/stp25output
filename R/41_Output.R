@@ -29,7 +29,7 @@ which_output<- function(...){
 
 
 #' @rdname Output
-#' @description Output.character für brerits erstellten Html-Code
+#' @description Output.character fuer brerits erstellten Html-Code
 #' @export
 Output.character <- function(x, output = options()$prompt[1] == "HTML> ", ...) {
   if(output){

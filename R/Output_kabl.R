@@ -1,7 +1,7 @@
 #which_output()
 #' @rdname Output
 #' @description Output mit  knitr::kable Funftioniert nur wenn options(knitr.table.format = "latex")
-#' gesetzt wird (das gilt nur für Pdf)
+#' gesetzt wird (das gilt nur fuer Pdf)
 #' @export
 #'
 Output_kable <- function(x, ...) {

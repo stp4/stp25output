@@ -14,17 +14,19 @@ knitr::opts_chunk$set(
 
 # stp25output
 
- Die Scripten dienen der Erstellung von Reports als HTML aber auch von PDF über knit.
+ Die Scripten dienen der Erstellung von Reports als HTML aber auch von PDF ueber knit.
 Zum Teil handelt es sich um modifizerte Funktionen von Hmisc, car, reshape2,  R2HTML, texreg oder htmlTable.
 
 Overview
 --------
 
 
--   `Projekt()` Initialisiert ein neues Projekt
--   `APA2()` Erstellt Tabellen
--   `Text()` Schreibt HTML Text
--   `End()` Aufruf der Seite
+-   `Projekt` und `End` Initialisiert ein neues Projekt und aufruf der HTML-Seite.
+-   `Output` Erstellt Tabellen
+-   `Text`, `HTML_P` und `HTML_...` Schreibt HTML Text.
+-   `SaveDate` Speichert Bilder in den Arbeitsfolder.
+-    `fix_irgendwas`  Repariert Levels und Labels und Zahlen fuer die Ausgabe.
+-   `set_my_options` und `get_my_options` Formatierungs-Optionen
 
 
 ### Usage
