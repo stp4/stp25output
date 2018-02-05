@@ -2,16 +2,7 @@
 #' @rdname Text
 #' @title Text Ausgabe
 #' @description Ausgabe von \code{Text()} und Ueberschriften. \code{Head} ist dabei eine Kopie von \code{Text} mit
-#' dem Parameter \code{style = 2}.
-#'
-#' \code{Zitat())} ist eine Ausgabe vom Type <blockquote>
-#'
-#' \code{Anmerkung())} ist farblich mit blauen Text
-#'
-#' \code{CitationLib(car)} gibt Pakete beschreibungen aus.
-#'
-#' \code{Anhang()}
-#'
+#' dem Parameter \code{style = 2}#'
 #' @param ... one or more R objects, to be converted to character vectors.
 #' @param style 0 = p oder normaler Text 2 = h2 also ?berschrift bei Consolen-Ausgabe
 #' @param char ist nicht zu Verwenden Text Trennzeichen bei Consolen-Ausgabe
@@ -96,7 +87,6 @@ Text <- function(...,
 }
 
 #' @rdname Text
-#' @param char Bei Konsolenausgabe die Symbole
 #' @export
 Head<- function( ...,
                  style=3,
@@ -104,25 +94,32 @@ Head<- function( ...,
   Text(..., style = style, char = char)}
 
 #' @rdname Text
+#' @description  Anmerkung() ist ein blauen Text.
 #' @export
 Anmerkung <- function(...)
   Text('<div style="color:#0000FF"><b>Anmerkung:</b><br>', ..., "<br></div>")
+
+
 #' @rdname Text
 #' @param lib Paketname
-#'
+#' @description  CitationLib(car) gibt Pakete beschreibungen aus.
 #' @export
 CitationLib<-function(lib){
     x<- citation(lib)
     paste0(x$author[1],", (", x$year, "), ", x$title, ", URL ", x$url)
   }
+ 
+
 
 #' @rdname Text
+#' @description Zitat() ist eine Text  vom Type <blockquote>
 #' @export
 Zitat <- function(...)
   Text('<blockquote>', ..., "<br></blockquote>")
 
 
 #' @rdname Text
+#' @description Arbeitszeit() Tabelle zur Dokumentation der Arbeiszeit.
 #' @param Lines in Arbeitszeit der Input-String
 #' @param sep in Arbeitszeit das Input-String-Trennzeichen
 #'

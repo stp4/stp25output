@@ -3,7 +3,6 @@
 #' @name settings
 #' @description Einstellungen stp25
 #' @examples
-
 #' ###Names2Language(c("Item", "Characteristics", "Statistics"  ), "de")
 #' # Projekt()
 #' # options()$stp25$bez$f.value

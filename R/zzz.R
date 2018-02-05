@@ -5,8 +5,6 @@
 
 
 
-
-
 #' @importFrom magrittr %>%
 #' @export
 magrittr::`%>%`
@@ -25,17 +23,6 @@ car::contr.Sum
 #' @export
 car::contr.Helmert
 
-
-
-# .onAttach <- function(libname, pkgname) {
-#   when_attached("stp5", {
-#     packageProjektupMessage("You have loaded stp25 after stp5 - this is likely ",
-#                           "to cause problems.",
-#                           "please load stp5 first, then stp25:\nlibrary(stp5); library(stp25)")
-#
-#   })
-# }
-
 when_attached <- function(pkg, action) {
   if (is_attached(pkg)) {
     action
@@ -45,32 +32,6 @@ when_attached <- function(pkg, action) {
 }
 
 is_attached <- function(pkg) paste0("package:", pkg) %in% search()
-
-
-
-
-
-
-# .onAttach <- function(libname, pkgname) {
-#
-# }
-#
-# when_attached <- function(pkg, action) {
-#
-# }
-#
-# is_attached <- function(pkg) paste0("package:", pkg) %in% search()
-
-
-
-
-# Misc --------------------------------------------------------------------
-
-# countDigits<- function(x, sin){
-#   x<- strsplit(as.character(signif(x, digits = 4)),"\\.")[[1]][2]
-#   if(is.na(x)) 0 else nchar(x)
-# }
-
 
 
 ## update elements of a list recursively. Used in updating trellis or
