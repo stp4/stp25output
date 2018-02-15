@@ -31,12 +31,9 @@ Names2Language(words)
 \item{words}{Wort-liste Deutsch Englisch}
 }
 \description{
-Funktionen die Texte fuer die Beschriftungen bereitstellen stp25
-
 Liste mit Uebersaetzung.
 
-Names2Language() wird von Output benutzt um die De/En Uebersaetzun
- durchzufuehren.
+Names2Language() wird von Output benutzt um die De/En Uebersaetzung durchzufuehren.
 }
 \examples{
 Names2Language(c("Pr..Chisq.", "F.value"))

@@ -1,9 +1,5 @@
-#' @rdname dictionary
 #' @title dictionary (Sprachdatei)
 #' @name dictionary
-#' @description Funktionen die Texte fuer die Beschriftungen bereitstellen stp25
-NULL
-
 #' @rdname dictionary
 #' @description Liste mit Uebersaetzung.
 #' @param language  Sprache default="de"
@@ -62,8 +58,7 @@ Sprachdatei <-
 
 
 #' @rdname dictionary
-#' @description Names2Language() wird von Output benutzt um die De/En Uebersaetzun
-#'  durchzufuehren.
+#' @description Names2Language() wird von Output benutzt um die De/En Uebersaetzung durchzufuehren.
 #' @export
 #' @examples
 #' Names2Language(c("Pr..Chisq.", "F.value"))
@@ -161,3 +156,30 @@ Names2Language <- function(words) {
                   }
       , USE.NAMES = FALSE)
 }
+
+
+# aus broom
+# renamers <- c("Df" = "df",
+#               "Sum Sq" = "sumsq",
+#               "Mean Sq" = "meansq",
+#               "F value" = "statistic",
+#               "Pr(>F)" = "p.value",
+#               "Res.Df" = "res.df",
+#               "RSS" = "rss",
+#               "Sum of Sq" = "sumsq",
+#               "F" = "statistic",
+#               "Chisq" = "statistic",
+#               "P(>|Chi|)" = "p.value",
+#               "Pr(>Chi)" = "p.value",
+#               "Pr..Chisq." = "p.value",
+#               "Pr..Chi." = "p.value",
+#               "p.value" = "p.value",
+#               "Chi.sq" = "statistic",
+#               "edf" = "edf",
+#               "Ref.df" = "ref.df")
+# 
+# names(renamers) <- make.names(names(renamers))
+
+
+#ret <- plyr::rename(x, renamers, warn_missing = FALSE)
+

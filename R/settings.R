@@ -1,7 +1,7 @@
 #' @rdname settings
 #' @title Einstellungen
 #' @name settings
-#' @description Einstellungen stp25
+#' @description Einstellungen stp25, die Einstellungen betreffen vor allem die Formatierung von Zahlen in den Tabellen.
 #' @examples
 #' ###Names2Language(c("Item", "Characteristics", "Statistics"  ), "de")
 #' # Projekt()

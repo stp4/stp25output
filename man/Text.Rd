@@ -32,11 +32,11 @@ Anhang(include.literatur = TRUE, include.software = TRUE,
 \arguments{
 \item{...}{one or more R objects, to be converted to character vectors.}
 
-\item{style}{0 = p oder normaler Text 2 = h2 also ?berschrift bei Consolen-Ausgabe}
+\item{style}{0 = p oder normaler Text 2 = h2 also Ueberschrift bei Consolen-Ausgabe}
 
 \item{char}{ist nicht zu Verwenden Text Trennzeichen bei Consolen-Ausgabe}
 
-\item{output}{Abrage nach   which_output()}
+\item{output}{Abrage nach dem Ausgabeformat  which_output()}
 
 \item{lib}{Paketname}
 
@@ -75,7 +75,7 @@ Vector
 Ausgabe von \code{Text()} und Ueberschriften. \code{Head} ist dabei eine Kopie von \code{Text} mit
 dem Parameter \code{style = 2}#'
 
-Anmerkung() ist ein blauen Text.
+Anmerkung() ist ein blauer Text.
 
 CitationLib(car) gibt Pakete beschreibungen aus.
 

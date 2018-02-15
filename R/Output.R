@@ -17,7 +17,6 @@ Output <- function(x, ...) {
 
 # Helper
 which_output<- function(...){
-
   x<- "text"
   if(is.null(knitr:::out_format())) {
     if (options()$prompt[1] == "HTML> ") x<-"html"

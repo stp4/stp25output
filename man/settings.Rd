@@ -53,7 +53,7 @@ default_stp25_opt(myformat = "", fig_folder = "Fig",
 \item{digits_type, prozent_style}{digits_type,  #- entwerde Runden auf zwei stellen oder auf Signifikante Stellen prozent_style 2=medizin Anzahl(Prozent)}
 }
 \description{
-Einstellungen stp25
+Einstellungen stp25, die Einstellungen betreffen vor allem die Formatierung von Zahlen in den Tabellen.
 
 set_my_options:  Optionen erstellen
 

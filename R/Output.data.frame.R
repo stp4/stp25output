@@ -1,5 +1,3 @@
-#  ?htmlTable::htmlTable
-
 #' @rdname Output
 #' @description Output.matrix umwandeln in einen data.frame
 #' @export

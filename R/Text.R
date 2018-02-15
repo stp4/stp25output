@@ -4,9 +4,9 @@
 #' @description Ausgabe von \code{Text()} und Ueberschriften. \code{Head} ist dabei eine Kopie von \code{Text} mit
 #' dem Parameter \code{style = 2}#'
 #' @param ... one or more R objects, to be converted to character vectors.
-#' @param style 0 = p oder normaler Text 2 = h2 also ?berschrift bei Consolen-Ausgabe
+#' @param style 0 = p oder normaler Text 2 = h2 also Ueberschrift bei Consolen-Ausgabe
 #' @param char ist nicht zu Verwenden Text Trennzeichen bei Consolen-Ausgabe
-#' @param output Abrage nach   which_output()
+#' @param output Abrage nach dem Ausgabeformat  which_output()
 #' @return Vector
 #' @export
 #' @examples
@@ -94,7 +94,7 @@ Head<- function( ...,
   Text(..., style = style, char = char)}
 
 #' @rdname Text
-#' @description  Anmerkung() ist ein blauen Text.
+#' @description  Anmerkung() ist ein blauer Text.
 #' @export
 Anmerkung <- function(...)
   Text('<div style="color:#0000FF"><b>Anmerkung:</b><br>', ..., "<br></div>")

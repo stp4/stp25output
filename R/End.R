@@ -1,5 +1,5 @@
 #' @rdname Projekt
-#' @description  End: Zurueckseten und Aufruf des Browsers browser = getOption("browser") 
+#' @description  End: Zuruecksetzen der Einstellungen und Aufruf des Browsers browser = getOption("browser") 
 #' @param anhang Ja/Nein
 #' @param browser Ie oder Chrome
 #' @param output TRUE oder FALSE
