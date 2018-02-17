@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 
 # stp25output
 
- Die Scripten dienen der Erstellung von Reports als HTML aber auch von PDF ueber knit.
+Die Scripten dienen der Erstellung von Reports als HTML aber auch von PDF ueber knit.
 Zum Teil handelt es sich um modifizerte Funktionen von Hmisc, car, reshape2,  R2HTML, texreg oder htmlTable.
 
 Overview

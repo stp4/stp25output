@@ -7,6 +7,7 @@
 \alias{Output.vector}
 \alias{Output.htmlTable}
 \alias{Output.default}
+\alias{Caption}
 \alias{Output.apa_table}
 \alias{Output.bland_altman}
 \alias{Output.matrix}
@@ -33,6 +34,8 @@ Output(x, ...)
 \method{Output}{default}(x, caption = "", note = "",
   output = options()$prompt[1] == "HTML> ", col_names = NULL,
   print_col = NULL, ...)
+
+Caption(x = NULL, atr = NULL, output = which_output())
 
 \method{Output}{apa_table}(x)
 
@@ -73,25 +76,24 @@ Output_kable(x, ...)
 \arguments{
 \item{x}{Objekt liste oder Dataframe}
 
-\item{...}{Weitere Argumente an htmlTable}
+\item{...}{weitere Einstellungen}
 
 \item{output}{HTML oder text}
 
-\item{caption}{Ueberschrift}
+\item{caption, note}{Ueberschrift Fussnote}
 
-\item{note}{Fussnote}
-
-\item{col_names}{Spalten Ueberschrift aendern (data.frame)}
+\item{col_names, fix_colnames}{Spalten Ueberschrift aendern (data.frame)}
 
 \item{print_col}{Spalten nicht Ausgeben (data.frame)}
 
+\item{atr}{in Caption: alternativer Text}
+
 \item{fix_colnames}{interne Veriable Sprachuebesaetzung (data.frame)}
 
-\item{css.table}{Format an Output.data.frame (htmlTable)}
+\item{css.table, css.cell}{Format an Output.data.frame (htmlTable)
+padding-left: .5em; padding-right: .2em; Output.data.frame (htmlTable)}
 
-\item{css.cell}{padding-left: .5em; padding-right: .2em; Output.data.frame (htmlTable)}
-
-\item{col.names}{fuer tintPdf format = "latex"}
+\item{col.names}{Output_kable:  fuer tintPdf format = "latex"}
 
 \item{booktabs}{kable an Latex Latex}
 }
@@ -99,14 +101,16 @@ Output_kable(x, ...)
 HTML oder Textausgabe
 }
 \description{
-Erstellt Output von Objekten diese koennen mit Caption(caption, attr(x, "caption")),
-oder Note(note, attr(x, "note")) mit Uberschriften versehen sein.
+Erstellt Output von Objekten diese koennen mit Uberschriften versehen sein.
 
 Output.character fuer brerits erstellten Html-Code
 
 Output.htmlTable: Verarbeitet htmlTable-Objekt als auch Listen
  oder auch einfach nur ein string. Die Tabelle mit Header usw ist dabei
  schon vorbereitet. Bei Markdown kommt output=FALSE
+
+Ueberschrift aus stp-Objekt: Caption(caption, attr(x, "caption"))
+oder Note(note, attr(x, "note")) mit
 
 Output fur apaTables-Objekte wie zB apa.reg.table
 

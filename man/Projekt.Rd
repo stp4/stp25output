@@ -10,6 +10,7 @@
 \alias{Results}
 \alias{Demographic_Variables}
 \alias{Statistic}
+\alias{get_scriptpath}
 \title{Projekt Funktion}
 \usage{
 Projekt(myformat = "", Projektname = "Demo", datum = date(),
@@ -34,6 +35,8 @@ Results(x = NULL, file = NULL)
 Demographic_Variables(x = NULL, file = "(3) Demographic.R")
 
 Statistic(x = "Resultate", file = "(4) Analyse.R")
+
+get_scriptpath()
 }
 \arguments{
 \item{myformat}{HTML oder Knit oder Console}
@@ -68,74 +71,45 @@ Statistic(x = "Resultate", file = "(4) Analyse.R")
 HTML oder Text Output
 }
 \description{
-Adaption der R2HTML-Funktionen. Und Setzen von Default Einstellungen wie Contraste und set.seed(0815).
+Adaption der R2HTML-Funktionen. 
+Bei ausführen von \code{stp25output} werden die Optionen mit \code{default_stp25_opt()} fuer 
+die Formatierung gesetzt. Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
 
-Bei ausführen von library(stp25output) werden die Optionen mit default_stp25_opt() gesetzt.
-
-Projekt() Initialisiere ein neues Projekt, und erstellt dabei die Folder Results und Fig 
-mit End() wird der Report aufgerufen und ein Reset der Einstellungen durchgeführt. Ueber die Funktionen
-stp25_options werden Formatierungsoptionen gesetzt.
-\subsection{Projekt und HTML}{
-Die Funktion \code{Projekt}  ist essentiell fuer alle weiteren Funktionen es werden dabei
-Variablen fuer die Darstellung gesetzt wie ZB Nachkommastellen
-\code{digits.prozent = 0, digits.mean = 2, digits.r = 2,  digits.p = 3, digits.Fstat = 2}
-Trennzeichen \code{OutDec = "."}. Das Aussehen der Grafiken (lattice) wird
-ueber \code{grafik = "ggplot2like"} gesteuert #' bei \code{grafik = 1} wird die normale
-Einstellung verwendet. Unter \code{options()$stp25}
-findet man die Liste mit allen Einstellungen.
-Die HTML Ausgave wur ?ber \code{Projekt("html")} gesteuert und durch \code{End()} wird die Seite geladen.
-}
-\subsection{Tabellen}{
-APA -Style Tabellen erstellten (HTML oder Console) \code{APA2}.
-}
-\subsection{Text}{
-APA -Style Daten ausgabe als Text kann mit (HTML oder Console)
- \code{Result} erstellten.
-}
-\subsection{Daten}{
- Unterschiedliche Daten-Formate einlesen (SPss, csv usw) mit
- \code{GetData}. Schreiben lassen sich die
- Daten (auch Grafiken) mit \code{SaveDate}
- }
-\subsection{Messinstrumente}{
-Fuer spezielle Messinstrumente wie \code{Kano}, \code{Likert},
-oder \code{Rangreihe} stehen eigene Funktionen zur verfuegung.
-}
-\subsection{Aggregieren}{
-Hilfsfunktionen zum Aggregieren finden sich unter \code{dapply2},
-eine \code{apply()} Variante.
-und \code{Melt2} eine Kombination aus \code{melt} und \code{dcast}
-aus dem Packet \code{reshape2}.
-Melt2 wird dabei wie APA2 verwendet also zB
-\code{APA2(Produkt + Online + Preis ~ Group, DF, fun=mean2)}ist
-fuer APA-Tabelle und wenn die Mittelwerte angefordert werden
-sollen \code{Melt2(Produkt + Online + Preis ~ Group, DF, fun = mean2)}
- die Syntax. Summenindex kann mit \code{Index} oder das Umkodieren
- von Data.frames durch \code{Umcodieren}
-erfolgen. Normskalen wie T-Werte lassen sich ueber \code{Norms} berechnen.
-}
-\subsection{Berechnen}{
-Mittelwerte mit \code{mean2} Formatierte Masszahlen fuer
-die \code{APA2.formula(~a+d, data, fun=Prozent)} zu finden
-unter \code{Prozent}
+\subsection{Projekt()}{ 
+Initialisiere ein neues Projekt, dabei werden die Folder (Results und Fig) erstellt.
 }
 
-End: Zuruecksetzen der Einstellungen und Aufruf des Browsers browser = getOption("browser")
+\subsection{End}{
+Zuruecksetzen der Einstellungen und Aufruf des Browsers browser = getOption("browser")}
 
+\subsection{Methode}{
 Methode, Materials, Research_Design, Measures
-Results, Demographic_Variables und Statistic sind Platzhalter Funktionen um den R-Code in verschiedenen Files aiszulagern.
+Results, Demographic_Variables und Statistic sind Platzhalter Funktionen um den R-Code 
+in verschiedenen Files aiszulagern.}
+
+\subsection{Interne Funktion}{
+\code{get_scriptpath()} Ausfuehrendes File finden 
+Quelle: https://stackoverflow.com/questions/18000708/find-location-of-current-r-file}
 }
 \examples{
-# require(stpvers)
-# Projekt()
-# APA2(~. , hkarz)
+
+\dontrun{
+require(stpvers)
+ 
+ Projekt()
+ 
+ APA2(~. , hkarz)
+ 
+ 
 set_my_options(prozent=list(digits=c(1,0), style=2))
 get_my_options()$apa.style$prozent
 
 set_my_options(mittelwert=list(digits=c(1,0), plusmin_sign=TRUE))
 get_my_options()$apa.style$mittelwert
 
-# APA2(~. , hkarz)
+#APA2(~. , hkarz)
 
-# End()
+ End()
+
+}
 }

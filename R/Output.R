@@ -1,12 +1,9 @@
 #' @name Output
 #' @rdname Output
 #' @title Ausgabe von HTML
-#' @description Erstellt Output von Objekten diese koennen mit Caption(caption, attr(x, "caption")),
-#' oder Note(note, attr(x, "note")) mit Uberschriften versehen sein.
+#' @description Erstellt Output von Objekten diese koennen mit Uberschriften versehen sein.
 #' @param x Objekt liste oder Dataframe
-#' @param caption  Ueberschrift
-#' @param note  Fussnote
-#' @param output HTML oder text
+#' @param ... weitere Einstellungen
 #' @return HTML oder Textausgabe
 #' @author Wolfgang Peter
 #' @export
@@ -264,7 +261,10 @@ text_as_table <- function(x, ...) {
   }
 }
 
-
+#' @rdname Output
+#' @param atr in Caption: alternativer Text
+#' @description  Ueberschrift aus stp-Objekt: Caption(caption, attr(x, "caption"))
+#' oder Note(note, attr(x, "note")) mit
 Caption <- function(x=NULL, atr=NULL, output =  which_output()){
   caption <- if(is.null(x) & (!is.null(atr))) atr
   else if(!is.null(x)) x

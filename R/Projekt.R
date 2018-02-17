@@ -1,57 +1,12 @@
 #' @rdname Projekt
 #' @title Projekt Funktion
 #' @name Projekt
-#' @description 
-#' Adaption der R2HTML-Funktionen. Und Setzen von Default Einstellungen wie Contraste und set.seed(0815).
+#' @description  Adaption der R2HTML-Funktionen. 
+#' Bei ausführen von \code{stp25output} werden die Optionen mit \code{default_stp25_opt()} fuer 
+#' die Formatierung gesetzt. Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
 #' 
-#' Bei ausführen von library(stp25output) werden die Optionen mit default_stp25_opt() gesetzt.
-#' 
-#' Projekt() Initialisiere ein neues Projekt, und erstellt dabei die Folder Results und Fig 
-#' mit End() wird der Report aufgerufen und ein Reset der Einstellungen durchgeführt. Ueber die Funktionen
-#' stp25_options werden Formatierungsoptionen gesetzt.
-#' \subsection{Projekt und HTML}{
-#' Die Funktion \code{Projekt}  ist essentiell fuer alle weiteren Funktionen es werden dabei
-#' Variablen fuer die Darstellung gesetzt wie ZB Nachkommastellen
-#' \code{digits.prozent = 0, digits.mean = 2, digits.r = 2,  digits.p = 3, digits.Fstat = 2}
-#' Trennzeichen \code{OutDec = "."}. Das Aussehen der Grafiken (lattice) wird
-#' ueber \code{grafik = "ggplot2like"} gesteuert #' bei \code{grafik = 1} wird die normale
-#' Einstellung verwendet. Unter \code{options()$stp25}
-#' findet man die Liste mit allen Einstellungen.
-#' Die HTML Ausgave wur ?ber \code{Projekt("html")} gesteuert und durch \code{End()} wird die Seite geladen.
-#' }
-#' \subsection{Tabellen}{
-#' APA -Style Tabellen erstellten (HTML oder Console) \code{APA2}.
-#' }
-#' \subsection{Text}{
-#' APA -Style Daten ausgabe als Text kann mit (HTML oder Console)
-#'  \code{Result} erstellten.
-#' }
-#' \subsection{Daten}{
-#'  Unterschiedliche Daten-Formate einlesen (SPss, csv usw) mit
-#'  \code{GetData}. Schreiben lassen sich die
-#'  Daten (auch Grafiken) mit \code{SaveDate}
-#'  }
-#' \subsection{Messinstrumente}{
-#' Fuer spezielle Messinstrumente wie \code{Kano}, \code{Likert},
-#' oder \code{Rangreihe} stehen eigene Funktionen zur verfuegung.
-#' }
-#' \subsection{Aggregieren}{
-#' Hilfsfunktionen zum Aggregieren finden sich unter \code{dapply2},
-#' eine \code{apply()} Variante.
-#' und \code{Melt2} eine Kombination aus \code{melt} und \code{dcast}
-#' aus dem Packet \code{reshape2}.
-#' Melt2 wird dabei wie APA2 verwendet also zB
-#' \code{APA2(Produkt + Online + Preis ~ Group, DF, fun=mean2)}ist
-#' fuer APA-Tabelle und wenn die Mittelwerte angefordert werden
-#' sollen \code{Melt2(Produkt + Online + Preis ~ Group, DF, fun = mean2)}
-#'  die Syntax. Summenindex kann mit \code{Index} oder das Umkodieren
-#'  von Data.frames durch \code{Umcodieren}
-#' erfolgen. Normskalen wie T-Werte lassen sich ueber \code{Norms} berechnen.
-#' }
-#' \subsection{Berechnen}{
-#' Mittelwerte mit \code{mean2} Formatierte Masszahlen fuer
-#' die \code{APA2.formula(~a+d, data, fun=Prozent)} zu finden
-#' unter \code{Prozent}
+#' \subsection{Projekt()}{ 
+#' Initialisiere ein neues Projekt, dabei werden die Folder (Results und Fig) erstellt.
 #' }
 #' @param myformat  HTML oder Knit oder Console
 #' @param Projektname Bezeichnung des Projektes (gilt auch fuer die HTML Seite)
@@ -65,18 +20,26 @@
 #' @return HTML oder Text Output
 #' @export
 #' @examples
-#' # require(stpvers)
-#' # Projekt()
-#' # APA2(~. , hkarz)
+#' 
+#' \dontrun{
+#' require(stpvers)
+#'  
+#'  Projekt()
+#'  
+#'  APA2(~. , hkarz)
+#'  
+#'  
 #' set_my_options(prozent=list(digits=c(1,0), style=2))
 #' get_my_options()$apa.style$prozent
 #'
 #' set_my_options(mittelwert=list(digits=c(1,0), plusmin_sign=TRUE))
 #' get_my_options()$apa.style$mittelwert
 #'
-#' # APA2(~. , hkarz)
+#' #APA2(~. , hkarz)
 #'
-#' # End()
+#'  End()
+#' 
+#' }
 Projekt <- function (myformat = "",
                     Projektname = "Demo",
                     datum = date(),
@@ -183,7 +146,8 @@ Projekt <- function (myformat = "",
 
 
 #' @rdname Projekt
-#' @description  End: Zuruecksetzen der Einstellungen und Aufruf des Browsers browser = getOption("browser") 
+#' @description  \subsection{End}{
+#' Zuruecksetzen der Einstellungen und Aufruf des Browsers browser = getOption("browser")}
 #' @param anhang Ja/Nein
 #' @param browser Ie oder Chrome
 #' @param output TRUE oder FALSE
@@ -217,43 +181,11 @@ End <- function(anhang=FALSE,
   else cat("\nReset Kontraste\n")
 }
 
-#' Ausfuehrendes File finden
-#'
-#' In Projekt verwendet um den Namen des Files zu dokumentieren https://stackoverflow.com/questions/18000708/find-location-of-current-r-file
-#' @return String
-#'
-get_scriptpath <- function() {
-
-  # location of script can depend on how it was invoked:
-  # source() and knit() put it in sys.calls()
-  path <- NULL
-
-  if(!is.null(sys.calls())) {
-    # get name of script - hope this is consisitent!
-    path <- as.character(sys.call(1))[2]
-
-    # make sure we got a file that ends in .R, .Rmd or .Rnw
-    if (grepl("..+\\.[R|Rmd|Rnw]", path, perl=TRUE, ignore.case = TRUE) )  {
-
-      path<-strsplit(path, "/")[[1]]
-
-      return(path[length(path)])
-    } else {
-      message("Obtained value for path does not end with .R, .Rmd or .Rnw: ", path)
-    }
-  } else{
-    # Rscript and R -f put it in commandArgs
-    args <- commandArgs(trailingOnly = FALSE)
-  }
-  return(path)
-
-  #
-}
-
-
 #' @rdname Projekt
-#' @description Methode, Materials, Research_Design, Measures
-#' Results, Demographic_Variables und Statistic sind Platzhalter Funktionen um den R-Code in verschiedenen Files aiszulagern.
+#' @description \subsection{Methode}{
+#' Methode, Materials, Research_Design, Measures
+#' Results, Demographic_Variables und Statistic sind Platzhalter Funktionen um den R-Code 
+#' in verschiedenen Files aiszulagern.}
 #' @param x Character
 #' @param file auszufuerendes File
 #' @export
@@ -262,6 +194,7 @@ Methode <- function(x=NULL, file=NULL){
   if(!is.null(x)) Text(x)
   if(!is.null(file)) source(file, encoding = "UTF-8") # or "latin1"
 }
+
 #' @rdname Projekt
 #' @export
 Materials <- function(x=NULL,
@@ -270,7 +203,6 @@ Materials <- function(x=NULL,
   if(!is.null(x)) Text(x)
   if(!is.null(file)) source(file, encoding = "UTF-8")
 }
-
 
 #' @rdname Projekt
 #' @export
@@ -288,6 +220,7 @@ Measures <- function(x=NULL,
   if(!is.null(x)) Text(x)
   if(!is.null(file)) source(file, encoding = "UTF-8")
 }
+
 #' @rdname Projekt
 #' @export
 Results<- function(x=NULL, file=NULL){
@@ -303,6 +236,7 @@ Demographic_Variables<- function(x=NULL,
   if(!is.null(x)) Text(x)
   if(!is.null(file)) source(file, encoding = "UTF-8")
 }
+
 #' @rdname Projekt
 #' @export
 Statistic<- function(x="Resultate", file="(4) Analyse.R"){
@@ -311,8 +245,35 @@ Statistic<- function(x="Resultate", file="(4) Analyse.R"){
   if(!is.null(file)) source(file, encoding = "UTF-8")
 }
 
-
-
-
-
+#' @rdname Projekt
+#' @description  \subsection{Interne Funktion}{
+#' \code{get_scriptpath()} Ausfuehrendes File finden 
+#' Quelle: https://stackoverflow.com/questions/18000708/find-location-of-current-r-file}
+get_scriptpath <- function() {
+  
+  # location of script can depend on how it was invoked:
+  # source() and knit() put it in sys.calls()
+  path <- NULL
+  
+  if(!is.null(sys.calls())) {
+    # get name of script - hope this is consisitent!
+    path <- as.character(sys.call(1))[2]
+    
+    # make sure we got a file that ends in .R, .Rmd or .Rnw
+    if (grepl("..+\\.[R|Rmd|Rnw]", path, perl=TRUE, ignore.case = TRUE) )  {
+      
+      path<-strsplit(path, "/")[[1]]
+      
+      return(path[length(path)])
+    } else {
+      message("Obtained value for path does not end with .R, .Rmd or .Rnw: ", path)
+    }
+  } else{
+    # Rscript and R -f put it in commandArgs
+    args <- commandArgs(trailingOnly = FALSE)
+  }
+  return(path)
+  
+  #
+}
 

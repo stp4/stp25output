@@ -19,7 +19,7 @@ Output_kable.list <- function(x, ...) {
 
 #' @rdname Output
 #' @param booktabs kable an Latex Latex
-#' @param col.names    fuer tintPdf format = "latex"
+#' @param col.names  Output_kable:  fuer tintPdf format = "latex"
 #' @export
 Output_kable.default <-
   function(x, caption = NULL,

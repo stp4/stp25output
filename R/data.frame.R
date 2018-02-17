@@ -2,7 +2,7 @@
 #' @description Output.matrix umwandeln in einen data.frame
 #' @export
 Output.matrix<- function(x, ...) {
- Output(fix_to_data_frame(x,...))
+ Output(fix_to_data_frame(x, ...))
 }
 
 #' @rdname Output
@@ -11,7 +11,7 @@ Output.matrix<- function(x, ...) {
 Output.list<- function(x, ...) {
 # noch nicht getestet
   for(i in 1:length(x))
-  Output(fix_to_data_frame(x[[i]],...))
+  Output(fix_to_data_frame(x[[i]], ...))
 }
 
 #' @rdname Output
@@ -32,12 +32,14 @@ Output.stp25<- function(x, ...) {
 #' Ausgabe. Sie Arbeitet mit \link{htmlTable}, die einzelnen
 #' Header-Ebenen werden ueber Header1_M, Header1_SD gesteuert.
 #' Auch die Funktionen Output.table und xtabl arbeiten ueber diese Funktion.
+#' 
+#' @param caption,note  Ueberschrift Fussnote
+#' @param output HTML oder text
 #' @param fix_colnames  interne Veriable Sprachuebesaetzung (data.frame)
 #' @param print_col Spalten nicht Ausgeben (data.frame)
-#' @param col_names Spalten Ueberschrift aendern (data.frame)
-#' @param css.table Format an Output.data.frame (htmlTable)
-#' @param css.cell padding-left: .5em; padding-right: .2em; Output.data.frame (htmlTable)
-#' @param ... Weitere Argumente an htmlTable
+#' @param col_names,fix_colnames Spalten Ueberschrift aendern (data.frame)
+#' @param css.table,css.cell Format an Output.data.frame (htmlTable)
+#'  padding-left: .5em; padding-right: .2em; Output.data.frame (htmlTable)
 #' @export
 Output.data.frame <-
   function(x,
