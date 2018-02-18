@@ -36,10 +36,10 @@ HTML_BR(x, output = which_output())
 \arguments{
 \item{x}{Text}
 
-\item{output}{file ist nicht zu aendern}
+\item{output}{HTML, Knit  oder Textfile (ist nicht gedacht zum Aendern)}
 }
 \value{
-nichts
+Null doere Character-String
 }
 \description{
 HTML_ schreibt direkt ins HTML-File

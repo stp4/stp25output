@@ -3,26 +3,6 @@
   options("stp25" = default_stp25_opt())
 }
 
-
-
-#' @importFrom magrittr %>%
-#' @export
-magrittr::`%>%`
-
-#' @importFrom Hmisc Cs
-#' @export
-Hmisc::Cs
-
-#' @importFrom car contr.Treatment
-#' @export
-car::contr.Treatment
-#' @importFrom car contr.Sum
-#' @export
-car::contr.Sum
-#' @importFrom car contr.Helmert
-#' @export
-car::contr.Helmert
-
 when_attached <- function(pkg, action) {
   if (is_attached(pkg)) {
     action
@@ -43,3 +23,37 @@ updateList <- function(x, val)
   if (is.null(x)) x <- list()
   modifyList(x, val)
 }
+
+
+
+# 'R2HTML' 'htmlTable' 'kableExtra' 'lattice' 'plyr' 'stp25APA2''stringr'
+
+
+#' @importFrom R2HTML HTMLGetFile HTMLStart HTMLGetFile HTMLStop
+#' @importFrom graphics par
+#' @importFrom plyr llply
+#' @importFrom utils browseURL citation modifyList read.table
+#' @importFrom stats ftable
+#' @importFrom stringr str_split
+#' @importFrom htmlTable htmlTable
+
+
+
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`
+
+#' @importFrom Hmisc Cs
+#' @export
+Hmisc::Cs
+
+#' @importFrom car contr.Treatment
+#' @export
+car::contr.Treatment
+#' @importFrom car contr.Sum
+#' @export
+car::contr.Sum
+#' @importFrom car contr.Helmert
+#' @export
+car::contr.Helmert
+

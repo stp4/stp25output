@@ -7,6 +7,7 @@
 \alias{Output.vector}
 \alias{Output.htmlTable}
 \alias{Output.default}
+\alias{text_as_table}
 \alias{Caption}
 \alias{Output.apa_table}
 \alias{Output.bland_altman}
@@ -21,7 +22,7 @@
 \alias{Output.table}
 \alias{Output.xtabs}
 \alias{Output.ftable}
-\title{Ausgabe von HTML}
+\title{Ausgabe von HTML, Knit oder Text}
 \usage{
 Output(x, ...)
 
@@ -34,6 +35,8 @@ Output(x, ...)
 \method{Output}{default}(x, caption = "", note = "",
   output = options()$prompt[1] == "HTML> ", col_names = NULL,
   print_col = NULL, ...)
+
+text_as_table(x, ...)
 
 Caption(x = NULL, atr = NULL, output = which_output())
 
@@ -78,7 +81,7 @@ Output_kable(x, ...)
 
 \item{...}{weitere Einstellungen}
 
-\item{output}{HTML oder text}
+\item{output}{HTML, Knit  oder Textfile (ist nicht gedacht zum Aendern)}
 
 \item{caption, note}{Ueberschrift Fussnote}
 
@@ -87,8 +90,6 @@ Output_kable(x, ...)
 \item{print_col}{Spalten nicht Ausgeben (data.frame)}
 
 \item{atr}{in Caption: alternativer Text}
-
-\item{fix_colnames}{interne Veriable Sprachuebesaetzung (data.frame)}
 
 \item{css.table, css.cell}{Format an Output.data.frame (htmlTable)
 padding-left: .5em; padding-right: .2em; Output.data.frame (htmlTable)}
@@ -101,7 +102,7 @@ padding-left: .5em; padding-right: .2em; Output.data.frame (htmlTable)}
 HTML oder Textausgabe
 }
 \description{
-Erstellt Output von Objekten diese koennen mit Uberschriften versehen sein.
+Erstellt den Output von Objekten, diese koennen zB. mit Uberschriften versehen sein.
 
 Output.character fuer brerits erstellten Html-Code
 
@@ -116,14 +117,14 @@ Output fur apaTables-Objekte wie zB apa.reg.table
 
 Output.bland_altman fuer eigenes Objekt bland_altman
 
-Output.matrix umwandeln in einen data.frame
+Output.matrix: umwandeln in einen data.frame
 
-Output.iste einzeln in einen data.frame transformieren
+Output.iste: einzeln in einen data.frame transformieren
 
-Output.stp25 experimenteller Prototyp
+Output.stp25: experimenteller Prototyp
 
 Output.data.frame ist die Standart-Funktion fuer die
-Ausgabe. Sie Arbeitet mit \link{htmlTable}, die einzelnen
+Ausgabe. Sie Arbeitet mit \code{htmlTable}, die einzelnen
 Header-Ebenen werden ueber Header1_M, Header1_SD gesteuert.
 Auch die Funktionen Output.table und xtabl arbeiten ueber diese Funktion.
 
@@ -135,6 +136,8 @@ Output.Reliability fuer eigenes Objekt Reliability
 Output.xtabs und Output.tabl und Output.ftable fuer Tabellen Objekte
 }
 \examples{
+
+\dontrun{
 library(apaTables) 
  basic.reg <- lm(sales ~ adverts + airplay, data=album)
 apa.reg.table(basic.reg) \%>\% Output()
@@ -150,7 +153,7 @@ APA_Table( aov(libido ~ dose, data=viagra))
 block1 <- lm(sales ~ adverts + airplay, data=album)
 block2 <- lm(sales ~ adverts*airplay, data=album)
 apa.reg.table(block1, block2) \%>\% Output()
-  
+ } 
 
 }
 \author{

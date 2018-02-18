@@ -9,8 +9,8 @@ Maintainer: Wolfgang Peter <w.peter@statistik-peter.at>
 Description: Reports erstellen die Tabellen und Texte werden dabei als HTML ausgegeben.
 License: GPL-3
 Depends: R (>= 3.2)
-Imports: magrittr,car,Hmisc
-Suggests: haven,knitr,rmarkdown
+Imports: magrittr,car,Hmisc,R2HTML,plyr,stp25APA2,htmlTable,kableExtra,knitr,stringr,stats
+Suggests: haven,rmarkdown
 VignetteBuilder: knitr
 LazyData: TRUE
 RoxygenNote: 6.0.1

@@ -2,15 +2,14 @@
 #'
 #' HTML_ schreibt direkt ins HTML-File
 #' @param x Text
-#' @param output file ist nicht zu aendern
+#' @param output HTML, Knit  oder Textfile (ist nicht gedacht zum Aendern)
 #'
-#' @return nichts
+#' @return Null doere Character-String
 #' @export
 #'
 #' @examples
 #' # HTML_P( "Hallo Welt", file="")
 #'
-
 HTML_ <- function(x, output = which_output()) {
   HTML_default(x, output)
 }
@@ -18,7 +17,7 @@ HTML_ <- function(x, output = which_output()) {
 HTML_default <- function(x, output =  which_output()) {
   if (output == "html")
     cat("\n", x, "\n",
-      file = R2HTML::HTMLGetFile(), sep = "",append = TRUE
+      file = HTMLGetFile(), sep = "",append = TRUE
     )
   else
     cat(x)

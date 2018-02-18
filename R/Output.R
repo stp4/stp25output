@@ -1,8 +1,9 @@
 #' @name Output
 #' @rdname Output
-#' @title Ausgabe von HTML
-#' @description Erstellt Output von Objekten diese koennen mit Uberschriften versehen sein.
+#' @title Ausgabe von HTML, Knit oder Text
+#' @description Erstellt den Output von Objekten, diese koennen zB. mit Uberschriften versehen sein.
 #' @param x Objekt liste oder Dataframe
+#' @param output HTML, Knit  oder Textfile (ist nicht gedacht zum Aendern)
 #' @param ... weitere Einstellungen
 #' @return HTML oder Textausgabe
 #' @author Wolfgang Peter
@@ -189,19 +190,10 @@ Output.default <- function(x,
 #-----------------------------------------------------------------
 
 
-
-
-
-
-
-
-
-
-# @rdname Output
-# @export
-#--  Helper
+ 
+#' @rdname Output
 text_as_table <- function(x, ...) {
-  strg <-  stringr::str_split(stringr::str_split(x, "\n")[[1]], "\\|")
+  strg <-  str_split(str_split(x, "\n")[[1]], "\\|")
   strg <- lapply(strg, function(x) {
     x <- gsub("\\t", "", x)
     gsub("(^ +)|( +$)", "", x)
@@ -228,7 +220,7 @@ text_as_table <- function(x, ...) {
     head_names <- strg[[1]]
     mx <- t(sapply(strg[-1], c))
     colnames(mx) <- head_names
-    htmlTable::htmlTable(mx, escape.html = FALSE, ...) #--library(htmlTable)
+    htmlTable(mx, escape.html = FALSE, ...) #--library(htmlTable)
   }
   else {
     headernr <- 1:(wo_is_line - 1)
@@ -248,7 +240,7 @@ text_as_table <- function(x, ...) {
       mx <- mx[, -1]
     }
     Output(
-      htmlTable::htmlTable(
+      htmlTable(
         mx,
         cgroup = cgroup,
         n.cgroup = n.cgroup,

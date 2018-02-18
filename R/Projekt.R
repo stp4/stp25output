@@ -18,7 +18,9 @@
 #' @param html_name  intern nicht aendern
 #' @param ... weitere Objekte nicht benutzt
 #' @return HTML oder Text Output
+#' 
 #' @export
+#' 
 #' @examples
 #' 
 #' \dontrun{
@@ -119,7 +121,7 @@ Projekt <- function (myformat = "",
       reset = par(no.readonly = TRUE)
     ))
 
-    R2HTML::HTMLStart(
+     HTMLStart(
       outdir = output.dir,
       file = html_name,
       extension = myformat,
@@ -142,9 +144,6 @@ Projekt <- function (myformat = "",
 
   invisible(NULL)
 }
-
-
-
 #' @rdname Projekt
 #' @description  \subsection{End}{
 #' Zuruecksetzen der Einstellungen und Aufruf des Browsers browser = getOption("browser")}
@@ -164,11 +163,11 @@ End <- function(anhang=FALSE,
   if( exists( "Tab_Index" )) Tab_Index <<-  0
   if( exists( "Abb_Index" )) Abb_Index <<-  0
   
-  file<- try( R2HTML::HTMLGetFile(), silent = TRUE)
+  file<- try( HTMLGetFile(), silent = TRUE)
   if(output & class(file) !=  "try-error") {
     if (anhang){ Anhang() }
     
-    R2HTML::HTMLStop()
+    HTMLStop()
     #   print(tmp)
     # getOption("browser")
     browseURL(file, browser=browser)

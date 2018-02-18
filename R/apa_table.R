@@ -3,6 +3,8 @@
 #' @export
 #'
 #' @examples
+#' 
+#' \dontrun{
 #' library(apaTables) 
 #'  basic.reg <- lm(sales ~ adverts + airplay, data=album)
 #' apa.reg.table(basic.reg) %>% Output()
@@ -18,7 +20,7 @@
 #' block1 <- lm(sales ~ adverts + airplay, data=album)
 #' block2 <- lm(sales ~ adverts*airplay, data=album)
 #' apa.reg.table(block1, block2) %>% Output()
-#'   
+#'  } 
 #' 
 Output.apa_table <- function(x) {
   names(x$table_body) <- gsub("_", ".", names(x$table_body))

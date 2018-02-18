@@ -1,7 +1,8 @@
-#which_output()
 #' @rdname Output
 #' @description Output mit  knitr::kable Funftioniert nur wenn options(knitr.table.format = "latex")
 #' gesetzt wird (das gilt nur fuer Pdf)
+#' @importFrom kableExtra kable_styling add_header_above
+#' @importFrom knitr kable
 #' @export
 #'
 Output_kable <- function(x, ...) {
@@ -62,13 +63,12 @@ Output_kable.default <-
       ebenen <- max(lengths(result_tbl_names), na.rm = TRUE)
     }
 
-
     dt <- cleanup_for_latex(x)
 
     if (ebenen == 1 & output == "markdown") {
       print(
-        kableExtra::kable_styling(
-        knitr::kable(
+        kable_styling(
+        kable(
         dt,
         #format,
         row.names = FALSE,
@@ -90,8 +90,8 @@ Output_kable.default <-
       header_above <- ifelse(n.cgroup == 1, " ", n.cgroup)
       names(header_above) <-  gsub("&nbsp;", ' ', cgroup)
 
-      print(kableExtra::add_header_above(
-        knitr::kable(
+      print(add_header_above(
+        kable(
           dt,
          # format,
           row.names = FALSE,
@@ -102,12 +102,10 @@ Output_kable.default <-
         ),
         header_above
       ))
-
     }
     else{
       print(dt)
     }
-
     invisible(dt)
   }
 
@@ -117,7 +115,7 @@ Output_kable.default <-
 
 
 cleanup_for_latex <- function(x) {
-  data.frame(plyr::llply(x, function(strg) {
+  data.frame(llply(x, function(strg) {
     if (is.character(strg) | is.factor(strg)) {
       strg <- gsub("&nbsp;", ' ', strg)
       strg[is.na(strg)] <- ""

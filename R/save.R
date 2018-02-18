@@ -11,6 +11,7 @@
 #' @param save_plot speichern als file = TRUE,
 #' @param ...  zusaetliche Parameter
 #' @return NULL
+#' @importFrom grDevices dev.copy2pdf dev.off dev.size savePlot rgb2hsv
 #' @export
 SaveData <- function(caption = "", 
                      filename = "",

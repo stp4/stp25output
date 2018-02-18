@@ -19,9 +19,9 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{Hmisc}{\code{\link[Hmisc]{Cs}}}
-
   \item{car}{\code{\link[car]{contr.Treatment}}, \code{\link[car]{contr.Sum}}, \code{\link[car]{contr.Helmert}}}
+
+  \item{Hmisc}{\code{\link[Hmisc]{Cs}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 }}

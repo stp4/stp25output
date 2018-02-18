@@ -1,12 +1,12 @@
 #' @rdname Output
-#' @description Output.matrix umwandeln in einen data.frame
+#' @description Output.matrix: umwandeln in einen data.frame
 #' @export
 Output.matrix<- function(x, ...) {
  Output(fix_to_data_frame(x, ...))
 }
 
 #' @rdname Output
-#' @description Output.iste einzeln in einen data.frame transformieren
+#' @description Output.iste: einzeln in einen data.frame transformieren
 #' @export
 Output.list<- function(x, ...) {
 # noch nicht getestet
@@ -15,7 +15,7 @@ Output.list<- function(x, ...) {
 }
 
 #' @rdname Output
-#' @description Output.stp25 experimenteller Prototyp
+#' @description Output.stp25: experimenteller Prototyp
 #' @export
 Output.stp25<- function(x, ...) {
   # noch nicht getestet
@@ -29,13 +29,11 @@ Output.stp25<- function(x, ...) {
 
 #' @rdname Output
 #' @description Output.data.frame ist die Standart-Funktion fuer die
-#' Ausgabe. Sie Arbeitet mit \link{htmlTable}, die einzelnen
+#' Ausgabe. Sie Arbeitet mit \code{htmlTable}, die einzelnen
 #' Header-Ebenen werden ueber Header1_M, Header1_SD gesteuert.
 #' Auch die Funktionen Output.table und xtabl arbeiten ueber diese Funktion.
 #' 
 #' @param caption,note  Ueberschrift Fussnote
-#' @param output HTML oder text
-#' @param fix_colnames  interne Veriable Sprachuebesaetzung (data.frame)
 #' @param print_col Spalten nicht Ausgeben (data.frame)
 #' @param col_names,fix_colnames Spalten Ueberschrift aendern (data.frame)
 #' @param css.table,css.cell Format an Output.data.frame (htmlTable)
@@ -135,7 +133,7 @@ Output.data.frame <-
   }
   else if (output ==  "markdown") {
 
-    print(knitr::kable(x,
+    print(kable(x,
                        row.names = FALSE,
                        caption = caption))
   }
