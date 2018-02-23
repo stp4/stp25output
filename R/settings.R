@@ -131,7 +131,7 @@ stp25_options <- function() {
 #' @param language Sprache
 #' @param digits.prozent,digits.mean,digits.r,digits.p,digits.Fstat Digits fuer Format2
 #' @param null_percent_sign,lead.zero,p.values,signif.stars,plusmin_sign,sep_element,brackets Diverse Formatierungen
-#' @param digits_type,prozent_style  digits_type,  #- entwerde Runden auf zwei stellen oder auf Signifikante Stellen prozent_style 2=medizin Anzahl(Prozent)
+#' @param digits_type,prozent_style,median.style  digits_type,  #- entwerde Runden auf zwei stellen oder auf Signifikante Stellen prozent_style 2=medizin Anzahl(Prozent)
 #' @export
 #' @examples
 #' options("stp25" = default_stp25_opt(language = "en"))
@@ -162,7 +162,11 @@ default_stp25_opt <-
             sep_element = ",",
             brackets = c("[", "]"),
             digits_type = "digits",
-            prozent_style = 1){
+            prozent_style = 1,
+            
+            median.style="IRQ"
+            
+            ){
 list(
       language = language,
       dec = OutDec,
@@ -193,7 +197,8 @@ list(
               digits = c(digits.mean, digits.mean),
               lead.zero = c(TRUE, TRUE),
               plusmin_sign = plusmin_sign,
-              plusmin_str = intToUtf8(177)
+              plusmin_str = intToUtf8(177),
+              median.style=median.style
         ),
         Fstat = list(digits = digits.Fstat,
                      lead.zero = TRUE),

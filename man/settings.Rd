@@ -25,7 +25,7 @@ default_stp25_opt(myformat = "", fig_folder = "Fig",
   null_percent_sign = NULL, lead.zero = FALSE, p.values = c(0.001, 0.01,
   0.05, 0.1)[1:3], signif.stars = FALSE, plusmin_sign = FALSE,
   sep_element = ",", brackets = c("[", "]"), digits_type = "digits",
-  prozent_style = 1)
+  prozent_style = 1, median.style = "IRQ")
 }
 \arguments{
 \item{...}{zu aendernde Einstellungen}
@@ -50,7 +50,7 @@ default_stp25_opt(myformat = "", fig_folder = "Fig",
 
 \item{null_percent_sign, lead.zero, p.values, signif.stars, plusmin_sign, sep_element, brackets}{Diverse Formatierungen}
 
-\item{digits_type, prozent_style}{digits_type,  #- entwerde Runden auf zwei stellen oder auf Signifikante Stellen prozent_style 2=medizin Anzahl(Prozent)}
+\item{digits_type, prozent_style, median.style}{digits_type,  #- entwerde Runden auf zwei stellen oder auf Signifikante Stellen prozent_style 2=medizin Anzahl(Prozent)}
 }
 \description{
 Einstellungen stp25, die Einstellungen betreffen vor allem die Formatierung von Zahlen in den Tabellen.
