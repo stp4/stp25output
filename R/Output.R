@@ -76,6 +76,14 @@ Output.htmlTable <- function(x,
 
 #' @rdname Output
 #' @export
+Output.NULL <- function(x, ...){
+  if (!exists("Tab_Index"))
+  cat("\nNach Tabelle ", Tab_Index, " ist eder Output NULL!\n")
+  
+  HTML_BR()
+}
+#' @rdname Output
+#' @export
 Output.default <- function(x,
                            caption = "", note = "",
                            output = options()$prompt[1] == "HTML> ",
