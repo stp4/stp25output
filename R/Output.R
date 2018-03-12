@@ -1,7 +1,7 @@
+#'  Ausgabe von HTML, Knit oder Text
+#'  
+#' Erstellt den Output von Objekten, diese koennen zB. mit Uberschriften versehen sein.
 #' @name Output
-#' @rdname Output
-#' @title Ausgabe von HTML, Knit oder Text
-#' @description Erstellt den Output von Objekten, diese koennen zB. mit Uberschriften versehen sein.
 #' @param x Objekt liste oder Dataframe
 #' @param output HTML, Knit  oder Textfile (ist nicht gedacht zum Aendern)
 #' @param ... weitere Einstellungen
@@ -13,7 +13,15 @@ Output <- function(x, ...) {
 }
 
 
-# Helper
+
+
+
+
+
+
+#' @rdname Output
+#' @description Output.character fuer brerits erstellten Html-Code
+#' @export
 which_output<- function(...){
   x<- "text"
   if(is.null(knitr:::out_format())) {
@@ -25,9 +33,12 @@ which_output<- function(...){
 
 
 
-#' @rdname Output
-#' @description Output.character fuer brerits erstellten Html-Code
-#' @export
+
+
+
+
+
+
 Output.character <- function(x, output = options()$prompt[1] == "HTML> ", ...) {
   if(output){
   if(any(class(x)== "texregTable")) HTML_CENTER(x)
@@ -78,7 +89,7 @@ Output.htmlTable <- function(x,
 #' @export
 Output.NULL <- function(x, ...){
   if (!exists("Tab_Index"))
-  cat("\nNach Tabelle ", Tab_Index, " ist eder Output NULL!\n")
+  cat("\nNach Tabelle ", Tab_Index, " ist der Output NULL!\n")
   
   HTML_BR()
 }

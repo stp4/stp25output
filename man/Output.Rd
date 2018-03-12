@@ -3,7 +3,7 @@
 %   R/data.frame.R, R/kable.R, R/xtabs.R
 \name{Output}
 \alias{Output}
-\alias{Output.character}
+\alias{which_output}
 \alias{Output.vector}
 \alias{Output.htmlTable}
 \alias{Output.NULL}
@@ -22,11 +22,13 @@
 \alias{Output.table}
 \alias{Output.xtabs}
 \alias{Output.ftable}
-\title{Ausgabe von HTML, Knit oder Text}
+\title{Ausgabe von HTML, Knit oder Text
+ 
+Erstellt den Output von Objekten, diese koennen zB. mit Uberschriften versehen sein.}
 \usage{
 Output(x, ...)
 
-\method{Output}{character}(x, output = options()$prompt[1] == "HTML> ", ...)
+which_output(...)
 
 \method{Output}{vector}(x, output = options()$prompt[1] == "HTML> ", ...)
 
@@ -102,6 +104,8 @@ padding-left: .5em; padding-right: .2em; Output.data.frame (htmlTable)}
 HTML oder Textausgabe
 }
 \description{
+Ausgabe von HTML, Knit oder Text
+ 
 Erstellt den Output von Objekten, diese koennen zB. mit Uberschriften versehen sein.
 
 Output.character fuer brerits erstellten Html-Code
