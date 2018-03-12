@@ -189,9 +189,13 @@ End <- function(anhang=FALSE,
 #' @param file auszufuerendes File
 #' @export
 Methode <- function(x=NULL, file=NULL){
-  Head("Methoden", style=2)
+  Head("Methoden", style=3)
+
   if(!is.null(x)) Text(x)
-  if(!is.null(file)) source(file, encoding = "UTF-8") # or "latin1"
+  if(!is.null(file)){
+    HTML_I(paste(file, file.info(file)$ctime))
+    source(file, encoding = "UTF-8") # or "latin1"
+    }
 }
 
 #' @rdname Projekt
@@ -199,16 +203,24 @@ Methode <- function(x=NULL, file=NULL){
 Materials <- function(x=NULL,
                       file="(1) Get Data.R"){
   Head("Materialien", style=3)
+ # HTML_I(paste(file, file.info(file)$ctime))
   if(!is.null(x)) Text(x)
-  if(!is.null(file)) source(file, encoding = "UTF-8")
+  if(!is.null(file)){
+    HTML_I(paste(file, file.info(file)$ctime))
+    source(file, encoding = "UTF-8") # or "latin1"
+  }
 }
 
 #' @rdname Projekt
 #' @export
 Research_Design <- function(x=NULL, file=NULL){
   Head("Forschungs Design", style=3)
+ # HTML_I(paste(file, file.info(file)$ctime))
   if(!is.null(x)) Text(x)
-  if(!is.null(file)) source(file, encoding = "UTF-8")
+  if(!is.null(file)){
+    HTML_I(paste(file, file.info(file)$ctime))
+    source(file, encoding = "UTF-8") # or "latin1"
+  }
 }
 
 #' @rdname Projekt
@@ -216,15 +228,23 @@ Research_Design <- function(x=NULL, file=NULL){
 Measures <- function(x=NULL,
                      file="(2) Measures.R"){
   Head("Messinstrument", style=3)
+ # HTML_I(paste(file, file.info(file)$ctime))
   if(!is.null(x)) Text(x)
-  if(!is.null(file)) source(file, encoding = "UTF-8")
+  if(!is.null(file)){
+    HTML_I(paste(file, file.info(file)$ctime))
+    source(file, encoding = "UTF-8") # or "latin1"
+  }
 }
 
 #' @rdname Projekt
 #' @export
 Results<- function(x=NULL, file=NULL){
   Head("Ergebnisse", style=2)
-  if(!is.null(file)) source(file, encoding = "UTF-8")
+#  HTML_I(paste(file, file.info(file)$ctime))
+  if(!is.null(file)){
+    HTML_I(paste(file, file.info(file)$ctime))
+    source(file, encoding = "UTF-8") # or "latin1"
+  }
 }
 
 #' @rdname Projekt
@@ -232,16 +252,25 @@ Results<- function(x=NULL, file=NULL){
 Demographic_Variables<- function(x=NULL,
                                  file="(3) Demographic.R" ){
   Head("Demographische Variablen", style=3)
+ # HTML_I(paste(file, file.info(file)$ctime))
   if(!is.null(x)) Text(x)
-  if(!is.null(file)) source(file, encoding = "UTF-8")
+  if(!is.null(file)){
+    HTML_I(paste(file, file.info(file)$ctime))
+    source(file, encoding = "UTF-8") # or "latin1"
+  }
 }
 
 #' @rdname Projekt
 #' @export
 Statistic<- function(x="Resultate", file="(4) Analyse.R"){
+  
   Head(x, style=3)
+ # HTML_I(paste(file, file.info(file)$ctime))
   if(!is.null(x)) Text(x)
-  if(!is.null(file)) source(file, encoding = "UTF-8")
+  if(!is.null(file)){
+    HTML_I(paste(file, file.info(file)$ctime))
+    source(file, encoding = "UTF-8") # or "latin1"
+  }
 }
 
 #' @rdname Projekt
