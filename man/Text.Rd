@@ -73,7 +73,7 @@ Vector
 }
 \description{
 Ausgabe von \code{Text()} und Ueberschriften. \code{Head} ist dabei eine Kopie von \code{Text} mit
-dem Parameter \code{style = 2}#'
+dem Parameter \code{style = 2}
 
 Anmerkung() ist ein blauer Text.
 

@@ -2,7 +2,7 @@
 #' @rdname Text
 #' @title Text Ausgabe
 #' @description Ausgabe von \code{Text()} und Ueberschriften. \code{Head} ist dabei eine Kopie von \code{Text} mit
-#' dem Parameter \code{style = 2}#'
+#' dem Parameter \code{style = 2}
 #' @param ... one or more R objects, to be converted to character vectors.
 #' @param style 0 = p oder normaler Text 2 = h2 also Ueberschrift bei Consolen-Ausgabe
 #' @param char ist nicht zu Verwenden Text Trennzeichen bei Consolen-Ausgabe

@@ -11,7 +11,7 @@
 \alias{Demographic_Variables}
 \alias{Statistic}
 \alias{get_scriptpath}
-\title{Projekt Funktion}
+\title{Start eines neuen Prpjekts}
 \usage{
 Projekt(myformat = "", Projektname = "Demo", datum = date(),
   fig_folder = "Fig", html_folder = "Results", OutDec = NULL,
@@ -45,9 +45,7 @@ get_scriptpath()
 
 \item{datum}{Datum zur Dokumentation}
 
-\item{fig_folder}{Folder wenn ein ander Ort gewuenscht}
-
-\item{html_folder}{Folderwenn ein ander Ort gewuenscht}
+\item{fig_folder, html_folder}{Folder wenn ein ander Ort gewuenscht}
 
 \item{OutDec}{Komma oder Punkt}
 
@@ -71,13 +69,10 @@ get_scriptpath()
 HTML oder Text Output
 }
 \description{
-Adaption der R2HTML-Funktionen. 
-Bei ausführen von \code{stp25output} werden die Optionen mit \code{default_stp25_opt()} fuer 
-die Formatierung gesetzt. Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
-
-\subsection{Projekt()}{ 
-Initialisiere ein neues Projekt, dabei werden die Folder (Results und Fig) erstellt.
-}
+Mit \code{Projekt()} werden die default Einstellungen (Kontraste) gesetzt sowie die Folder erstellt.
+Weiters wird die Ausgabe als HTML gesteuert.
+Weitere Optionen fuer die Formatierung koennen mit \code{default_stp25_opt()} gesetzt. 
+Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
 
 \subsection{End}{
 Zuruecksetzen der Einstellungen und Aufruf des Browsers browser = getOption("browser")}
@@ -112,4 +107,5 @@ get_my_options()$apa.style$mittelwert
  End()
 
 }
+
 }

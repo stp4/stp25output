@@ -109,7 +109,7 @@ Output.default <- function(x,
   Caption2 <- function(...) {
     cptn <- gsub(" {2,}", " ", paste(...))
     #  cat("\n", cptn)
-    Output_info$table <<-  c(Output_info$table, cptn)
+ #   Output_info$table <<-  c(Output_info$table, cptn)
     cptn
   }
   

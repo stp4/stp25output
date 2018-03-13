@@ -100,8 +100,8 @@ get_my_options <- function(x = "stp25")
 #' @param params List of parameters.
 #' @export
 set_default_params <- function(params) {
-  if (!exists("Output_info"))
-    Output_info <<- list(table = c())
+ # if (!exists("Output_info"))
+ #   Output_info <<- list(table = c())
 
   params <- as.list(params)
   env    <-  .GlobalEnv #   parent.frame(1)

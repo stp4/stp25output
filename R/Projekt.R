@@ -1,24 +1,19 @@
-#' @rdname Projekt
-#' @title Projekt Funktion
-#' @name Projekt
-#' @description  Adaption der R2HTML-Funktionen. 
-#' Bei ausführen von \code{stp25output} werden die Optionen mit \code{default_stp25_opt()} fuer 
-#' die Formatierung gesetzt. Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
+#' Start eines neuen Prpjekts
 #' 
-#' \subsection{Projekt()}{ 
-#' Initialisiere ein neues Projekt, dabei werden die Folder (Results und Fig) erstellt.
-#' }
+#' Mit \code{Projekt()} werden die default Einstellungen (Kontraste) gesetzt sowie die Folder erstellt.
+#' Weiters wird die Ausgabe als HTML gesteuert.
+#' Weitere Optionen fuer die Formatierung koennen mit \code{default_stp25_opt()} gesetzt. 
+#' Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
 #' @param myformat  HTML oder Knit oder Console
 #' @param Projektname Bezeichnung des Projektes (gilt auch fuer die HTML Seite)
 #' @param datum  Datum zur Dokumentation
-#' @param fig_folder  Folder wenn ein ander Ort gewuenscht
-#' @param html_folder Folderwenn ein ander Ort gewuenscht
+#' @param fig_folder,html_folder Folder wenn ein ander Ort gewuenscht
 #' @param OutDec Komma oder Punkt
 #' @param contrasts default wie SPSS
 #' @param html_name  intern nicht aendern
 #' @param ... weitere Objekte nicht benutzt
 #' @return HTML oder Text Output
-#' 
+#' @name Projekt
 #' @export
 #' 
 #' @examples
@@ -42,40 +37,47 @@
 #'  End()
 #' 
 #' }
+#' 
 Projekt <- function (myformat = "",
-                    Projektname = "Demo",
-                    datum = date(),
-
-                    fig_folder = "Fig",
-                    html_folder = "Results",
-
-                    OutDec = NULL,
-                    contrasts =  c("contr.Treatment", "contr.poly"), ## SPss
-                    html_name = stpvers::Clean_Umlaute2(Projektname),
-                    ...)
+                     Projektname = "Demo",
+                     datum = date(),
+                     fig_folder = "Fig",
+                     html_folder = "Results",
+                     OutDec = NULL,
+                     contrasts =  c("contr.Treatment", "contr.poly"),
+                     html_name = stpvers::Clean_Umlaute2(Projektname),
+                     ...)
 {
   set.seed(0815)
-  if (Projektname=="Demo")
-      setwd("C:/Users/wpete/Dropbox/3_Forschung/R-Project")
+  if (Projektname == "Demo")
+    setwd("C:/Users/wpete/Dropbox/3_Forschung/R-Project")
   #-- Fehler Abfangen
   if (options()$prompt[1] == "HTML> ") {
-        options(prompt = "> ")
+    options(prompt = "> ")
   }
-
+  
   myformat <- tolower(myformat)
   myDir <- getwd()
   myURL <-
-    paste("file://", myDir,
-          "/", html_folder,
-          "/", html_name,
-          ".",myformat, sep = "")
+    paste("file://",
+          myDir,
+          "/",
+          html_folder,
+          "/",
+          html_name,
+          ".",
+          myformat,
+          sep = "")
   output.dir <- paste(myDir, html_folder, sep = "/")
-  if(is.null(OutDec)) OutDec <- options()$OutDec
-  else options(OutDec = OutDec)
-
+  
+  if (is.null(OutDec))
+    OutDec <- options()$OutDec
+  else
+    options(OutDec = OutDec)
+  
   options(R2HTML.format.decimal.mark = OutDec)
- # opar <<- lattice::trellis.par.get()
-
+  # opar <<- lattice::trellis.par.get()
+  
   if (!any(list.dirs() == paste("./", html_folder, sep = "")))
     dir.create(
       output.dir,
@@ -83,23 +85,26 @@ Projekt <- function (myformat = "",
       recursive = FALSE,
       mode = "0777"
     )
-
-
+  
   if (!(paste0("./", fig_folder) %in% list.dirs() |
-      paste0("./", tolower(fig_folder)) %in% list.dirs())) {
-        dir.create(
-          fig_folder,
-          showWarnings = TRUE,
-          recursive = FALSE,
-          mode = "0777"
-        )
-    cat("\nFolder ",fig_folder, " wurde erstellt.\n")
+        paste0("./", tolower(fig_folder)) %in% list.dirs())) {
+    dir.create(
+      fig_folder,
+      showWarnings = TRUE,
+      recursive = FALSE,
+      mode = "0777"
+    )
+    cat("\nFolder ", fig_folder, " wurde erstellt.\n")
   }
-
-
-  if(fig_folder!="Fig")  set_my_options(fig_folder=paste0(fig_folder, "/"))
-  cat("\nSpeichere Abbildungen in ",options()$stp25$fig_folder, "\n")
-
+  
+  
+  if (fig_folder != "Fig")
+    set_my_options(fig_folder = paste0(fig_folder, "/"))
+  
+  cat("\nSpeichere Abbildungen in ",
+      options()$stp25$fig_folder,
+      "\n")
+  
   if (!is.null(contrasts)) {
     oldc <- getOption("contrasts")
     options(contrasts = contrasts)
@@ -111,39 +116,50 @@ Projekt <- function (myformat = "",
       " umgestellt!\n"
     )
   }
-
+  
   set_default_params(list(Tab_Index = 0, Abb_Index = 0))
-
+  
   if (myformat == "html") {
     set_default_params(list(
-     # param.XLConnect = NULL,
+      # param.XLConnect = NULL,
       file.name.index = 0,
       reset = par(no.readonly = TRUE)
     ))
-
-     HTMLStart(
+    
+    HTMLStart(
       outdir = output.dir,
       file = html_name,
       extension = myformat,
       echo = FALSE,
       HTMLframe = FALSE
     )
-
-    cat( "\n",output.dir, html_name , myformat, "\n")
-   # R2HTML::HTMLChangeCss("gridR2HTML")
+    
+    cat("\n", output.dir, html_name , myformat, "\n")
+    # R2HTML::HTMLChangeCss("gridR2HTML")
     #    options(prompt="HTML> ")
-   # set_default_params(list(myURL = myURL))
+    # set_default_params(list(myURL = myURL))
   } else{
     options(continue = "  ")
   }
-  Text(Projektname, "\n Datum: ", datum,
-       ", Software: ", R.version.string ,
-       ", Link: www.R-project.org/\nFile: ",
-       get_scriptpath())
-
-
-  invisible(NULL)
+  
+  
+  pr_string <- paste(
+    Projektname,
+    "\n Datum: ",
+    datum,
+    ", Software: ",
+    R.version.string ,
+    ", Link: www.R-project.org/\nFile: ",
+    get_scriptpath()
+  )
+  
+  Text(pr_string)
+  
+  
+  invisible(pr_string)
 }
+
+
 #' @rdname Projekt
 #' @description  \subsection{End}{
 #' Zuruecksetzen der Einstellungen und Aufruf des Browsers browser = getOption("browser")}
