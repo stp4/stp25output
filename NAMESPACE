@@ -2,7 +2,6 @@
 
 S3method(Output,"NULL")
 S3method(Output,apa_table)
-S3method(Output,bland_altman)
 S3method(Output,data.frame)
 S3method(Output,default)
 S3method(Output,ftable)
