@@ -1,10 +1,11 @@
-#' @title dictionary (Sprachdatei)
-#' @name dictionary
-#' @rdname dictionary
-#' @description Liste mit Uebersaetzung.
+#' Sprachdatei 
+#' 
+#'Liste mit Uebersaetzung.
 #' @param language  Sprache default="de"
 #' @param words Wort-liste Deutsch Englisch
+#' @name dictionary
 #' @export
+#' 
 Sprachdatei <-
   function(language = "de",
 

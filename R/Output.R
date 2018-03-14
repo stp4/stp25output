@@ -1,4 +1,4 @@
-#'  Ausgabe von HTML, Knit oder Text
+#' Ausgabe von HTML, Knit oder Text
 #'  
 #' Erstellt den Output von Objekten, diese koennen zB. mit Uberschriften versehen sein.
 #' @name Output
@@ -8,15 +8,10 @@
 #' @return HTML oder Textausgabe
 #' @author Wolfgang Peter
 #' @export
+#' 
 Output <- function(x, ...) {
   UseMethod("Output")
 }
-
-
-
-
-
-
 
 
 #' @rdname Output
@@ -30,13 +25,6 @@ which_output<- function(...){
 
   x
 }
-
-
-
-
-
-
-
 
 
 Output.character <- function(x, output = options()$prompt[1] == "HTML> ", ...) {

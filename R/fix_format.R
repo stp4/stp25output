@@ -1,8 +1,7 @@
 #' @rdname fix_irgendwas
 #' @param exclude Position der auszuschliedenden Spalten
 #' @param pattern_N N Muster
-#' @param  digits exakt nach muster Runden
-
+#' @param digits exakt nach muster Runden
 #' @export
 fix_format  <- function(x,
                         exclude=NULL, # Position der auszuschliedenden Spalten

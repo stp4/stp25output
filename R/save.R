@@ -1,4 +1,5 @@
 #' Speichern von Grafiken
+#' 
 #' @description  Grafik werden  als PDF oder Windows-Metafile
 #' speichern. Die Funktion Abb() beinhaltet den Pfad.
 #' Die Funktion arbeitet ueber  R2HTML::HTMLplot()

@@ -7,7 +7,7 @@
 \alias{fix_colnames}
 \alias{fix_data_frame2}
 \alias{fix_levels}
-\title{fix_irgendwas}
+\title{Fix Objekt zu Data.Frame}
 \usage{
 fix_format(x, exclude = NULL, digits = NULL,
   pattern_pval = c("Pr\\\\(\\\\>", "Pr\\\\.\\\\.", "p\\\\.value", "p value",
@@ -63,15 +63,16 @@ gleiches Objekt
 \description{
 Repariert Levels und labels und Zahlen
 
+fix_format_p sucht automatisch nach den p-Werten die meist an der Letzten stelle sind
+und gibt einen Vector-String mit der LAenge drei aus.
+Nicht zu verwechseln mit \code{rndr_P()}
+}
+\details{
 fix_to_data_frame input Matrix over Vektor Output( Source =Colnames + Daten )
 fix_format_p Input(F, df,und p)  Output: (test, df, p.value)
 
 fix_levels ist fuer dta %>% gather(Parameter, Wert, x1:x5)  %>% fix_levels(dta)
 fix_colnames ist fuer Formatieren in der Funktion \code{Output()}
-
-fix_format_p sucht automatisch nach den p-Werten die meist an der Letzten stelle sind
-und gibt einen Vector-String mit der LAenge drei aus.
-Nicht zu verwechseln mit \code{rndr_P()}
 }
 \examples{
   df <- data.frame(Item=c("a", "b"),

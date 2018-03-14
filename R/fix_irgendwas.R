@@ -1,7 +1,6 @@
-#' @name fix_irgendwas
-#' @rdname fix_irgendwas
-#' @title fix_irgendwas
-#' @description   Repariert Levels und labels und Zahlen
+#' Fix Objekt zu Data.Frame
+#' 
+#' Repariert Levels und labels und Zahlen
 #'
 #' fix_to_data_frame input Matrix over Vektor Output( Source =Colnames + Daten )
 #' fix_format_p Input(F, df,und p)  Output: (test, df, p.value)
@@ -18,6 +17,7 @@
 #' @param pattern_est  fuer fix_format
 #' @param pattern_df  fuer fix_format
 #' @param apa.style  fuer fix_format
+#' @name fix_irgendwas
 #' @return gleiches Objekt
 #' @examples
 #'   df <- data.frame(Item=c("a", "b"),

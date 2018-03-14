@@ -1,4 +1,5 @@
 #' Transformiere zu data.frame
+#' 
 #' fix_format_p Input(F, df,und p)  Output: (test, df, p.value)
 #'
 #' fix_levels ist fuer dta %>% gather(Parameter, Wert, x1:x5)  %>% fix_levels(dta)

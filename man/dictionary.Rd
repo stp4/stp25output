@@ -4,7 +4,7 @@
 \alias{dictionary}
 \alias{Sprachdatei}
 \alias{Names2Language}
-\title{dictionary (Sprachdatei)}
+\title{Sprachdatei}
 \usage{
 Sprachdatei(language = "de", words = list(characteristics =
   c("Characteristics", "Bezeichnung"), statistics = c("Statistics",
