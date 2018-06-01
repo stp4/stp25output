@@ -100,6 +100,33 @@ Anmerkung <- function(...)
   Text('<div style="color:#0000FF"><b>Anmerkung:</b><br>', ..., "<br></div>")
 
 
+
+#' @rdname Text
+#' @description  Kunde() ist ein rot-brauner Text.
+#' @export
+Kunde <- function(x = "",
+                  msg = NULL,
+                  name = NULL) {
+  if (is.null(name)) {
+    name <- stringr::str_split(getwd(), "/"  , simplify = TRUE)
+    name <- strtrim(gsub("[^::A-Z::]", "", name[length(name)]), 2)
+  }
+  
+  if (is.null(msg))
+    Text('<div style="color:#800000"><b>',
+         name,': </b> ',
+         x,'<br></div>')
+  else
+    Text('<div style="color:#800000"><b>',
+         name, x,': </b> ',
+         msg,'<br></div>')
+  
+}
+
+
+
+
+
 #' @rdname Text
 #' @param lib Paketname
 #' @description  CitationLib(car) gibt Pakete beschreibungen aus.

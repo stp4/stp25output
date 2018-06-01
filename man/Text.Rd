@@ -4,6 +4,7 @@
 \alias{Text}
 \alias{Head}
 \alias{Anmerkung}
+\alias{Kunde}
 \alias{CitationLib}
 \alias{Zitat}
 \alias{Arbeitszeit}
@@ -15,6 +16,8 @@ Text(..., style = 0, char = "-", output = which_output())
 Head(..., style = 3, char = "-")
 
 Anmerkung(...)
+
+Kunde(x = "", msg = NULL, name = NULL)
 
 CitationLib(lib)
 
@@ -69,6 +72,8 @@ Ausgabe von \code{Text()} und Ueberschriften. \code{Head} ist dabei eine Kopie v
 dem Parameter \code{style = 2}
 
 Anmerkung() ist ein blauer Text.
+
+Kunde() ist ein rot-brauner Text.
 
 CitationLib(car) gibt Pakete beschreibungen aus.
 
