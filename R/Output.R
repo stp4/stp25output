@@ -15,7 +15,6 @@ Output <- function(x, ...) {
 
 
 #' @rdname Output
-#' @description Output.character fuer brerits erstellten Html-Code
 #' @export
 which_output<- function(...){
   x<- "text"

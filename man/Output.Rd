@@ -104,8 +104,6 @@ Ausgabe von HTML, Knit oder Text
  
 Erstellt den Output von Objekten, diese koennen zB. mit Uberschriften versehen sein.
 
-Output.character fuer brerits erstellten Html-Code
-
 Output.htmlTable: Verarbeitet htmlTable-Objekt als auch Listen
  oder auch einfach nur ein string. Die Tabelle mit Header usw ist dabei
  schon vorbereitet. Bei Markdown kommt output=FALSE
