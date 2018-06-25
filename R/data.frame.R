@@ -49,6 +49,8 @@ Output.data.frame <-
            css.table = "padding-left: .5em; padding-right: .2em;",
            css.cell = 'padding-left: .5em; padding-right: .2em;',
            ...) {
+    
+    if(is.na(output)) return()
 
   HTML_BR()
   if(nrow(x) == 0) return("Kein Input!")
@@ -133,7 +135,7 @@ Output.data.frame <-
   }
   else if (output ==  "markdown") {
 
-    print(kable(x,
+    print(knitr::kable(x,
                        row.names = FALSE,
                        caption = caption))
   }
