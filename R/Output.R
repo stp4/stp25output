@@ -3,7 +3,7 @@
 #' Erstellt den Output von Objekten, diese koennen zB. mit Uberschriften versehen sein.
 #' @name Output
 #' @param x Objekt liste oder Dataframe
-#' @param output HTML, Knit  oder Textfile (ist nicht gedacht zum Aendern)
+#' @param output HTML, Knit  oder Textfile output=NA verlaesst die Funktion ohne aktion
 #' @param ... weitere Einstellungen
 #' @return HTML oder Textausgabe
 #' @author Wolfgang Peter
@@ -197,67 +197,85 @@ Output.default <- function(x,
 
 
  
-#' @rdname Output
-text_as_table <- function(x, ...) {
-  strg <-  str_split(str_split(x, "\n")[[1]], "\\|")
-  strg <- lapply(strg, function(x) {
-    x <- gsub("\\t", "", x)
-    gsub("(^ +)|( +$)", "", x)
-  })
-  if (length(strg) == 1) {
-    Text(x)
-    return(strg)
-  }
-  #Formatierungssymbole
-  if (!all(lengths(strg) == lengths(strg)[1])) {
-    wer_is_line <-
-      function(s)
-        lengths(lapply(s, function(x)
-          grep("---", x[1])))
-    wo_is_line <- wer_is_line(strg)
-    wo_is_leer <- lengths(strg) == 1 - wo_is_line
-    strg <- strg[!wo_is_leer]
-    wo_is_line <- wer_is_line(strg)
-    strg <- strg[!wo_is_line]
-    wo_is_line <- which(wo_is_line == 1)
-  }
-
-  if (wo_is_line == 2) {
-    head_names <- strg[[1]]
-    mx <- t(sapply(strg[-1], c))
-    colnames(mx) <- head_names
-    htmlTable(mx, escape.html = FALSE, ...) #--library(htmlTable)
-  }
-  else {
-    headernr <- 1:(wo_is_line - 1)
-    mx <- t(sapply(strg[-headernr], c))
-    head_names <- strg[headernr]
-    header <- head_names[[2]]
-    cgroup <- head_names[[1]]
-    if (header[1] == "") {
-      #-erste Spalte Loeschen
-      header <- header[-1]
-      cgroup <- cgroup[-1]
-      cgroup_space <- cgroup == ""
-      n.cgroup <-
-        diff(c(which(!cgroup_space), length(cgroup_space) + 1))
-      cgroup <- cgroup [!cgroup_space]
-      rnames <- mx[, 1]
-      mx <- mx[, -1]
-    }
-    Output(
-      htmlTable(
-        mx,
-        cgroup = cgroup,
-        n.cgroup = n.cgroup,
-        rnames = rnames,
-        header = header,
-        escape.html = FALSE,
-        ...
-      ),output=output
-    )
-  }
-}
+# @rdname Output
+# @export
+# text_as_table <- function(x,
+#                           caption = "",
+#                           note = "",
+#                           output =  which_output()
+#                           ,
+#                           ...) {
+#   strg <-  str_split(str_split(x, "\n")[[1]], "\\|")
+#   strg <- lapply(strg, function(x) {
+#     x <- gsub("\\t", "", x)
+#     gsub("(^ +)|( +$)", "", x)
+#   })
+#   if (length(strg) == 1) {
+#     Text(x)
+#     return(strg)
+#   }
+#   #Formatierungssymbole
+#   if (!all(lengths(strg) == lengths(strg)[1])) {
+#     wer_is_line <-
+#       function(s)
+#         lengths(lapply(s, function(x)
+#           grep("---", x[1])))
+#     wo_is_line <- wer_is_line(strg)
+#     wo_is_leer <- lengths(strg) == 1 - wo_is_line
+#     strg <- strg[!wo_is_leer]
+#     wo_is_line <- wer_is_line(strg)
+#     strg <- strg[!wo_is_line]
+#     wo_is_line <- which(wo_is_line == 1)
+#   }
+#   
+#   if (wo_is_line == 2) {
+#     head_names <- strg[[1]]
+#     mx <- t(sapply(strg[-1], c))
+#     colnames(mx) <- head_names
+#     Output(
+#       htmlTable::htmlTable(mx,
+#                            escape.html = FALSE, ...),
+#       caption = caption,
+#       note = note,
+#       output = output
+#     )
+#     
+#   }
+#   else {
+#     headernr <- 1:(wo_is_line - 1)
+#     mx <- t(sapply(strg[-headernr], c))
+#     head_names <- strg[headernr]
+#     header <- head_names[[2]]
+#     cgroup <- head_names[[1]]
+#     if (header[1] == "") {
+#       #-erste Spalte Loeschen
+#       header <- header[-1]
+#       cgroup <- cgroup[-1]
+#       cgroup_space <- cgroup == ""
+#       n.cgroup <-
+#         diff(c(which(!cgroup_space), length(cgroup_space) + 1))
+#       cgroup <- cgroup [!cgroup_space]
+#       rnames <- mx[, 1]
+#       mx <- mx[, -1]
+#     }
+#     Output(
+#       htmlTablehtmlTable(
+#         mx,
+#         cgroup = cgroup,
+#         n.cgroup = n.cgroup,
+#         rnames = rnames,
+#         header = header,
+#         escape.html = FALSE,
+#         ...
+#       ),
+#       caption = caption,
+#       note = note,
+#       output = output
+#     )
+#   }
+#   
+#   invisible(mx)
+# }
 
 #' @rdname Output
 #' @param atr in Caption: alternativer Text

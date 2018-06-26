@@ -8,7 +8,6 @@
 \alias{Output.htmlTable}
 \alias{Output.NULL}
 \alias{Output.default}
-\alias{text_as_table}
 \alias{Caption}
 \alias{Output.apa_table}
 \alias{Output.matrix}
@@ -38,8 +37,6 @@ which_output(...)
 \method{Output}{default}(x, caption = "", note = "",
   output = options()$prompt[1] == "HTML> ", col_names = NULL,
   print_col = NULL, ...)
-
-text_as_table(x, ...)
 
 Caption(x = NULL, atr = NULL, output = which_output())
 
@@ -79,7 +76,7 @@ Output_kable(x, ...)
 
 \item{...}{weitere Einstellungen}
 
-\item{output}{HTML, Knit  oder Textfile (ist nicht gedacht zum Aendern)}
+\item{output}{HTML, Knit  oder Textfile output=NA verlaesst die Funktion ohne aktion}
 
 \item{caption, note}{Ueberschrift Fussnote}
 
