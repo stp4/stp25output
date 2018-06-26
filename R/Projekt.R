@@ -201,6 +201,7 @@ End <- function(anhang=FALSE,
 #' Methode, Materials, Research_Design, Measures
 #' Results, Demographic_Variables und Statistic sind Platzhalter Funktionen um den R-Code 
 #' in verschiedenen Files aiszulagern.}
+#' 
 #' @param x Character
 #' @param file auszufuerendes File
 #' @export
@@ -209,7 +210,7 @@ Methode <- function(x=NULL, file=NULL){
 
   if(!is.null(x)) Text(x)
   if(!is.null(file)){
-    HTML_I(paste(file, file.info(file)$ctime))
+    HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
     }
 }
@@ -219,10 +220,10 @@ Methode <- function(x=NULL, file=NULL){
 Materials <- function(x=NULL,
                       file="(1) Get Data.R"){
   Head("Materialien", style=3)
- # HTML_I(paste(file, file.info(file)$ctime))
+ # HTML_I(paste(file, file.info(file)$mtime))
   if(!is.null(x)) Text(x)
   if(!is.null(file)){
-    HTML_I(paste(file, file.info(file)$ctime))
+    HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
   }
 }
@@ -231,10 +232,10 @@ Materials <- function(x=NULL,
 #' @export
 Research_Design <- function(x=NULL, file=NULL){
   Head("Forschungs Design", style=3)
- # HTML_I(paste(file, file.info(file)$ctime))
+ # HTML_I(paste(file, file.info(file)$mtime))
   if(!is.null(x)) Text(x)
   if(!is.null(file)){
-    HTML_I(paste(file, file.info(file)$ctime))
+    HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
   }
 }
@@ -244,10 +245,10 @@ Research_Design <- function(x=NULL, file=NULL){
 Measures <- function(x=NULL,
                      file="(2) Measures.R"){
   Head("Messinstrument", style=3)
- # HTML_I(paste(file, file.info(file)$ctime))
+ # HTML_I(paste(file, file.info(file)$mtime))
   if(!is.null(x)) Text(x)
   if(!is.null(file)){
-    HTML_I(paste(file, file.info(file)$ctime))
+    HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
   }
 }
@@ -256,9 +257,9 @@ Measures <- function(x=NULL,
 #' @export
 Results<- function(x=NULL, file=NULL){
   Head("Ergebnisse", style=2)
-#  HTML_I(paste(file, file.info(file)$ctime))
+#  HTML_I(paste(file, file.info(file)$mtime))
   if(!is.null(file)){
-    HTML_I(paste(file, file.info(file)$ctime))
+    HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
   }
 }
@@ -268,10 +269,10 @@ Results<- function(x=NULL, file=NULL){
 Demographic_Variables<- function(x=NULL,
                                  file="(3) Demographic.R" ){
   Head("Demographische Variablen", style=3)
- # HTML_I(paste(file, file.info(file)$ctime))
+ # HTML_I(paste(file, file.info(file)$mtime))
   if(!is.null(x)) Text(x)
   if(!is.null(file)){
-    HTML_I(paste(file, file.info(file)$ctime))
+    HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
   }
 }
@@ -281,10 +282,10 @@ Demographic_Variables<- function(x=NULL,
 Statistic<- function(x="Resultate", file="(4) Analyse.R"){
   
   Head(x, style=3)
- # HTML_I(paste(file, file.info(file)$ctime))
+ # HTML_I(paste(file, file.info(file)$mtime))
   if(!is.null(x)) Text(x)
   if(!is.null(file)){
-    HTML_I(paste(file, file.info(file)$ctime))
+    HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
   }
 }
