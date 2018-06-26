@@ -1,8 +1,8 @@
 #' Start eines neuen Prpjekts
-#' 
+#'
 #' Mit \code{Projekt()} werden die default Einstellungen (Kontraste) gesetzt sowie die Folder erstellt.
 #' Weiters wird die Ausgabe als HTML gesteuert.
-#' Weitere Optionen fuer die Formatierung koennen mit \code{default_stp25_opt()} gesetzt. 
+#' Weitere Optionen fuer die Formatierung koennen mit \code{default_stp25_opt()} gesetzt.
 #' Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
 #' @param myformat  HTML oder Knit oder Console
 #' @param Projektname Bezeichnung des Projektes (gilt auch fuer die HTML Seite)
@@ -15,17 +15,20 @@
 #' @return HTML oder Text Output
 #' @name Projekt
 #' @export
-#' 
+#'
 #' @examples
-#' 
+#'
 #' \dontrun{
 #' require(stpvers)
-#'  
+#'
 #'  Projekt()
-#'  
+#'      # R2HTML::HTMLChangeCss("gridR2HTML")
+#'      # options(prompt="HTML> ")
+#'      #  set_default_params(list(myURL = myURL))
+#'
 #'  APA2(~. , hkarz)
-#'  
-#'  
+#'
+#'
 #' set_my_options(prozent=list(digits=c(1,0), style=2))
 #' get_my_options()$apa.style$prozent
 #'
@@ -35,9 +38,9 @@
 #' #APA2(~. , hkarz)
 #'
 #'  End()
-#' 
+#'
 #' }
-#' 
+#'
 Projekt <- function (myformat = "",
                      Projektname = "Demo",
                      datum = date(),
@@ -46,6 +49,7 @@ Projekt <- function (myformat = "",
                      OutDec = NULL,
                      contrasts =  c("contr.Treatment", "contr.poly"),
                      html_name = stpvers::Clean_Umlaute2(Projektname),
+                     css= TRUE,
                      ...)
 {
   set.seed(0815)
@@ -59,14 +63,9 @@ Projekt <- function (myformat = "",
   myformat <- tolower(myformat)
   myDir <- getwd()
   myURL <-
-    paste("file://",
-          myDir,
-          "/",
-          html_folder,
-          "/",
-          html_name,
-          ".",
-          myformat,
+    paste("file://",myDir,
+          "/",html_folder,
+          "/",html_name,".", myformat,
           sep = "")
   output.dir <- paste(myDir, html_folder, sep = "/")
   
@@ -121,7 +120,6 @@ Projekt <- function (myformat = "",
   
   if (myformat == "html") {
     set_default_params(list(
-      # param.XLConnect = NULL,
       file.name.index = 0,
       reset = par(no.readonly = TRUE)
     ))
@@ -135,6 +133,16 @@ Projekt <- function (myformat = "",
     )
     
     cat("\n", output.dir, html_name , myformat, "\n")
+    
+    if(css) {
+    cat( MyCss(),
+         file = file.path(output.dir,"R2HTML.css")
+           
+    )
+    }
+    
+    
+    
     # R2HTML::HTMLChangeCss("gridR2HTML")
     #    options(prompt="HTML> ")
     # set_default_params(list(myURL = myURL))
@@ -160,6 +168,84 @@ Projekt <- function (myformat = "",
 }
 
 
+
+MyCss <- function() {"
+
+  body {
+  background: #FFFFFF;
+  color: #000000;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+  font-weight: normal
+  }
+  
+  H1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25pt;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 25pt;
+  color: #004080;
+  }
+  
+  H2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18pt;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 20pt;
+  color: #004080;
+  }
+  
+  H3 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14pt;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 16pt;
+  color: #004080;
+  }
+  
+  H4 {
+  font-family: T, Helvetica, sans-serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-weight: bold;
+  color: #000000;
+  line-height: 16pt;
+  }
+  
+  H5 {
+  font-family: T, Helvetica, sans-serif;
+  font-size: 10pt;
+  font-style: normal;
+  color: #000000;
+  line-height: 16pt;
+  }
+  
+  LI {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 10pt
+  }
+  
+  A {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+  text-decoration: none
+  }
+  
+  TABLE {
+  font-family: Arial, Helvetica, Times, Helvetica, sans-serif;
+  font-size: 8pt;
+  font-style: normal;   
+  }
+  
+  "
+}
+
+
+
+
 #' @rdname Projekt
 #' @description  \subsection{End}{
 #' Zuruecksetzen der Einstellungen und Aufruf des Browsers browser = getOption("browser")}
@@ -167,65 +253,60 @@ Projekt <- function (myformat = "",
 #' @param browser Ie oder Chrome
 #' @param output TRUE oder FALSE
 #' @export
-End <- function(anhang=FALSE,
+End <- function(anhang = FALSE,
                 browser = "C:/Program Files (x86)/Internet Explorer/iexplore.exe",
                 output = options()$prompt[1] == "HTML> ",
                 ...) {
   options(contrasts = c("contr.treatment", "contr.poly"))
   #- Reset
   stp25_options()
-  if( exists( "opar" )) lattice::trellis.par.set(opar)
-  if( exists( "oopt" )) lattice::lattice.options(oopt)
-  if( exists( "Tab_Index" )) Tab_Index <<-  0
-  if( exists( "Abb_Index" )) Abb_Index <<-  0
+  if (exists("opar"))
+    lattice::trellis.par.set(opar)
+  if (exists("oopt"))
+    lattice::lattice.options(oopt)
+  if (exists("Tab_Index"))
+    Tab_Index <<-  0
+  if (exists("Abb_Index"))
+    Abb_Index <<-  0
   
-  file<- try( HTMLGetFile(), silent = TRUE)
-  if(output & class(file) !=  "try-error") {
-    if (anhang){ Anhang() }
+  file <- try(HTMLGetFile(), silent = TRUE)
+  if (output & class(file) !=  "try-error") {
+    if (anhang) {
+      Anhang()
+    }
     
     HTMLStop()
     #   print(tmp)
     # getOption("browser")
-    browseURL(file, browser=browser)
+    browseURL(file, browser = browser)
   } #else {cat("Die Funktion Projekt() mus vorher ausgefuert werden.",  "\n\n")}
   
   
-  options(prompt="> ")
+  options(prompt = "> ")
   
-  if(output) file
-  else cat("\nReset Kontraste\n")
+  if (output)
+    file
+  else
+    cat("\nReset Kontraste\n")
 }
 
 #' @rdname Projekt
 #' @description \subsection{Methode}{
 #' Methode, Materials, Research_Design, Measures
-#' Results, Demographic_Variables und Statistic sind Platzhalter Funktionen um den R-Code 
+#' Results, Demographic_Variables und Statistic sind Platzhalter Funktionen um den R-Code
 #' in verschiedenen Files aiszulagern.}
-#' 
+#'
 #' @param x Character
+#' @param h Ueberschrift
 #' @param file auszufuerendes File
 #' @export
-Methode <- function(x=NULL, file=NULL){
+Methode <- function(h="Methoden", x = NULL, file = NULL) {
   HTML_BR()
+    Head(h, style = 1)
   
-  Head("Methoden", style=3)
-
-  if(!is.null(x)) Text(x)
-  if(!is.null(file)){
-    HTML_I(paste(file, file.info(file)$mtime))
-    source(file, encoding = "UTF-8") # or "latin1"
-    }
-}
-
-#' @rdname Projekt
-#' @export
-Materials <- function(x=NULL,
-                      file="(1) Get Data.R"){
-  HTML_BR()
-  Head("Materialien", style=3)
- # HTML_I(paste(file, file.info(file)$mtime))
-  if(!is.null(x)) Text(x)
-  if(!is.null(file)){
+  if (!is.null(x)) 
+    Text(x)
+  if (!is.null(file)) {
     HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
   }
@@ -233,12 +314,28 @@ Materials <- function(x=NULL,
 
 #' @rdname Projekt
 #' @export
-Research_Design <- function(x=NULL, file=NULL){
+Materials <- function(h="Materialien", x = NULL,
+                      file = "(1) Get Data.R") {
   HTML_BR()
-  Head("Forschungs Design", style=3)
- # HTML_I(paste(file, file.info(file)$mtime))
-  if(!is.null(x)) Text(x)
-  if(!is.null(file)){
+    Head(h, style = 2)
+ 
+  if (!is.null(x))
+    Text(x)
+  if (!is.null(file)) {
+    HTML_I(paste(file, file.info(file)$mtime))
+    source(file, encoding = "UTF-8") 
+  }
+}
+
+#' @rdname Projekt
+#' @export
+Research_Design <- function(h="Forschungs Design", x = NULL, file = NULL) {
+  HTML_BR()
+     Head(h, style = 2)
+  
+  if (!is.null(x))
+    Text(x)
+  if (!is.null(file)) {
     HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
   }
@@ -246,13 +343,14 @@ Research_Design <- function(x=NULL, file=NULL){
 
 #' @rdname Projekt
 #' @export
-Measures <- function(x=NULL,
-                     file="(2) Measures.R"){
+Measures <- function(h="Messinstrument", x = NULL,
+                     file = "(2) Measures.R") {
   HTML_BR()
-  Head("Messinstrument", style=3)
- # HTML_I(paste(file, file.info(file)$mtime))
-  if(!is.null(x)) Text(x)
-  if(!is.null(file)){
+      Head(h, style = 2)
+  # HTML_I(paste(file, file.info(file)$mtime))
+  if (!is.null(x))
+    Text(x)
+  if (!is.null(file)) {
     HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
   }
@@ -260,12 +358,14 @@ Measures <- function(x=NULL,
 
 #' @rdname Projekt
 #' @export
-Results<- function(x=NULL, file=NULL){
+Results <- function(h="Ergebnisse",
+  x = NULL, file = NULL) {
   HTML_BR()
   HTML_HR()
-  Head("Ergebnisse", style=2)
-#  HTML_I(paste(file, file.info(file)$mtime))
-  if(!is.null(file)){
+  Head(h, style = 1)
+  if (!is.null(x))
+    Text(x)
+  if (!is.null(file)) {
     HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
   }
@@ -273,13 +373,13 @@ Results<- function(x=NULL, file=NULL){
 
 #' @rdname Projekt
 #' @export
-Demographic_Variables<- function(x=NULL,
-                                 file="(3) Demographic.R" ){
+Demographic_Variables <- function(h="Deskriptive Analyse",x = NULL,
+                                  file = "(3) Demographic.R") {
   HTML_BR()
-  Head("Demographische Variablen", style=3)
- # HTML_I(paste(file, file.info(file)$mtime))
-  if(!is.null(x)) Text(x)
-  if(!is.null(file)){
+  Head(h, style = 1)
+  if (!is.null(x))
+    Text(x)
+  if (!is.null(file)) {
     HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
   }
@@ -287,13 +387,14 @@ Demographic_Variables<- function(x=NULL,
 
 #' @rdname Projekt
 #' @export
-Statistic<- function(x="Resultate", file="(4) Analyse.R"){
+Statistic <- function(h = "Resultate", x=NULL, file = "(4) Analyse.R") {
   HTML_BR()
   
-  Head(x, style=3)
- # HTML_I(paste(file, file.info(file)$mtime))
-  if(!is.null(x)) Text(x)
-  if(!is.null(file)){
+  Head(h, style = 2)
+  # HTML_I(paste(file, file.info(file)$mtime))
+  if (!is.null(x))
+    Text(x)
+  if (!is.null(file)) {
     HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
   }
@@ -301,26 +402,28 @@ Statistic<- function(x="Resultate", file="(4) Analyse.R"){
 
 #' @rdname Projekt
 #' @description  \subsection{Interne Funktion}{
-#' \code{get_scriptpath()} Ausfuehrendes File finden 
+#' \code{get_scriptpath()} Ausfuehrendes File finden
 #' Quelle: https://stackoverflow.com/questions/18000708/find-location-of-current-r-file}
 get_scriptpath <- function() {
-  
   # location of script can depend on how it was invoked:
   # source() and knit() put it in sys.calls()
   path <- NULL
   
-  if(!is.null(sys.calls())) {
+  if (!is.null(sys.calls())) {
     # get name of script - hope this is consisitent!
     path <- as.character(sys.call(1))[2]
     
     # make sure we got a file that ends in .R, .Rmd or .Rnw
-    if (grepl("..+\\.[R|Rmd|Rnw]", path, perl=TRUE, ignore.case = TRUE) )  {
-      
-      path<-strsplit(path, "/")[[1]]
+    if (grepl("..+\\.[R|Rmd|Rnw]",
+              path,
+              perl = TRUE,
+              ignore.case = TRUE))  {
+      path <- strsplit(path, "/")[[1]]
       
       return(path[length(path)])
     } else {
-      message("Obtained value for path does not end with .R, .Rmd or .Rnw: ", path)
+      message("Obtained value for path does not end with .R, .Rmd or .Rnw: ",
+              path)
     }
   } else{
     # Rscript and R -f put it in commandArgs
@@ -330,4 +433,3 @@ get_scriptpath <- function() {
   
   #
 }
-

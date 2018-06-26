@@ -16,25 +16,26 @@
 Projekt(myformat = "", Projektname = "Demo", datum = date(),
   fig_folder = "Fig", html_folder = "Results", OutDec = NULL,
   contrasts = c("contr.Treatment", "contr.poly"),
-  html_name = stpvers::Clean_Umlaute2(Projektname), ...)
+  html_name = stpvers::Clean_Umlaute2(Projektname), css = TRUE, ...)
 
 End(anhang = FALSE,
   browser = "C:/Program Files (x86)/Internet Explorer/iexplore.exe",
   output = options()$prompt[1] == "HTML> ", ...)
 
-Methode(x = NULL, file = NULL)
+Methode(h = "Methoden", x = NULL, file = NULL)
 
-Materials(x = NULL, file = "(1) Get Data.R")
+Materials(h = "Materialien", x = NULL, file = "(1) Get Data.R")
 
-Research_Design(x = NULL, file = NULL)
+Research_Design(h = "Forschungs Design", x = NULL, file = NULL)
 
-Measures(x = NULL, file = "(2) Measures.R")
+Measures(h = "Messinstrument", x = NULL, file = "(2) Measures.R")
 
-Results(x = NULL, file = NULL)
+Results(h = "Ergebnisse", x = NULL, file = NULL)
 
-Demographic_Variables(x = NULL, file = "(3) Demographic.R")
+Demographic_Variables(h = "Deskriptive Analyse", x = NULL,
+  file = "(3) Demographic.R")
 
-Statistic(x = "Resultate", file = "(4) Analyse.R")
+Statistic(h = "Resultate", x = NULL, file = "(4) Analyse.R")
 
 get_scriptpath()
 }
@@ -61,6 +62,8 @@ get_scriptpath()
 
 \item{output}{TRUE oder FALSE}
 
+\item{h}{Ueberschrift}
+
 \item{x}{Character}
 
 \item{file}{auszufuerendes File}
@@ -71,7 +74,7 @@ HTML oder Text Output
 \description{
 Mit \code{Projekt()} werden die default Einstellungen (Kontraste) gesetzt sowie die Folder erstellt.
 Weiters wird die Ausgabe als HTML gesteuert.
-Weitere Optionen fuer die Formatierung koennen mit \code{default_stp25_opt()} gesetzt. 
+Weitere Optionen fuer die Formatierung koennen mit \code{default_stp25_opt()} gesetzt.
 Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
 
 \subsection{End}{
@@ -79,23 +82,26 @@ Zuruecksetzen der Einstellungen und Aufruf des Browsers browser = getOption("bro
 
 \subsection{Methode}{
 Methode, Materials, Research_Design, Measures
-Results, Demographic_Variables und Statistic sind Platzhalter Funktionen um den R-Code 
+Results, Demographic_Variables und Statistic sind Platzhalter Funktionen um den R-Code
 in verschiedenen Files aiszulagern.}
 
 \subsection{Interne Funktion}{
-\code{get_scriptpath()} Ausfuehrendes File finden 
+\code{get_scriptpath()} Ausfuehrendes File finden
 Quelle: https://stackoverflow.com/questions/18000708/find-location-of-current-r-file}
 }
 \examples{
 
 \dontrun{
 require(stpvers)
- 
+
  Projekt()
- 
+     # R2HTML::HTMLChangeCss("gridR2HTML")
+     # options(prompt="HTML> ")
+     #  set_default_params(list(myURL = myURL))
+
  APA2(~. , hkarz)
- 
- 
+
+
 set_my_options(prozent=list(digits=c(1,0), style=2))
 get_my_options()$apa.style$prozent
 
