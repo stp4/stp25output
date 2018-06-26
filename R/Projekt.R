@@ -206,6 +206,8 @@ End <- function(anhang=FALSE,
 #' @param file auszufuerendes File
 #' @export
 Methode <- function(x=NULL, file=NULL){
+  HTML_BR()
+  
   Head("Methoden", style=3)
 
   if(!is.null(x)) Text(x)
@@ -219,6 +221,7 @@ Methode <- function(x=NULL, file=NULL){
 #' @export
 Materials <- function(x=NULL,
                       file="(1) Get Data.R"){
+  HTML_BR()
   Head("Materialien", style=3)
  # HTML_I(paste(file, file.info(file)$mtime))
   if(!is.null(x)) Text(x)
@@ -231,6 +234,7 @@ Materials <- function(x=NULL,
 #' @rdname Projekt
 #' @export
 Research_Design <- function(x=NULL, file=NULL){
+  HTML_BR()
   Head("Forschungs Design", style=3)
  # HTML_I(paste(file, file.info(file)$mtime))
   if(!is.null(x)) Text(x)
@@ -244,6 +248,7 @@ Research_Design <- function(x=NULL, file=NULL){
 #' @export
 Measures <- function(x=NULL,
                      file="(2) Measures.R"){
+  HTML_BR()
   Head("Messinstrument", style=3)
  # HTML_I(paste(file, file.info(file)$mtime))
   if(!is.null(x)) Text(x)
@@ -256,6 +261,8 @@ Measures <- function(x=NULL,
 #' @rdname Projekt
 #' @export
 Results<- function(x=NULL, file=NULL){
+  HTML_BR()
+  HTML_HR()
   Head("Ergebnisse", style=2)
 #  HTML_I(paste(file, file.info(file)$mtime))
   if(!is.null(file)){
@@ -268,6 +275,7 @@ Results<- function(x=NULL, file=NULL){
 #' @export
 Demographic_Variables<- function(x=NULL,
                                  file="(3) Demographic.R" ){
+  HTML_BR()
   Head("Demographische Variablen", style=3)
  # HTML_I(paste(file, file.info(file)$mtime))
   if(!is.null(x)) Text(x)
@@ -280,6 +288,7 @@ Demographic_Variables<- function(x=NULL,
 #' @rdname Projekt
 #' @export
 Statistic<- function(x="Resultate", file="(4) Analyse.R"){
+  HTML_BR()
   
   Head(x, style=3)
  # HTML_I(paste(file, file.info(file)$mtime))
