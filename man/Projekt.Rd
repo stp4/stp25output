@@ -40,7 +40,7 @@ Statistic(h = "Resultate", x = NULL, file = "(4) Analyse.R")
 get_scriptpath()
 }
 \arguments{
-\item{myformat}{HTML oder Knit oder Console}
+\item{myformat}{HTML oder Knit oder Console Rpres (R-Presentation)}
 
 \item{Projektname}{Bezeichnung des Projektes (gilt auch fuer die HTML Seite)}
 
@@ -53,6 +53,8 @@ get_scriptpath()
 \item{contrasts}{default wie SPSS}
 
 \item{html_name}{intern nicht aendern}
+
+\item{css}{Eigense Format}
 
 \item{...}{weitere Objekte nicht benutzt}
 
@@ -69,7 +71,7 @@ get_scriptpath()
 \item{file}{auszufuerendes File}
 }
 \value{
-HTML oder Text Output
+Pfad als Text
 }
 \description{
 Mit \code{Projekt()} werden die default Einstellungen (Kontraste) gesetzt sowie die Folder erstellt.
@@ -92,7 +94,7 @@ Quelle: https://stackoverflow.com/questions/18000708/find-location-of-current-r-
 \examples{
 
 \dontrun{
-require(stpvers)
+# require(stpvers)
 
  Projekt()
      # R2HTML::HTMLChangeCss("gridR2HTML")

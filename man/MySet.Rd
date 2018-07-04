@@ -41,7 +41,14 @@ Einstellen der Farben und Symbole ueber \link{trellis.par.set}
 }
 \examples{
 #graphics.off()
-#library(stp25)
+ 
+ 
+ 
+   
+ 
+ 
+ 
+ 
 #library(RColorBrewer)
 # Set3 rosa-himmelblau
 # brewer.pal(8,"Set3")[c(3,4)]
