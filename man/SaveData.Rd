@@ -4,8 +4,8 @@
 \alias{SaveData}
 \title{Speichern von Grafiken}
 \usage{
-SaveData(caption = "", filename = "", Width = 520, Height = 520,
-  w = dev.size("in")[1], h = dev.size("in")[2], GraphBorder = 0,
+SaveData(caption = "", filename = "", w = dev.size("in")[1],
+  h = dev.size("in")[2], Width = 520, Height = 520, GraphBorder = 0,
   Align = options()$stp25$apa.style$Align, GraphBackGround = "white",
   save_plot = TRUE, ...)
 }

@@ -16,13 +16,16 @@
 #' @export
 SaveData <- function(caption = "", 
                      filename = "",
-                     Width = 520, Height = 520, w = dev.size("in")[1], h = dev.size("in")[2],
+                     w = dev.size("in")[1], h = dev.size("in")[2],
+                     
+                     Width = 520, Height = 520, 
                      GraphBorder = 0,
                      Align = options()$stp25$apa.style$Align,
                      GraphBackGround = "white",
                      save_plot= TRUE,
                    #  graphics_devices = options()$stp25$graphics_devices,
                      ...) {
+  
 abb <- Abb(filename, caption)
 
 if (options()$prompt[1] == "HTML> ") {
@@ -43,13 +46,13 @@ if (options()$prompt[1] == "HTML> ") {
 if(save_plot){
  # cat("\nSave plot ")
   if (length(grep(".pdf", filename)) > 0) {
-     try( dev.copy2pdf(file = abb$Name) )
+     try( dev.copy2pdf(file = abb$Name, width = w, height = h) )
   } else if (length(grep(".emf", filename)) > 0) {
    try( savePlot(abb$Name , type = "emf"))
     dev.off()
   } else{
     abb$Name<- paste0(abb$Name, ".pdf")
-    try(dev.copy2pdf(file = abb$Name))
+    try(dev.copy2pdf(file = abb$Name, width = w, height = h))
   }
   HTML_S(abb$Nam)
   HTML_BR()
