@@ -97,7 +97,10 @@ Head<- function( ...,
 #' @description  Anmerkung() ist ein blauer Text.
 #' @export
 Anmerkung <- function(...)
-  Text('<div style="color:#0000FF"><b>Anmerkung:</b><br>', ..., "<br></div>")
+  HTML_default(
+    paste('<p style="color: #0000FF"><b>Anmerkung:</b> <br>
+          ', paste0(...), "</p><br>"))
+#  Text('<div style="color:#0000FF"><b>Anmerkung:</b><br>', ..., "<br></div>")
 
 
 
@@ -113,13 +116,9 @@ Kunde <- function(x = "",
   }
   
   if (is.null(msg))
-    Text('<div style="color:#800000"><b>',
-         name,': </b> ',
-         x,'<br></div>')
+    HTML_default(paste('<p style="color:#800000"> <b>', name,': </b> ',x,'</p>'))
   else
-    Text('<div style="color:#800000"><b>',
-         name, x,': </b> ',
-         msg,'<br></div>')
+    HTML_default(paste('<p style="color:#800000"> <b>', name, x,': </b>', msg,'</p>'))
   
 }
 
