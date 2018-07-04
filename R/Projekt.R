@@ -57,6 +57,7 @@ Projekt <- function (myformat = "",
                      css = TRUE,
                      ...)
 {
+  #t1 <- Sys.time()
   myformat <- tolower(myformat)
   
   if (myformat != "rpres") {
@@ -68,56 +69,26 @@ Projekt <- function (myformat = "",
       options(prompt = "> ")
     }
     
-    
     myDir <- getwd()
-    myURL <-
-      paste("file://",
-            myDir,
-            "/",
-            html_folder,
-            "/",
-            html_name,
-            ".",
-            myformat,
-            sep = "")
+    myURL <- paste("file://", myDir,"/",html_folder, "/", html_name, ".", myformat, sep = "")
     output.dir <- paste(myDir, html_folder, sep = "/")
     
+   
     if (is.null(OutDec))
       OutDec <- options()$OutDec
     else
       options(OutDec = OutDec)
     
     options(R2HTML.format.decimal.mark = OutDec)
-    # opar <<- lattice::trellis.par.get()
-    
-    if (!any(list.dirs() == paste("./", html_folder, sep = "")))
-      dir.create(
-        output.dir,
-        showWarnings = TRUE,
-        recursive = FALSE,
-        mode = "0777"
-      )
-    
-    if (!(
-      paste0("./", fig_folder) %in% list.dirs() |
-      paste0("./", tolower(fig_folder)) %in% list.dirs()
-    )) {
-      dir.create(
-        fig_folder,
-        showWarnings = TRUE,
-        recursive = FALSE,
-        mode = "0777"
-      )
-      cat("\nFolder ", fig_folder, " wurde erstellt.\n")
-    }
-    
-    
+ 
+    if ( !dir.exists(output.dir) )
+      dir.create( output.dir, showWarnings = TRUE,  recursive = FALSE,  mode = "0777" )
+ 
+    if ( !dir.exists(fig_folder) ) 
+      dir.create( fig_folder, showWarnings = TRUE, recursive = FALSE, mode = "0777" )
+
     if (fig_folder != "Fig")
       set_my_options(fig_folder = paste0(fig_folder, "/"))
-    
-    cat("\nSpeichere Abbildungen in ",
-        options()$stp25$fig_folder,
-        "\n")
     
     if (!is.null(contrasts)) {
       oldc <- getOption("contrasts")
@@ -125,12 +96,12 @@ Projekt <- function (myformat = "",
       cat(
         "\nKontraste von " ,
         paste(oldc, collapse = ", "),
-        "auf ",
+        "auf\n",
         paste(contrasts, collapse = ", "),
         " umgestellt!\n"
       )
     }
-    
+ 
     set_default_params(list(Tab_Index = 0, Abb_Index = 0))
     
     if (myformat == "html") {
@@ -139,26 +110,22 @@ Projekt <- function (myformat = "",
         reset = par(no.readonly = TRUE)
       ))
       
-      HTMLStart(
+      R2HTML::HTMLStart(
         outdir = output.dir,
         file = html_name,
         extension = myformat,
         echo = FALSE,
         HTMLframe = FALSE
       )
-      
-      cat("\n", output.dir, html_name , myformat, "\n")
-      
+ 
       if (css) {
-        cat(MyCss(),
-            file = file.path(output.dir, "R2HTML.css"))
+        myCssFile <- file.path(output.dir, "R2HTML.css")
+        cat("\nCSS-File:" , myCssFile, "\n")
+        if(!file.exists(myCssFile ))
+            cat(MyCss(), file =myCssFile )
       }
       
-      
-      
-      # R2HTML::HTMLChangeCss("gridR2HTML")
-      #    options(prompt="HTML> ")
-      # set_default_params(list(myURL = myURL))
+ 
     } else{
       options(continue = "  ")
     }
@@ -322,7 +289,7 @@ End <- function(anhang = FALSE,
       Anhang()
     }
     
-    HTMLStop()
+    R2HTML::HTMLStop()
     #   print(tmp)
     # getOption("browser")
     browseURL(file, browser = browser)
