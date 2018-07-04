@@ -4,22 +4,27 @@
 #' Weiters wird die Ausgabe als HTML gesteuert.
 #' Weitere Optionen fuer die Formatierung koennen mit \code{default_stp25_opt()} gesetzt.
 #' Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
-#' @param myformat  HTML oder Knit oder Console
+#'
+#' @param myformat HTML oder Knit oder Console Rpres (R-Presentation)
+#' 
 #' @param Projektname Bezeichnung des Projektes (gilt auch fuer die HTML Seite)
-#' @param datum  Datum zur Dokumentation
+#' @param datum Datum zur Dokumentation
 #' @param fig_folder,html_folder Folder wenn ein ander Ort gewuenscht
+#'  
 #' @param OutDec Komma oder Punkt
 #' @param contrasts default wie SPSS
-#' @param html_name  intern nicht aendern
+#' @param html_name intern nicht aendern
+#' @param css Eigense Format
 #' @param ... weitere Objekte nicht benutzt
-#' @return HTML oder Text Output
+#' 
 #' @name Projekt
+#' @return Pfad als Text
 #' @export
 #'
 #' @examples
-#'
+#' 
 #' \dontrun{
-#' require(stpvers)
+#' # require(stpvers)
 #'
 #'  Projekt()
 #'      # R2HTML::HTMLChangeCss("gridR2HTML")
@@ -49,156 +54,186 @@ Projekt <- function (myformat = "",
                      OutDec = NULL,
                      contrasts =  c("contr.Treatment", "contr.poly"),
                      html_name = stpvers::Clean_Umlaute2(Projektname),
-                     css= TRUE,
+                     css = TRUE,
                      ...)
 {
-  set.seed(0815)
-  if (Projektname == "Demo")
-    setwd("C:/Users/wpete/Dropbox/3_Forschung/R-Project")
-  #-- Fehler Abfangen
-  if (options()$prompt[1] == "HTML> ") {
-    options(prompt = "> ")
-  }
-  
   myformat <- tolower(myformat)
-  myDir <- getwd()
-  myURL <-
-    paste("file://",myDir,
-          "/",html_folder,
-          "/",html_name,".", myformat,
-          sep = "")
-  output.dir <- paste(myDir, html_folder, sep = "/")
   
-  if (is.null(OutDec))
-    OutDec <- options()$OutDec
-  else
-    options(OutDec = OutDec)
-  
-  options(R2HTML.format.decimal.mark = OutDec)
-  # opar <<- lattice::trellis.par.get()
-  
-  if (!any(list.dirs() == paste("./", html_folder, sep = "")))
-    dir.create(
-      output.dir,
-      showWarnings = TRUE,
-      recursive = FALSE,
-      mode = "0777"
-    )
-  
-  if (!(paste0("./", fig_folder) %in% list.dirs() |
-        paste0("./", tolower(fig_folder)) %in% list.dirs())) {
-    dir.create(
-      fig_folder,
-      showWarnings = TRUE,
-      recursive = FALSE,
-      mode = "0777"
-    )
-    cat("\nFolder ", fig_folder, " wurde erstellt.\n")
-  }
-  
-  
-  if (fig_folder != "Fig")
-    set_my_options(fig_folder = paste0(fig_folder, "/"))
-  
-  cat("\nSpeichere Abbildungen in ",
-      options()$stp25$fig_folder,
-      "\n")
-  
-  if (!is.null(contrasts)) {
-    oldc <- getOption("contrasts")
-    options(contrasts = contrasts)
-    cat(
-      "\nKontraste von " ,
-      paste(oldc, collapse = ", "),
-      "auf ",
-      paste(contrasts, collapse = ", "),
-      " umgestellt!\n"
-    )
-  }
-  
-  set_default_params(list(Tab_Index = 0, Abb_Index = 0))
-  
-  if (myformat == "html") {
-    set_default_params(list(
-      file.name.index = 0,
-      reset = par(no.readonly = TRUE)
-    ))
-    
-    HTMLStart(
-      outdir = output.dir,
-      file = html_name,
-      extension = myformat,
-      echo = FALSE,
-      HTMLframe = FALSE
-    )
-    
-    cat("\n", output.dir, html_name , myformat, "\n")
-    
-    if(css) {
-    cat( MyCss(),
-         file = file.path(output.dir,"R2HTML.css")
-           
-    )
+  if (myformat != "rpres") {
+    set.seed(0815)
+    if (Projektname == "Demo")
+      setwd("C:/Users/wpete/Dropbox/3_Forschung/R-Project")
+    #-- Fehler Abfangen
+    if (options()$prompt[1] == "HTML> ") {
+      options(prompt = "> ")
     }
     
     
+    myDir <- getwd()
+    myURL <-
+      paste("file://",
+            myDir,
+            "/",
+            html_folder,
+            "/",
+            html_name,
+            ".",
+            myformat,
+            sep = "")
+    output.dir <- paste(myDir, html_folder, sep = "/")
     
-    # R2HTML::HTMLChangeCss("gridR2HTML")
-    #    options(prompt="HTML> ")
-    # set_default_params(list(myURL = myURL))
-  } else{
-    options(continue = "  ")
+    if (is.null(OutDec))
+      OutDec <- options()$OutDec
+    else
+      options(OutDec = OutDec)
+    
+    options(R2HTML.format.decimal.mark = OutDec)
+    # opar <<- lattice::trellis.par.get()
+    
+    if (!any(list.dirs() == paste("./", html_folder, sep = "")))
+      dir.create(
+        output.dir,
+        showWarnings = TRUE,
+        recursive = FALSE,
+        mode = "0777"
+      )
+    
+    if (!(
+      paste0("./", fig_folder) %in% list.dirs() |
+      paste0("./", tolower(fig_folder)) %in% list.dirs()
+    )) {
+      dir.create(
+        fig_folder,
+        showWarnings = TRUE,
+        recursive = FALSE,
+        mode = "0777"
+      )
+      cat("\nFolder ", fig_folder, " wurde erstellt.\n")
+    }
+    
+    
+    if (fig_folder != "Fig")
+      set_my_options(fig_folder = paste0(fig_folder, "/"))
+    
+    cat("\nSpeichere Abbildungen in ",
+        options()$stp25$fig_folder,
+        "\n")
+    
+    if (!is.null(contrasts)) {
+      oldc <- getOption("contrasts")
+      options(contrasts = contrasts)
+      cat(
+        "\nKontraste von " ,
+        paste(oldc, collapse = ", "),
+        "auf ",
+        paste(contrasts, collapse = ", "),
+        " umgestellt!\n"
+      )
+    }
+    
+    set_default_params(list(Tab_Index = 0, Abb_Index = 0))
+    
+    if (myformat == "html") {
+      set_default_params(list(
+        file.name.index = 0,
+        reset = par(no.readonly = TRUE)
+      ))
+      
+      HTMLStart(
+        outdir = output.dir,
+        file = html_name,
+        extension = myformat,
+        echo = FALSE,
+        HTMLframe = FALSE
+      )
+      
+      cat("\n", output.dir, html_name , myformat, "\n")
+      
+      if (css) {
+        cat(MyCss(),
+            file = file.path(output.dir, "R2HTML.css"))
+      }
+      
+      
+      
+      # R2HTML::HTMLChangeCss("gridR2HTML")
+      #    options(prompt="HTML> ")
+      # set_default_params(list(myURL = myURL))
+    } else{
+      options(continue = "  ")
+    }
+    
+    
+    pr_string <- paste(
+      Projektname,
+      "\n Datum: ",
+      datum,
+      ", Software: ",
+      R.version.string ,
+      ", Link: www.R-project.org/\nFile: ",
+      get_scriptpath()
+    )
+    Text(pr_string)
+    
   }
-  
-  
-  pr_string <- paste(
-    Projektname,
-    "\n Datum: ",
-    datum,
-    ", Software: ",
-    R.version.string ,
-    ", Link: www.R-project.org/\nFile: ",
-    get_scriptpath()
-  )
-  
-  Text(pr_string)
-  
+  else{ 
+    #myDir <- getwd()
+    if (!is.null(OutDec))
+      options(OutDec = OutDec)
+    if (fig_folder != "Fig")
+      set_my_options(fig_folder = paste0(fig_folder, "/"))
+    
+    if (!is.null(contrasts)) {
+      oldc <- getOption("contrasts")
+      options(contrasts = contrasts)
+    }
+    
+    set_default_params(list(Tab_Index = 0, Abb_Index = 0))
+    pr_string <- NULL
+  }
   
   invisible(pr_string)
 }
 
 
 
-MyCss <- function() {"
 
+
+
+
+
+MyCss <- function() {
+  '
   body {
   background: #FFFFFF;
   color: #000000;
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 10pt;
   font-weight: normal
+  line-height: normal;
   }
   
   H1 {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 25pt;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 18pt;
   font-style: normal;
-  font-weight: normal;
+  font-weight: bold;
   line-height: 25pt;
   color: #004080;
+ 
   }
   
   H2 {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 18pt;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 16pt;
   font-style: normal;
-  font-weight: normal;
+  font-weight: bold;
   line-height: 20pt;
   color: #004080;
   }
   
   H3 {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 14pt;
   font-style: normal;
   font-weight: bold;
@@ -207,40 +242,52 @@ MyCss <- function() {"
   }
   
   H4 {
-  font-family: T, Helvetica, sans-serif;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 12pt;
+  font-style: normal;
+  font-weight: bold;
+  color: #000000;
+  line-height: 10pt;
+  }
+  
+  H5 {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 10pt;
   font-style: normal;
   font-weight: bold;
   color: #000000;
-  line-height: 16pt;
+  line-height: 10pt;
   }
-  
-  H5 {
-  font-family: T, Helvetica, sans-serif;
-  font-size: 10pt;
+
+
+   TABLE, TH, TD  {
+  font-family: Arial, Helvetica,  Helvetica, sans-serif;
+  font-size: 8pt;
   font-style: normal;
-  color: #000000;
-  line-height: 16pt;
-  }
-  
+  line-height: normal;
+   } 
+
   LI {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: "Times New Roman", Times, serif;
   font-size: 10pt
   }
   
   A {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: "Times New Roman", Times, serif;
   font-size: 10pt;
   text-decoration: none
   }
   
-  TABLE {
-  font-family: Arial, Helvetica, Times, Helvetica, sans-serif;
-  font-size: 8pt;
-  font-style: normal;   
-  }
+
   
-  "
+
+P{
+font-family: "Times New Roman", Times, serif;
+  font-style: normal;
+  font-size: 10pt;
+}
+
+ '
 }
 
 
@@ -300,105 +347,136 @@ End <- function(anhang = FALSE,
 #' @param h Ueberschrift
 #' @param file auszufuerendes File
 #' @export
-Methode <- function(h="Methoden", x = NULL, file = NULL) {
+Methode <- function(h = "Methoden",
+                    x = NULL,
+                    file = NULL) {
   HTML_BR()
-    Head(h, style = 1)
-  
-  if (!is.null(x)) 
-    Text(x)
+  Head(h, style = 1)
   if (!is.null(file)) {
     HTML_I(paste(file, file.info(file)$mtime))
-    source(file, encoding = "UTF-8") # or "latin1"
+    
+  }
+  if (!is.null(x))
+    Text(x)
+  if (!is.null(file)) {
+    source(file, encoding = "UTF-8")
   }
 }
 
 #' @rdname Projekt
 #' @export
-Materials <- function(h="Materialien", x = NULL,
+Materials <- function(h = "Materialien",
+                      x = NULL,
                       file = "(1) Get Data.R") {
   HTML_BR()
+  Head(h, style = 2)
+  if (!is.null(file)) {
+    HTML_I(paste(file, file.info(file)$mtime))
+    
+  }
+  if (!is.null(x))
+    Text(x)
+  if (!is.null(file)) {
+    source(file, encoding = "UTF-8")
+  }
+}
+
+#' @rdname Projekt
+#' @export
+Research_Design <-
+  function(h = "Forschungs Design",
+           x = NULL,
+           file = NULL) {
+    HTML_BR()
     Head(h, style = 2)
- 
-  if (!is.null(x))
-    Text(x)
-  if (!is.null(file)) {
-    HTML_I(paste(file, file.info(file)$mtime))
-    source(file, encoding = "UTF-8") 
+    if (!is.null(file)) {
+      HTML_I(paste(file, file.info(file)$mtime))
+      
+    }
+    if (!is.null(x))
+      Text(x)
+    if (!is.null(file)) {
+      source(file, encoding = "UTF-8") # or "latin1"
+    }
   }
-}
 
 #' @rdname Projekt
 #' @export
-Research_Design <- function(h="Forschungs Design", x = NULL, file = NULL) {
-  HTML_BR()
-     Head(h, style = 2)
-  
-  if (!is.null(x))
-    Text(x)
-  if (!is.null(file)) {
-    HTML_I(paste(file, file.info(file)$mtime))
-    source(file, encoding = "UTF-8") # or "latin1"
-  }
-}
-
-#' @rdname Projekt
-#' @export
-Measures <- function(h="Messinstrument", x = NULL,
+Measures <- function(h = "Messinstrument",
+                     x = NULL,
                      file = "(2) Measures.R") {
   HTML_BR()
-      Head(h, style = 2)
-  # HTML_I(paste(file, file.info(file)$mtime))
+  Head(h, style = 2)
+  if (!is.null(file)) {
+    HTML_I(paste(file, file.info(file)$mtime))
+    
+  }
   if (!is.null(x))
     Text(x)
   if (!is.null(file)) {
-    HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
   }
 }
 
 #' @rdname Projekt
 #' @export
-Results <- function(h="Ergebnisse",
-  x = NULL, file = NULL) {
+Results <- function(h = "Ergebnisse",
+                    x = NULL,
+                    file = NULL) {
   HTML_BR()
   HTML_HR()
   Head(h, style = 1)
+  if (!is.null(file)) {
+    HTML_I(paste(file, file.info(file)$mtime))
+      }
+  
   if (!is.null(x))
     Text(x)
   if (!is.null(file)) {
-    HTML_I(paste(file, file.info(file)$mtime))
     source(file, encoding = "UTF-8") # or "latin1"
   }
 }
 
 #' @rdname Projekt
 #' @export
-Demographic_Variables <- function(h="Deskriptive Analyse",x = NULL,
+Demographic_Variables <- function(h = "Deskriptive Analyse",
+                                  x = NULL,
                                   file = "(3) Demographic.R") {
   HTML_BR()
-  Head(h, style = 1)
-  if (!is.null(x))
-    Text(x)
+  Head(h, style = 2)
   if (!is.null(file)) {
     HTML_I(paste(file, file.info(file)$mtime))
+      }
+  
+  if (!is.null(x))
+    Text(x)
+  
+  if (!is.null(file)) {
     source(file, encoding = "UTF-8") # or "latin1"
   }
-}
+  }
 
 #' @rdname Projekt
 #' @export
-Statistic <- function(h = "Resultate", x=NULL, file = "(4) Analyse.R") {
-  HTML_BR()
-  
-  Head(h, style = 2)
-  # HTML_I(paste(file, file.info(file)$mtime))
-  if (!is.null(x))
-    Text(x)
-  if (!is.null(file)) {
-    HTML_I(paste(file, file.info(file)$mtime))
-    source(file, encoding = "UTF-8") # or "latin1"
+Statistic <-
+  function(h = "Resultate",
+           x = NULL,
+           file = "(4) Analyse.R") {
+    HTML_BR()
+    Head(h, style = 2)
+    
+    if (!is.null(file)) {
+      HTML_I(paste(file, file.info(file)$mtime))
+      }
+    # HTML_I(paste(file, file.info(file)$mtime))
+    if (!is.null(x))
+      Text(x)
+    if (!is.null(file)) {
+      source(file, encoding = "UTF-8") # or "latin1"
+    }
   }
-}
+
+
 
 #' @rdname Projekt
 #' @description  \subsection{Interne Funktion}{
@@ -430,6 +508,4 @@ get_scriptpath <- function() {
     args <- commandArgs(trailingOnly = FALSE)
   }
   return(path)
-  
-  #
-}
+  }
