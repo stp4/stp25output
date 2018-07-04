@@ -17,7 +17,42 @@
 #' @export
 #' @examples
 #' #graphics.off()
-#' #library(stp25)
+#'  
+#'  
+#'  
+#'    
+# pch = 15:18
+# lty = 1:3
+# cex = 1
+# axis.grid = FALSE
+# 
+# lattice::trellis.par.set(latticeExtra::ggplot2like(n = 4, h.start = 120))
+# col <- lattice::trellis.par.get()$superpose.polygon$col
+# col.bar <- lattice::trellis.par.get()$plot.polygon$col
+# 
+# lattice::trellis.par.set(
+#   axis.text = list(
+#     cex = 0.8,
+#     lineheight = 0.9,
+#     col = "grey20"
+#   ),
+#   superpose.symbol = list(col = col, pch = pch),
+#   superpose.polygon = list(col = col, border = "transparent"),
+#   plot.polygon = list(col = col.bar),
+#   superpose.line = list(col = col, lty = lty),
+#   box.dot = list(pch = 19, cex = cex),
+#   plot.symbol = list(pch = 1)
+# )
+# 
+# 
+# if (axis.grid)  
+#   lattice::lattice.options(latticeExtra::ggplot2like.opts())
+# 
+# lattice::trellis.par.set(effectsTheme())
+#'  
+#'  
+#'  
+#'  
 #' #library(RColorBrewer)
 #' # Set3 rosa-himmelblau
 #' # brewer.pal(8,"Set3")[c(3,4)]
@@ -169,7 +204,7 @@ MySet <- function(col = NULL,
     }
   }
   
-  
+  lattice::trellis.par.set(effects::effectsTheme())
 
   cat("done\n\n")
   
