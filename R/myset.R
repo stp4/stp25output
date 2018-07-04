@@ -116,10 +116,7 @@ MySet <- function(col = NULL,
                   lty = 1:3,
                   cex = 1,
                   col.bar = NULL,
-                  n = if (is.numeric(col))
-                    col
-                  else
-                    4,
+                  n = if (is.numeric(col)) col else 4,
                   h.start = 120,
                   theme = latticeExtra::ggplot2like(n = n, h.start = h.start),
                   axis.grid = FALSE,
@@ -137,9 +134,7 @@ MySet <- function(col = NULL,
   
   # Speichert die Default einstellungen zum zurücksetzen der Optionen
   if (exists("opar")) {
-    cat(
-      "\nopar existiert und die Einstellungen trellis.par.set() werden zurückgesetzt.\n"
-    )
+    cat("\n  opar existiert und die Einstellungen trellis.par.set() werden zurückgesetzt.\n")
     lattice::trellis.par.set(opar)
     if (exists("oopt")) {
       cat(
@@ -149,9 +144,7 @@ MySet <- function(col = NULL,
     }
   }
   else{
-    cat(
-      "\nErstmaliger Aufruf von trellis.par.set()\n"
-    ) 
+    cat("\n Erstmaliger Aufruf von trellis.par.set()\n") 
     opar <<- lattice::trellis.par.get()
     
    if (!knit){
