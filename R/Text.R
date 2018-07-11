@@ -30,10 +30,16 @@ Text <- function(...,
       msg <- gsub("\\n", "<BR>", msg)
     } else
       stop("msg must be of type vector")
-    if (style == 0 | style == "p")
+    if (style == 0 | style == "p"){
       HTML_P(msg)
-    else
-      R2HTML::HTML.title(msg, HR = style)
+      }
+    else{
+      
+     # R2HTML::HTML.title(msg, HR = style)
+      HTML_default(paste("\n <h", style, "> ", msg, "</h", style, ">\n", sep = "") )
+      
+      
+      }
   }
 
   report_txt <- function(msg = NULL) {
