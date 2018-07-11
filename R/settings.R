@@ -2,13 +2,6 @@
 #' @title Einstellungen
 #' @name settings
 #' @description Einstellungen stp25, die Einstellungen betreffen vor allem die Formatierung von Zahlen in den Tabellen.
-#' @examples
-#' ###Names2Language(c("Item", "Characteristics", "Statistics"  ), "de")
-#' # Projekt()
-#' # options()$stp25$bez$f.value
-#'  ### Names2Language(c("Pr..Chisq.", "F.value"))
-#'
-#'
 NULL
 
 
@@ -16,23 +9,7 @@ NULL
 #' @description set_my_options:  Optionen erstellen
 #' @param ... zu aendernde Einstellungen
 #' @export
-#' @examples
-#' #- set_my_options ------
-#'
-#' #-- default options
-#' set_my_options()
-#' get_my_options()$apa.style$prozent
-#'
-#' #-- Speicherort aendern
-#' get_my_options()$fig_folder
-#' set_my_options(fig_folder="Fig2/")
-#' get_my_options()$fig_folder
-#'
-#' #-- Format aendern
-#' set_my_options(prozent=list(digits=c(1,0), style=2))
-#'
-#' set_my_options(mittelwert=list(digits=c(1,0), plusmin_sign=TRUE))
-#' #  APA2(~. , hkarz)
+
 set_my_options <- function(...) {
   my_canges <- list(...)
 
@@ -84,7 +61,6 @@ set_my_options <- function(...) {
   }
 }
 
-
 #' @rdname settings
 #' @description get_my_options: Abruf der Optionen
 #' @param x Library = "stp25"
@@ -123,7 +99,7 @@ stp25_options <- function() {
 
 #' @rdname settings
 #' @description default_stp25_opt: Liste mit den Optionen
-#' @param myformat HTML oder Text Projektname
+#' @param myformat HTML, spin, oder Text  spin ist knitr wobei die Ausgabe der Tabellen mit html erfolgt 
 #' @param fig_folder,temp_dir,data_folder,html_folder   Folder Fig, tempdir(), Raw data, Results
 #' @param graphics_devices Grafik als PDF speichern
 #' @param OutDec Dezimaltrennzeichen
@@ -167,8 +143,7 @@ default_stp25_opt <-
             median.style="IRQ"
             
             ){
-list(
-      language = language,
+list(language = language,
       dec = OutDec,
       output = myformat,
       fig_folder = paste0(fig_folder, "/"),

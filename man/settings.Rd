@@ -34,7 +34,7 @@ default_stp25_opt(myformat = "", fig_folder = "Fig",
 
 \item{params}{List of parameters.}
 
-\item{myformat}{HTML oder Text Projektname}
+\item{myformat}{HTML, spin, oder Text  spin ist knitr wobei die Ausgabe der Tabellen mit html erfolgt}
 
 \item{fig_folder, temp_dir, data_folder, html_folder}{Folder Fig, tempdir(), Raw data, Results}
 
@@ -67,27 +67,5 @@ stp25_options: Speichern die Default-Optionen in options$stp25
 default_stp25_opt: Liste mit den Optionen
 }
 \examples{
-###Names2Language(c("Item", "Characteristics", "Statistics"  ), "de")
-# Projekt()
-# options()$stp25$bez$f.value
- ### Names2Language(c("Pr..Chisq.", "F.value"))
-
-
-#- set_my_options ------
-
-#-- default options
-set_my_options()
-get_my_options()$apa.style$prozent
-
-#-- Speicherort aendern
-get_my_options()$fig_folder
-set_my_options(fig_folder="Fig2/")
-get_my_options()$fig_folder
-
-#-- Format aendern
-set_my_options(prozent=list(digits=c(1,0), style=2))
-
-set_my_options(mittelwert=list(digits=c(1,0), plusmin_sign=TRUE))
-#  APA2(~. , hkarz)
 options("stp25" = default_stp25_opt(language = "en"))
 }
