@@ -15,12 +15,21 @@ HTML_ <- function(x, output = which_output()) {
 }
 
 HTML_default <- function(x, output =  which_output()) {
-  if (output == "html")
-    cat("\n", x, "\n",
-      file = HTMLGetFile(), sep = "",append = TRUE
-    )
-  else
+  if (options()$stp25$output == "spin") {
     cat(x)
+  }
+  else  if (output == "html") {
+    cat("\n",
+        x,
+        "\n",
+        file = HTMLGetFile(),
+        sep = "",
+        append = TRUE)
+  }
+  else{
+    cat(x)
+  }
+  
 }
 
 

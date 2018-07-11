@@ -5,7 +5,7 @@
 #' Weitere Optionen fuer die Formatierung koennen mit \code{default_stp25_opt()} gesetzt.
 #' Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
 #'
-#' @param myformat HTML oder Knit oder Console Rpres (R-Presentation)
+#' @param myformat HTML, Spin, Knit, Rpres oder Text. Spin ist knitr wobei die Ausgabe der Tabellen mit html erfolgt
 #' 
 #' @param Projektname Bezeichnung des Projektes (gilt auch fuer die HTML Seite)
 #' @param datum Datum zur Dokumentation
@@ -34,11 +34,30 @@
 #'  APA2(~. , hkarz)
 #'
 #'
-#' set_my_options(prozent=list(digits=c(1,0), style=2))
+#' #-- default options
+#' set_my_options()
 #' get_my_options()$apa.style$prozent
 #'
+#' #-- Speicherort aendern
+#' get_my_options()$fig_folder
+#' set_my_options(fig_folder="Fig2/")
+#' get_my_options()$fig_folder
+#'
+#' #-- Format aendern
+#' set_my_options(prozent=list(digits=c(1,0), style=2))
+#'
 #' set_my_options(mittelwert=list(digits=c(1,0), plusmin_sign=TRUE))
-#' get_my_options()$apa.style$mittelwert
+#' 
+#' 
+#' #  APA2(~. , hkarz)
+#' ###Names2Language(c("Item", "Characteristics", "Statistics"  ), "de")
+#' 
+#' 
+#' # options()$stp25$bez$f.value
+#'  ### Names2Language(c("Pr..Chisq.", "F.value"))
+#'
+#' 
+#'
 #'
 #' #APA2(~. , hkarz)
 #'
@@ -80,6 +99,7 @@ Projekt <- function (myformat = "",
       options(OutDec = OutDec)
     
     options(R2HTML.format.decimal.mark = OutDec)
+    
  
     if ( !dir.exists(output.dir) )
       dir.create( output.dir, showWarnings = TRUE,  recursive = FALSE,  mode = "0777" )
@@ -126,7 +146,12 @@ Projekt <- function (myformat = "",
       }
       
  
-    } else{
+    }  else if(myformat == "spin") { 
+      set_my_options(output="spin")
+      options(continue = "  ")
+      
+      
+      }else{
       options(continue = "  ")
     }
     
@@ -159,6 +184,8 @@ Projekt <- function (myformat = "",
     pr_string <- NULL
   }
   
+  
+ 
   invisible(pr_string)
 }
 
@@ -302,6 +329,16 @@ End <- function(anhang = FALSE,
     file
   else
     cat("\nReset Kontraste\n")
+}
+
+
+#' @rdname Projekt
+#' @export
+Rechnung  <- function(datum=""){
+  Text(paste("Rechnung: ", datum))
+  End()
+  stop()
+  NULL
 }
 
 #' @rdname Projekt
