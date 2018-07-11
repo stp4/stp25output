@@ -26,7 +26,7 @@ Erstellt den Output von Objekten, diese koennen zB. mit Uberschriften versehen s
 \usage{
 Output(x, ...)
 
-which_output(...)
+which_output()
 
 \method{Output}{vector}(x, output = options()$prompt[1] == "HTML> ", ...)
 
@@ -44,7 +44,9 @@ Caption(x = NULL, atr = NULL, output = which_output())
 
 \method{Output}{matrix}(x, ...)
 
-\method{Output}{list}(x, ...)
+\method{Output}{list}(x, caption = NULL, note = NULL,
+  output = which_output(), print_col = NULL, col_names = NULL,
+  fix_colnames = TRUE, ...)
 
 \method{Output}{stp25}(x, ...)
 

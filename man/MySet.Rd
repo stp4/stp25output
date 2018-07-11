@@ -43,7 +43,7 @@ Einstellen der Farben und Symbole ueber \link{trellis.par.set}
 #graphics.off()
  
  
- 
+   lattice::trellis.par.set(effects::effectsTheme())
    
  
  

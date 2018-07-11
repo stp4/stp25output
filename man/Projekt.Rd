@@ -3,6 +3,7 @@
 \name{Projekt}
 \alias{Projekt}
 \alias{End}
+\alias{Rechnung}
 \alias{Methode}
 \alias{Materials}
 \alias{Research_Design}
@@ -22,6 +23,8 @@ End(anhang = FALSE,
   browser = "C:/Program Files (x86)/Internet Explorer/iexplore.exe",
   output = options()$prompt[1] == "HTML> ", ...)
 
+Rechnung(datum = "")
+
 Methode(h = "Methoden", x = NULL, file = NULL)
 
 Materials(h = "Materialien", x = NULL, file = "(1) Get Data.R")
@@ -40,7 +43,7 @@ Statistic(h = "Resultate", x = NULL, file = "(4) Analyse.R")
 get_scriptpath()
 }
 \arguments{
-\item{myformat}{HTML oder Knit oder Console Rpres (R-Presentation)}
+\item{myformat}{HTML, Spin, Knit, Rpres oder Text. Spin ist knitr wobei die Ausgabe der Tabellen mit html erfolgt}
 
 \item{Projektname}{Bezeichnung des Projektes (gilt auch fuer die HTML Seite)}
 
@@ -104,11 +107,30 @@ Quelle: https://stackoverflow.com/questions/18000708/find-location-of-current-r-
  APA2(~. , hkarz)
 
 
-set_my_options(prozent=list(digits=c(1,0), style=2))
+#-- default options
+set_my_options()
 get_my_options()$apa.style$prozent
 
+#-- Speicherort aendern
+get_my_options()$fig_folder
+set_my_options(fig_folder="Fig2/")
+get_my_options()$fig_folder
+
+#-- Format aendern
+set_my_options(prozent=list(digits=c(1,0), style=2))
+
 set_my_options(mittelwert=list(digits=c(1,0), plusmin_sign=TRUE))
-get_my_options()$apa.style$mittelwert
+
+
+#  APA2(~. , hkarz)
+###Names2Language(c("Item", "Characteristics", "Statistics"  ), "de")
+
+
+# options()$stp25$bez$f.value
+ ### Names2Language(c("Pr..Chisq.", "F.value"))
+
+
+
 
 #APA2(~. , hkarz)
 
