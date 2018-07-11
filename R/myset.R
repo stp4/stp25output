@@ -19,7 +19,7 @@
 #' #graphics.off()
 #'  
 #'  
-#'  
+#'    lattice::trellis.par.set(effects::effectsTheme())
 #'    
 # pch = 15:18
 # lty = 1:3
@@ -197,7 +197,7 @@ MySet <- function(col = NULL,
     }
   }
   
-  lattice::trellis.par.set(effects::effectsTheme())
+
 
   cat("done\n\n")
   
