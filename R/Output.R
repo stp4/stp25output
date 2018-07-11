@@ -16,13 +16,26 @@ Output <- function(x, ...) {
 
 #' @rdname Output
 #' @export
-which_output<- function(...){
-  x<- "text"
-  if(is.null(knitr:::out_format())) {
-    if (options()$prompt[1] == "HTML> ") x<-"html"
-  } else{ if(knitr:::out_format() == "markdown") x<-"markdown"}
-
-  x
+which_output <- function() {
+  if (is.null(knitr:::out_format())) {
+    if (options()$prompt[1] == "HTML> ")  {
+      "html"
+    }  else {
+      "text"
+    }
+  } else{
+    if (knitr:::out_format() == "markdown")
+    {
+      if (options()$stp25$output == "spin") {
+        "html"
+      }  else  {
+        "markdown"
+      }
+    }
+    else {
+      "text"
+    }
+  }
 }
 
 
