@@ -2,16 +2,29 @@
 #' @description Output.matrix: umwandeln in einen data.frame
 #' @export
 Output.matrix <- function(x, ...) {
-  Output(fix_to_data_frame(x, ...))
+  Output(fix_to_data_frame(x), ...)
 }
 
 #' @rdname Output
 #' @description Output.iste: einzeln in einen data.frame transformieren
 #' @export
-Output.list <- function(x, ...) {
+Output.list <- function(x, caption = NULL,
+                        note = NULL,
+                        output =  which_output(),
+                        print_col = NULL,
+                        col_names = NULL,
+                        fix_colnames = TRUE,
+                        ...) {
   # noch nicht getestet
   for (i in 1:length(x))
-    Output(fix_to_data_frame(x[[i]], ...))
+    Output(fix_to_data_frame(x[[i]], ...),
+           caption = caption,
+           note = note,
+           output =  output,
+           print_col = print_col,
+           col_names = col_names,
+           fix_colnames = fix_colnames                                                                                      
+           )
 }
 
 #' @rdname Output
@@ -26,7 +39,7 @@ Output.stp25 <- function(x, ...) {
   else
     Output.data.frame(x, ...)
 }
-##methods(Output)
+ 
 
 #' @rdname Output
 #' @description Output.data.frame ist die Standart-Funktion fuer die
@@ -58,6 +71,8 @@ Output.data.frame <-
     
     if (nrow(x) == 0)
       return("Kein Input!")
+    
+    
     caption <- Caption(caption, attr(x, "caption"))
     note <- Note(note, attr(x, "note"))
     
