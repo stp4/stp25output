@@ -18,7 +18,8 @@ fix_to_data_frame.default<- function(x, ...){
 
   if (is.matrix(x)){
     if(!is.null( rownames(x)))
-      cbind(data.frame(Source=rownames(x)), as.data.frame(x))
+      cbind(data.frame(Source=rownames(x), stringsAsFactors = FALSE),
+            as.data.frame(x, stringsAsFactors = FALSE))
     else  as.data.frame(x, stringsAsFactors = FALSE)
   }else if (is.data.frame(x) ){ return (x)
   }else if(is.vector(x)){
@@ -67,7 +68,7 @@ fix_to_data_frame.ftable <-
     else
       res <- x
 
-   as.data.frame(res)
+   as.data.frame(res, stringsAsFactors = FALSE)
   }
 
 #' @rdname fix_to_data_frame
@@ -90,7 +91,7 @@ fix_to_data_frame.table <- function(x,...){
   names(res) <- col.names
   }
   else if (length(dimnames(x))==1){
-    res<- as.data.frame (x)
+    res<- as.data.frame(x, stringsAsFactors = FALSE)
   } else if(length(dimnames(x))==3){
     res<- fix_to_data_frame.ftable(ftable(x))
     # res <- stats:::format.ftable(ftable(x), quote = FALSE
