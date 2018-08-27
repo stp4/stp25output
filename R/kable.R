@@ -27,9 +27,8 @@ Output_kable.default <-
            col.names = colnames(x),
           # format = "latex",
            booktabs=TRUE,
-
-
-
+           latex_options = c("hold_position"),
+          
            note = NULL,
            output =  which_output(),
            print_col = NULL,
@@ -68,14 +67,17 @@ Output_kable.default <-
     if (ebenen == 1 & output == "markdown") {
       print(
         kable_styling(
-        kable(
-        dt,
-        #format,
-        row.names = FALSE,
-        col.names = col.names,
-        booktabs = booktabs,
-        caption = caption
-      )))
+          kable(
+          dt,
+          #format,
+          row.names = FALSE,
+          col.names = col.names,
+          booktabs = booktabs,
+          caption = caption
+        ),
+          latex_options = latex_options
+        )
+      )
 
     }
     else if (ebenen == 2 & output == "markdown") {
@@ -89,16 +91,19 @@ Output_kable.default <-
       n.cgroup <- rle(a1)$lengths
       header_above <- ifelse(n.cgroup == 1, " ", n.cgroup)
       names(header_above) <-  gsub("&nbsp;", ' ', cgroup)
-
+      
       print(add_header_above(
-        kable(
-          dt,
-         # format,
-          row.names = FALSE,
-          col.names = header,
-          booktabs = booktabs,
-          caption = caption,
-          ...
+        kable_styling(
+          kable(
+            dt,
+            # format,
+            row.names = FALSE,
+            col.names = header,
+            booktabs = booktabs,
+            caption = caption,
+            ...
+          ),
+          latex_options = latex_options
         ),
         header_above
       ))
