@@ -52,22 +52,21 @@ Output_kable.default <-
       x <- x[, print_col]
       col.names <- colnames(x)
     }
-
+    
     result_tbl_names <- stringr::str_split(col.names, "_")
     ebenen <- max(lengths(result_tbl_names), na.rm = TRUE)
-
+    
     if (ebenen == 3) {
       #Fehler mit Namee_name_SD abfangen
       result_tbl_names <- stringr::str_split(col.names, "_", 2)
       ebenen <- max(lengths(result_tbl_names), na.rm = TRUE)
     }
-
+    
     dt <- cleanup_for_latex(x)
-
+    
     if (ebenen == 1 & output == "markdown") {
-      print(
-        kable_styling(
-          kable(
+      print(kableExtra::kable_styling(
+        knitr::kable(
           dt,
           #format,
           row.names = FALSE,
@@ -75,28 +74,32 @@ Output_kable.default <-
           booktabs = booktabs,
           caption = caption
         ),
-          latex_options = latex_options
-        )
-      )
-
+        latex_options = latex_options
+      ))
+      
     }
     else if (ebenen == 2 & output == "markdown") {
       a1 <- sapply(result_tbl_names, "[", 1)
       a2 <- sapply(result_tbl_names, "[", 2)
+      
       nas <- is.na(a2)
       a2[nas] <- a1[nas]
       a1[nas] <- ""
       header <- a2
       cgroup <-  rle(a1)$values
       n.cgroup <- rle(a1)$lengths
-      header_above <- ifelse(n.cgroup == 1, " ", n.cgroup)
+      
+      
+      header_above <-
+        n.cgroup #ifelse(n.cgroup == 1, " ", n.cgroup)
+      header_above[1] <- " "
+      
       names(header_above) <-  gsub("&nbsp;", ' ', cgroup)
       
-      print(add_header_above(
-        kable_styling(
-          kable(
+      print(kableExtra::add_header_above(
+        kableExtra::kable_styling(
+          knitr::kable(
             dt,
-            # format,
             row.names = FALSE,
             col.names = header,
             booktabs = booktabs,
@@ -109,6 +112,7 @@ Output_kable.default <-
       ))
     }
     else{
+      cat("\n else \n")
       print(dt)
     }
     invisible(dt)
@@ -120,7 +124,7 @@ Output_kable.default <-
 
 
 cleanup_for_latex <- function(x) {
-  data.frame(llply(x, function(strg) {
+  data.frame(plyr::llply(x, function(strg) {
     if (is.character(strg) | is.factor(strg)) {
       strg <- gsub("&nbsp;", ' ', strg)
       strg[is.na(strg)] <- ""
