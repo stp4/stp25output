@@ -43,6 +43,9 @@ fix_to_data_frame.ftable <-
            nrow = length(attributes(x)$row.vars),
            nlength = ncol + nrow,
            ...) {
+    
+    #cat("\n",ncol, "/", nrow, "/", nlength, "\n")
+    
     if (nlength == 2) {
       res <- stats:::format.ftable(x,
                                    quote = FALSE,
@@ -51,7 +54,7 @@ fix_to_data_frame.ftable <-
                      paste(res[1, 2], res[1, -c(1:2)], sep = "_"))
 
       res <- res[-1, -2]
-      colnames(res) <- col_names
+      colnames(res) <- gsub(" +", "", col_names)
       res[, -1] <- gsub(" +", "", res[, -1])
     }
     else if (nlength == 3) {
@@ -62,14 +65,17 @@ fix_to_data_frame.ftable <-
                      paste(res[1, 3], res[1, -c(1:3)], sep = "_"))
 
       res <- res[-1, -3]
-      colnames(res) <- col_names
+      colnames(res) <- gsub(" +", "", col_names)
+    
       res[, -c(1:2)] <- gsub(" +", "", res[, -c(1:2)])
     }
     else
       res <- x
-
+  
    as.data.frame(res, stringsAsFactors = FALSE)
   }
+
+
 
 #' @rdname fix_to_data_frame
 #' @export
@@ -87,22 +93,15 @@ fix_to_data_frame.table <- function(x,...){
 }
   res <- as.data.frame.matrix(x,
                               stringsAsFactors=FALSE)
-  res <- cbind(Sourse=rownames(res), res)
+  res <- cbind(Sourse=rownames(res), res,
+               stringsAsFactors=FALSE)
   names(res) <- col.names
   }
   else if (length(dimnames(x))==1){
     res<- as.data.frame(x, stringsAsFactors = FALSE)
   } else if(length(dimnames(x))==3){
     res<- fix_to_data_frame.ftable(ftable(x))
-    # res <- stats:::format.ftable(ftable(x), quote = FALSE
-    #                            ,method =  "row.compact")
-    #
-    # col_names <- c(res[1,1], res[1,2],
-    #               paste(res[1,3],  res[1,-c(1:3)], sep="_"))
-    #
-    # res<- res[-1,-3]
-    # colnames(res)<-col_names
-    # res[,-c(1:2)]<- gsub(" +", "", res[,-c(1:2)])
+
   } else stop("Kann in fix_to_data_frame.table keine mehrfach tabellen aufdroeseln!")
   res
 }
