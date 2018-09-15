@@ -14,29 +14,7 @@ Output <- function(x, ...) {
 }
 
 
-#' @rdname Output
-#' @export
-which_output <- function() {
-  if (is.null(knitr:::out_format())) {
-    if (options()$prompt[1] == "HTML> ")  {
-      "html"
-    }  else {
-      "text"
-    }
-  } else{
-    if (knitr:::out_format() == "markdown")
-    {
-      if (options()$stp25$output == "spin") {
-        "html"
-      }  else  {
-        "markdown"
-      }
-    }
-    else {
-      "text"
-    }
-  }
-}
+
 
 
 Output.character <- function(x, output = options()$prompt[1] == "HTML> ", ...) {
@@ -93,119 +71,119 @@ Output.NULL <- function(x, ...){
   
   HTML_BR()
 }
-#' @rdname Output
-#' @export
-Output.default <- function(x,
-                           caption = "", note = "",
-                           output = options()$prompt[1] == "HTML> ",
-                           # print = TRUE,
-                           col_names = NULL,
-                           print_col = NULL,
-                           ...) {
-  
-  Head("Warning in Output.default")
-  cat("\nin Output.default\n")
-  print(class(x))
-  Caption2 <- function(...) {
-    cptn <- gsub(" {2,}", " ", paste(...))
-    #  cat("\n", cptn)
- #   Output_info$table <<-  c(Output_info$table, cptn)
-    cptn
-  }
-  
-  if (output) {
-    ##htmlreg2Print2
-    if (is.list(x) ) {
-      for (i in names(x)) {
-        if (!is.null(print_col))
-          x[[i]] <- x[[i]][, print_col]
-        else if (all(x[[i]][, 2] == ""))  {
-          mynames <- names(x[[i]])
-          x[[i]] <- x[[i]][, -2]
-          names(x[[i]]) <- mynames[-2]
-        }
-        names(x[[i]]) <-
-          find_col_names(col_names, names(x[[i]]), fix_colnames)
-        htmlreg2Print2(
-          x[[i]],
-          caption = Caption2(Tab(), i, caption),
-          caption.above = TRUE,
-          inline.border = FALSE,
-          note = note,
-          center = TRUE
-        )
-      }
-    } else if (is.matrix(x)) {
-      Text("is.matrix")
-      tab <- as.data.frame.matrix(x)
-      tab <- cbind(" " = rownames(x), tab)
-      htmlreg2Print2(
-        tab,
-        caption =  Caption2(Tab(), caption),
-        caption.above = TRUE,
-        inline.border = FALSE,
-        note = note,
-        center = TRUE
-      )
-    } else {
-      # Text("else")
-      if (!is.null(print_col))
-        x <- x[, print_col]
-      else if (all(x[, 2] == "")) {
-        mynames <- names(x)
-        x <- x[, -2]
-        names(x) <- mynames[-2]
-      }## x <- x[,-2] ## Spalte charactristik loeschen
-      #  names(x) <- if(!is.null(col_names)) col_names else Names2Language(names(x))
-      names(x) <-
-        find_col_names(col_names, names(x), fix_colnames)
-      
-      htmlreg2Print2(
-        x,
-        caption = Caption2(Tab(), caption),
-        caption.above = TRUE,
-        inline.border = FALSE,
-        note = note,
-        center = TRUE
-      )
-    }
-    x <- caption
-    Text("")    #-- Leerzeichen zum besseren kopieren
-  } else {
-    if (!is.data.frame(x) & is.list(x)) {
-      ##  ?
-      for (i in names(x)) {
-        if (!is.null(print_col))
-          x[[i]] <- x[[i]][, print_col]
-        else if (all(x[[i]][, 2] == "")) {
-          mynames <- names(x[[i]])
-          x[[i]] <- x[[i]][, -2]
-          names(x[[i]]) <- mynames[-2]
-        }
-        names(x[[i]]) <-
-          find_col_names(col_names, names(x[[i]]), fix_colnames)
-      }
-    }
-    else if (is.data.frame(x)) {
-      if (!is.null(print_col)) {
-        x <- x[, print_col]
-      }
-      else if (all(x[, 2] == ""))  {
-        mynames <- names(x)
-        x <- x[, -2]
-        names(x) <- mynames[-2]
-      } else {
-        cat("\n", class(x), "\n")
-      }
-      names(x) <-
-        find_col_names(col_names, names(x), fix_colnames)
-    }
-    else {
-      cat("\n", class(x), "\n")
-    }
-  }
-  return(x)
-}
+# @rdname Output
+# @export
+# Output.default <- function(x,
+#                            caption = "", note = "",
+#                            output = options()$prompt[1] == "HTML> ",
+#                            # print = TRUE,
+#                            col_names = NULL,
+#                            print_col = NULL,
+#                            ...) {
+#   
+#   Head("Warning in Output.default")
+#   cat("\nin Output.default\n")
+#   print(class(x))
+#   Caption2 <- function(...) {
+#     cptn <- gsub(" {2,}", " ", paste(...))
+#     #  cat("\n", cptn)
+#  #   Output_info$table <<-  c(Output_info$table, cptn)
+#     cptn
+#   }
+#   
+#   if (output) {
+#     ##htmlreg2Print2
+#     if (is.list(x) ) {
+#       for (i in names(x)) {
+#         if (!is.null(print_col))
+#           x[[i]] <- x[[i]][, print_col]
+#         else if (all(x[[i]][, 2] == ""))  {
+#           mynames <- names(x[[i]])
+#           x[[i]] <- x[[i]][, -2]
+#           names(x[[i]]) <- mynames[-2]
+#         }
+#         names(x[[i]]) <-
+#           find_col_names(col_names, names(x[[i]]), fix_colnames)
+#         htmlreg2Print2(
+#           x[[i]],
+#           caption = Caption2(Tab(), i, caption),
+#           caption.above = TRUE,
+#           inline.border = FALSE,
+#           note = note,
+#           center = TRUE
+#         )
+#       }
+#     } else if (is.matrix(x)) {
+#       Text("is.matrix")
+#       tab <- as.data.frame.matrix(x)
+#       tab <- cbind(" " = rownames(x), tab)
+#       htmlreg2Print2(
+#         tab,
+#         caption =  Caption2(Tab(), caption),
+#         caption.above = TRUE,
+#         inline.border = FALSE,
+#         note = note,
+#         center = TRUE
+#       )
+#     } else {
+#       # Text("else")
+#       if (!is.null(print_col))
+#         x <- x[, print_col]
+#       else if (all(x[, 2] == "")) {
+#         mynames <- names(x)
+#         x <- x[, -2]
+#         names(x) <- mynames[-2]
+#       }## x <- x[,-2] ## Spalte charactristik loeschen
+#       #  names(x) <- if(!is.null(col_names)) col_names else Names2Language(names(x))
+#       names(x) <-
+#         find_col_names(col_names, names(x), fix_colnames)
+#       
+#       htmlreg2Print2(
+#         x,
+#         caption = Caption2(Tab(), caption),
+#         caption.above = TRUE,
+#         inline.border = FALSE,
+#         note = note,
+#         center = TRUE
+#       )
+#     }
+#     x <- caption
+#     Text("")    #-- Leerzeichen zum besseren kopieren
+#   } else {
+#     if (!is.data.frame(x) & is.list(x)) {
+#       ##  ?
+#       for (i in names(x)) {
+#         if (!is.null(print_col))
+#           x[[i]] <- x[[i]][, print_col]
+#         else if (all(x[[i]][, 2] == "")) {
+#           mynames <- names(x[[i]])
+#           x[[i]] <- x[[i]][, -2]
+#           names(x[[i]]) <- mynames[-2]
+#         }
+#         names(x[[i]]) <-
+#           find_col_names(col_names, names(x[[i]]), fix_colnames)
+#       }
+#     }
+#     else if (is.data.frame(x)) {
+#       if (!is.null(print_col)) {
+#         x <- x[, print_col]
+#       }
+#       else if (all(x[, 2] == ""))  {
+#         mynames <- names(x)
+#         x <- x[, -2]
+#         names(x) <- mynames[-2]
+#       } else {
+#         cat("\n", class(x), "\n")
+#       }
+#       names(x) <-
+#         find_col_names(col_names, names(x), fix_colnames)
+#     }
+#     else {
+#       cat("\n", class(x), "\n")
+#     }
+#   }
+#   return(x)
+# }
 #-----------------------------------------------------------------
 
 
@@ -290,20 +268,4 @@ Output.default <- function(x,
 #   invisible(mx)
 # }
 
-#' @rdname Output
-#' @param atr in Caption: alternativer Text
-#' @description  Ueberschrift aus stp-Objekt: Caption(caption, attr(x, "caption"))
-#' oder Note(note, attr(x, "note")) mit
-Caption <- function(x=NULL, atr=NULL, output =  which_output()){
-  caption <- if(is.null(x) & (!is.null(atr))) atr
-  else if(!is.null(x)) x
-  else ""
- if(output=="html") Tab(caption)
-  else caption
-}
 
-Note<- function(x=NULL, atr=NULL){
-  if(is.null(x) & (!is.null(atr))) atr
-  else if(!is.null(x)) x
-  else ""
-}
