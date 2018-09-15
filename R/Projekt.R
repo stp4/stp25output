@@ -6,23 +6,23 @@
 #' Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
 #'
 #' @param myformat HTML, Spin, Knit, Rpres oder Text. Spin ist knitr wobei die Ausgabe der Tabellen mit html erfolgt
-#' 
+#'
 #' @param Projektname Bezeichnung des Projektes (gilt auch fuer die HTML Seite)
 #' @param datum Datum zur Dokumentation
 #' @param fig_folder,html_folder Folder wenn ein ander Ort gewuenscht
-#'  
+#'
 #' @param OutDec Komma oder Punkt
 #' @param contrasts default wie SPSS
 #' @param html_name intern nicht aendern
 #' @param css Eigense Format
 #' @param ... weitere Objekte nicht benutzt
-#' 
+#'
 #' @name Projekt
 #' @return Pfad als Text
 #' @export
 #'
 #' @examples
-#' 
+#'
 #' \dontrun{
 #' # require(stpvers)
 #'
@@ -47,16 +47,16 @@
 #' set_my_options(prozent=list(digits=c(1,0), style=2))
 #'
 #' set_my_options(mittelwert=list(digits=c(1,0), plusmin_sign=TRUE))
-#' 
-#' 
+#'
+#'
 #' #  APA2(~. , hkarz)
 #' ###Names2Language(c("Item", "Characteristics", "Statistics"  ), "de")
-#' 
-#' 
+#'
+#'
 #' # options()$stp25$bez$f.value
 #'  ### Names2Language(c("Pr..Chisq.", "F.value"))
 #'
-#' 
+#'
 #'
 #'
 #' #APA2(~. , hkarz)
@@ -89,10 +89,19 @@ Projekt <- function (myformat = "",
     }
     
     myDir <- getwd()
-    myURL <- paste("file://", myDir,"/",html_folder, "/", html_name, ".", myformat, sep = "")
+    myURL <-
+      paste("file://",
+            myDir,
+            "/",
+            html_folder,
+            "/",
+            html_name,
+            ".",
+            myformat,
+            sep = "")
     output.dir <- paste(myDir, html_folder, sep = "/")
     
-   
+    
     if (is.null(OutDec))
       OutDec <- options()$OutDec
     else
@@ -100,13 +109,23 @@ Projekt <- function (myformat = "",
     
     options(R2HTML.format.decimal.mark = OutDec)
     
- 
-    if ( !dir.exists(output.dir) )
-      dir.create( output.dir, showWarnings = TRUE,  recursive = FALSE,  mode = "0777" )
- 
-    if ( !dir.exists(fig_folder) ) 
-      dir.create( fig_folder, showWarnings = TRUE, recursive = FALSE, mode = "0777" )
-
+    
+    if (!dir.exists(output.dir))
+      dir.create(
+        output.dir,
+        showWarnings = TRUE,
+        recursive = FALSE,
+        mode = "0777"
+      )
+    
+    if (!dir.exists(fig_folder))
+      dir.create(
+        fig_folder,
+        showWarnings = TRUE,
+        recursive = FALSE,
+        mode = "0777"
+      )
+    
     if (fig_folder != "Fig")
       set_my_options(fig_folder = paste0(fig_folder, "/"))
     
@@ -121,9 +140,9 @@ Projekt <- function (myformat = "",
         " umgestellt!\n"
       )
     }
- 
-    set_default_params(list(Tab_Index = 0, Abb_Index = 0))
     
+    set_default_params(list(Tab_Index = 0, Abb_Index = 0))
+  
     if (myformat == "html") {
       set_default_params(list(
         file.name.index = 0,
@@ -137,21 +156,15 @@ Projekt <- function (myformat = "",
         echo = FALSE,
         HTMLframe = FALSE
       )
- 
+      
       if (css) {
         myCssFile <- file.path(output.dir, "R2HTML.css")
         cat("\nCSS-File:" , myCssFile, "\n")
-        if(!file.exists(myCssFile ))
-            cat(MyCss(), file =myCssFile )
+        if (!file.exists(myCssFile))
+          cat(MyCss(), file = myCssFile)
       }
-      
- 
-    }  else if(myformat == "spin") { 
-      set_my_options(output="spin")
-      options(continue = "  ")
-      
-      
-      }else{
+    }   
+    else{
       options(continue = "  ")
     }
     
@@ -168,7 +181,7 @@ Projekt <- function (myformat = "",
     Text(pr_string)
     
   }
-  else{ 
+  else{
     #myDir <- getwd()
     if (!is.null(OutDec))
       options(OutDec = OutDec)
@@ -184,8 +197,7 @@ Projekt <- function (myformat = "",
     pr_string <- NULL
   }
   
-  
- 
+  set_my_options(output = myformat)
   invisible(pr_string)
 }
 
@@ -214,7 +226,7 @@ MyCss <- function() {
   font-weight: bold;
   line-height: 25pt;
   color: #004080;
- 
+  
   }
   
   H2 {
@@ -252,15 +264,15 @@ MyCss <- function() {
   color: #000000;
   line-height: 10pt;
   }
-
-
-   TABLE, TH, TD  {
+  
+  
+  TABLE, TH, TD  {
   font-family: Arial, Helvetica,  Helvetica, sans-serif;
   font-size: 8pt;
   font-style: normal;
   line-height: normal;
-   } 
-
+  }
+  
   LI {
   font-family: "Times New Roman", Times, serif;
   font-size: 10pt
@@ -272,16 +284,16 @@ MyCss <- function() {
   text-decoration: none
   }
   
-
   
-
-P{
-font-family: "Times New Roman", Times, serif;
+  
+  
+  P{
+  font-family: "Times New Roman", Times, serif;
   font-style: normal;
   font-size: 10pt;
-}
-
- '
+  }
+  
+  '
 }
 
 
@@ -334,7 +346,7 @@ End <- function(anhang = FALSE,
 
 #' @rdname Projekt
 #' @export
-Rechnung  <- function(datum=""){
+Rechnung  <- function(datum = "") {
   Text(paste("Rechnung: ", datum))
   End()
   stop()
@@ -355,7 +367,8 @@ Methode <- function(h = "Methoden",
                     x = NULL,
                     file = NULL) {
   HTML_BR()
-  Head(h, style = 1)
+  if (!is.null(h))
+    Head(h, style = 1)
   if (!is.null(file)) {
     HTML_I(paste(file, file.info(file)$mtime))
     
@@ -373,7 +386,8 @@ Materials <- function(h = "Materialien",
                       x = NULL,
                       file = "(1) Get Data.R") {
   HTML_BR()
-  Head(h, style = 2)
+  if (!is.null(h))
+    Head(h, style = 2)
   if (!is.null(file)) {
     HTML_I(paste(file, file.info(file)$mtime))
     
@@ -392,7 +406,8 @@ Research_Design <-
            x = NULL,
            file = NULL) {
     HTML_BR()
-    Head(h, style = 2)
+    if (!is.null(h))
+      Head(h, style = 2)
     if (!is.null(file)) {
       HTML_I(paste(file, file.info(file)$mtime))
       
@@ -410,7 +425,8 @@ Measures <- function(h = "Messinstrument",
                      x = NULL,
                      file = "(2) Measures.R") {
   HTML_BR()
-  Head(h, style = 2)
+  if (!is.null(h))
+    Head(h, style = 2)
   if (!is.null(file)) {
     HTML_I(paste(file, file.info(file)$mtime))
     
@@ -429,10 +445,11 @@ Results <- function(h = "Ergebnisse",
                     file = NULL) {
   HTML_BR()
   HTML_HR()
-  Head(h, style = 1)
+  if (!is.null(h))
+    Head(h, style = 1)
   if (!is.null(file)) {
     HTML_I(paste(file, file.info(file)$mtime))
-      }
+  }
   
   if (!is.null(x))
     Text(x)
@@ -447,10 +464,11 @@ Demographic_Variables <- function(h = "Deskriptive Analyse",
                                   x = NULL,
                                   file = "(3) Demographic.R") {
   HTML_BR()
-  Head(h, style = 2)
+  if (!is.null(h))
+    Head(h, style = 2)
   if (!is.null(file)) {
     HTML_I(paste(file, file.info(file)$mtime))
-      }
+  }
   
   if (!is.null(x))
     Text(x)
@@ -458,7 +476,7 @@ Demographic_Variables <- function(h = "Deskriptive Analyse",
   if (!is.null(file)) {
     source(file, encoding = "UTF-8") # or "latin1"
   }
-  }
+}
 
 #' @rdname Projekt
 #' @export
@@ -467,11 +485,12 @@ Statistic <-
            x = NULL,
            file = "(4) Analyse.R") {
     HTML_BR()
-    Head(h, style = 2)
+    if (!is.null(h))
+      Head(h, style = 2)
     
     if (!is.null(file)) {
       HTML_I(paste(file, file.info(file)$mtime))
-      }
+    }
     # HTML_I(paste(file, file.info(file)$mtime))
     if (!is.null(x))
       Text(x)
@@ -512,4 +531,4 @@ get_scriptpath <- function() {
     args <- commandArgs(trailingOnly = FALSE)
   }
   return(path)
-  }
+}
