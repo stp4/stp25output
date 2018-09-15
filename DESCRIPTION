@@ -2,15 +2,18 @@ Package: stp25output
 Type: Package
 Encoding: UTF-8
 Title: Reports und Auswertungen
-Version: 0.2.1
-Date: 2018-01-25
+Version: 0.4.0
+Date: 2018-09-15
 Author: Wolfgang Peter
 Maintainer: Wolfgang Peter <w.peter@statistik-peter.at>
 Description: Reports erstellen die Tabellen und Texte werden dabei als HTML ausgegeben.
 License: GPL-3
 Depends: R (>= 3.2)
 Imports: magrittr,car,Hmisc,R2HTML,plyr,stp25APA2,htmlTable,kableExtra,knitr,stringr,stats
-Suggests: haven,rmarkdown
+Suggests: 
+    haven,
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
 LazyData: TRUE
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
