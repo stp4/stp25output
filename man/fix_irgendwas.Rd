@@ -10,9 +10,9 @@
 \title{Fix Objekt zu Data.Frame}
 \usage{
 fix_format(x, exclude = NULL, digits = NULL,
-  pattern_pval = c("Pr\\\\(\\\\>", "Pr\\\\.\\\\.", "p\\\\.value", "p value",
-  "pvalue"), pattern_est = c("Estimate", "Std\\\\. Error", "est.std", "se"),
-  pattern_df = c("Df"), pattern_N = c("N", "n"),
+  pattern_pval = c("Pr\\\\(\\\\>", "Pr\\\\.\\\\.", "p\\\\.value",
+  "p value", "pvalue"), pattern_est = c("Estimate", "Std\\\\. Error",
+  "est.std", "se"), pattern_df = c("Df"), pattern_N = c("N", "n"),
   apa.style = options()$stp25$apa.style, ...)
 
 fix_format_p(x, df1 = NULL, df2 = null, p = NULL)

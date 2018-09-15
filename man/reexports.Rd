@@ -4,13 +4,9 @@
 \name{reexports}
 \alias{reexports}
 \alias{\%>\%}
-\alias{reexports}
 \alias{Cs}
-\alias{reexports}
 \alias{contr.Treatment}
-\alias{reexports}
 \alias{contr.Sum}
-\alias{reexports}
 \alias{contr.Helmert}
 \title{Objects exported from other packages}
 \keyword{internal}

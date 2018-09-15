@@ -4,10 +4,11 @@
 \alias{MySet}
 \title{MySet}
 \usage{
-MySet(col = NULL, pch = 15:18, lty = 1:3, cex = 1, col.bar = NULL,
-  n = if (is.numeric(col)) col else 4, h.start = 120,
+MySet(col = NULL, pch = 15:18, lty = 1:3, cex = 1,
+  col.bar = NULL, n = if (is.numeric(col)) col else 4, h.start = 120,
   theme = latticeExtra::ggplot2like(n = n, h.start = h.start),
-  axis.grid = FALSE, knit = stp25output::which_output() == "markdown", ...)
+  axis.grid = FALSE, knit = stp25output::which_output() == "markdown",
+  ...)
 }
 \arguments{
 \item{col}{Farben brewer.pal(9,"Set1")}
