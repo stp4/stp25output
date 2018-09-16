@@ -1,24 +1,20 @@
-#' Start eines neuen Prpjekts
+#' Projekt
 #'
-#' Mit \code{Projekt()} werden die default Einstellungen (Kontraste) gesetzt sowie die Folder erstellt.
+#' Start eines neuen Prpjekts, mit \code{Projekt()} werden die default Einstellungen (Kontraste) gesetzt sowie die Folder erstellt.
 #' Weiters wird die Ausgabe als HTML gesteuert.
 #' Weitere Optionen fuer die Formatierung koennen mit \code{default_stp25_opt()} gesetzt.
 #' Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
-#'
 #' @param myformat HTML, Spin, Knit, Rpres oder Text. Spin ist knitr wobei die Ausgabe der Tabellen mit html erfolgt
-#'
 #' @param Projektname Bezeichnung des Projektes (gilt auch fuer die HTML Seite)
 #' @param datum Datum zur Dokumentation
-#' @param fig_folder,html_folder Folder wenn ein ander Ort gewuenscht
-#'
-#' @param OutDec Komma oder Punkt
+#' @param fig_folder,html_folder Folder bei html wenn ein ander Ort gewuenscht
+#' @param OutDec  Komma oder Punkt
 #' @param contrasts default wie SPSS
-#' @param html_name intern nicht aendern
-#' @param css Eigense Format
+#' @param css css Eigense Format
 #' @param ... weitere Objekte nicht benutzt
-#'
 #' @name Projekt
-#' @return Pfad als Text
+#'
+#' @return html-Pfad oder Projektname als Text
 #' @export
 #'
 #' @examples
@@ -65,22 +61,112 @@
 #'
 #' }
 #'
-Projekt <- function (myformat = "",
-                     Projektname = "Demo",
-                     datum = date(),
-                     fig_folder = "Fig",
-                     html_folder = "Results",
-                     OutDec = NULL,
-                     contrasts =  c("contr.Treatment", "contr.poly"),
-                     html_name = stpvers::Clean_Umlaute2(Projektname),
-                     css = TRUE,
-                     ...)
-{
-  #t1 <- Sys.time()
-  myformat <- tolower(myformat)
+Projekt <- function(myformat = "",
+                    Projektname = "Demo",
+                    datum = date(),
+                    fig_folder = "Fig",
+                    html_folder = "Results",
+                    OutDec = NULL,
+                    contrasts =  c("contr.Treatment", "contr.poly"),
+                    css = TRUE,
+                    ...) {
+  set.seed(0815)
+  path <- NULL
   
+  if (!is.null(sys.calls())) {
+    path <- tolower(as.character(sys.call(1))[2])
+    
+    if (grepl("..+\\.[Rmd|Rnw]",
+              path,
+              perl = TRUE,
+              ignore.case = TRUE)) {
+      Projekt_html(
+        myformat = tolower(myformat),
+        Projektname = Projektname,
+        datum = datum,
+        fig_folder = fig_folder,
+        html_folder = html_folder,
+        OutDec = OutDec,
+        contrasts =  contrasts,
+        css = css,
+        ...
+      )
+    }
+  }
+  else{
+    Projekt_Rmd(
+      myformat = tolower(myformat),
+      Projektname = Projektname,
+      datum = datum,
+      OutDec = OutDec,
+      contrasts =  contrasts
+    )
+  }
+}
+
+
+
+
+
+
+
+#' @rdname Projekt
+#' @description Einstellungen fuer .Rmd files hier werden keine Folder erstellt
+ProjektProjekt_Rmd <- function (myformat,
+                                Projektname,
+                                datum,
+                                OutDec,
+                                contrasts)
+{
+  if (is.null(OutDec))
+    OutDec <- options()$OutDec
+  else
+    options(OutDec = OutDec)
+  
+  if (!is.null(contrasts)) {
+    oldc <- getOption("contrasts")
+    options(contrasts = contrasts)
+    cat(
+      "\nKontraste von " ,
+      paste(oldc, collapse = ", "),
+      "auf\n",
+      paste(contrasts, collapse = ", "),
+      " umgestellt!\n"
+    )
+  }
+  
+  set_default_params(list(Tab_Index = 0, Abb_Index = 0))
+  set_my_options(output = myformat)
+  
+  invisible(
+    paste(
+      Projektname,
+      "\n Datum: ",
+      datum,
+      ", Software: ",
+      R.version.string ,
+      ", Link: www.R-project.org/\nFile: ",
+      get_scriptpath()
+    )
+  )
+}
+
+
+#' @rdname Projekt
+#' @description Einstellungen fuer HTNL mit \code{R2HTML::HTMLStart()}
+#' @param html_name umlaute bereinigter Projektname
+
+Projekt_html <- function (myformat,
+                          Projektname,
+                          datum,
+                          fig_folder,
+                          html_folder,
+                          OutDec,
+                          contrasts,
+                          html_name = stpvers::Clean_Umlaute2(Projektname),
+                          css = TRUE)
+{
   if (myformat != "rpres") {
-    set.seed(0815)
     if (Projektname == "Demo")
       setwd("C:/Users/wpete/Dropbox/3_Forschung/R-Project")
     #-- Fehler Abfangen
@@ -142,7 +228,7 @@ Projekt <- function (myformat = "",
     }
     
     set_default_params(list(Tab_Index = 0, Abb_Index = 0))
-  
+    
     if (myformat == "html") {
       set_default_params(list(
         file.name.index = 0,
@@ -163,7 +249,7 @@ Projekt <- function (myformat = "",
         if (!file.exists(myCssFile))
           cat(MyCss(), file = myCssFile)
       }
-    }   
+    }
     else{
       options(continue = "  ")
     }
@@ -182,7 +268,6 @@ Projekt <- function (myformat = "",
     
   }
   else{
-    #myDir <- getwd()
     if (!is.null(OutDec))
       options(OutDec = OutDec)
     if (fig_folder != "Fig")
@@ -200,6 +285,144 @@ Projekt <- function (myformat = "",
   set_my_options(output = myformat)
   invisible(pr_string)
 }
+
+
+
+# Projekt <- function (myformat = "",
+#                      Projektname = "Demo",
+#                      datum = date(),
+#                      fig_folder = "Fig",
+#                      html_folder = "Results",
+#                      OutDec = NULL,
+#                      contrasts =  c("contr.Treatment", "contr.poly"),
+#                      html_name = stpvers::Clean_Umlaute2(Projektname),
+#                      css = TRUE,
+#                      ...)
+# {
+#   #t1 <- Sys.time()
+#   myformat <- tolower(myformat)
+#   
+#   if (myformat != "rpres") {
+#     set.seed(0815)
+#     if (Projektname == "Demo")
+#       setwd("C:/Users/wpete/Dropbox/3_Forschung/R-Project")
+#     #-- Fehler Abfangen
+#     if (options()$prompt[1] == "HTML> ") {
+#       options(prompt = "> ")
+#     }
+#     
+#     myDir <- getwd()
+#     myURL <-
+#       paste("file://",
+#             myDir,
+#             "/",
+#             html_folder,
+#             "/",
+#             html_name,
+#             ".",
+#             myformat,
+#             sep = "")
+#     output.dir <- paste(myDir, html_folder, sep = "/")
+#     
+#     
+#     if (is.null(OutDec))
+#       OutDec <- options()$OutDec
+#     else
+#       options(OutDec = OutDec)
+#     
+#     options(R2HTML.format.decimal.mark = OutDec)
+#     
+#     
+#     if (!dir.exists(output.dir))
+#       dir.create(
+#         output.dir,
+#         showWarnings = TRUE,
+#         recursive = FALSE,
+#         mode = "0777"
+#       )
+#     
+#     if (!dir.exists(fig_folder))
+#       dir.create(
+#         fig_folder,
+#         showWarnings = TRUE,
+#         recursive = FALSE,
+#         mode = "0777"
+#       )
+#     
+#     if (fig_folder != "Fig")
+#       set_my_options(fig_folder = paste0(fig_folder, "/"))
+#     
+#     if (!is.null(contrasts)) {
+#       oldc <- getOption("contrasts")
+#       options(contrasts = contrasts)
+#       cat(
+#         "\nKontraste von " ,
+#         paste(oldc, collapse = ", "),
+#         "auf\n",
+#         paste(contrasts, collapse = ", "),
+#         " umgestellt!\n"
+#       )
+#     }
+#     
+#     set_default_params(list(Tab_Index = 0, Abb_Index = 0))
+#   
+#     if (myformat == "html") {
+#       set_default_params(list(
+#         file.name.index = 0,
+#         reset = par(no.readonly = TRUE)
+#       ))
+#       
+#       R2HTML::HTMLStart(
+#         outdir = output.dir,
+#         file = html_name,
+#         extension = myformat,
+#         echo = FALSE,
+#         HTMLframe = FALSE
+#       )
+#       
+#       if (css) {
+#         myCssFile <- file.path(output.dir, "R2HTML.css")
+#         cat("\nCSS-File:" , myCssFile, "\n")
+#         if (!file.exists(myCssFile))
+#           cat(MyCss(), file = myCssFile)
+#       }
+#     }   
+#     else{
+#       options(continue = "  ")
+#     }
+#     
+#     
+#     pr_string <- paste(
+#       Projektname,
+#       "\n Datum: ",
+#       datum,
+#       ", Software: ",
+#       R.version.string ,
+#       ", Link: www.R-project.org/\nFile: ",
+#       get_scriptpath()
+#     )
+#     Text(pr_string)
+#     
+#   }
+#   else{
+#     #myDir <- getwd()
+#     if (!is.null(OutDec))
+#       options(OutDec = OutDec)
+#     if (fig_folder != "Fig")
+#       set_my_options(fig_folder = paste0(fig_folder, "/"))
+#     
+#     if (!is.null(contrasts)) {
+#       oldc <- getOption("contrasts")
+#       options(contrasts = contrasts)
+#     }
+#     
+#     set_default_params(list(Tab_Index = 0, Abb_Index = 0))
+#     pr_string <- NULL
+#   }
+#   
+#   set_my_options(output = myformat)
+#   invisible(pr_string)
+# }
 
 
 

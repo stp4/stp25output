@@ -2,6 +2,8 @@
 % Please edit documentation in R/Projekt.R
 \name{Projekt}
 \alias{Projekt}
+\alias{ProjektProjekt_Rmd}
+\alias{Projekt_html}
 \alias{End}
 \alias{Rechnung}
 \alias{Methode}
@@ -12,12 +14,17 @@
 \alias{Demographic_Variables}
 \alias{Statistic}
 \alias{get_scriptpath}
-\title{Start eines neuen Prpjekts}
+\title{Projekt}
 \usage{
 Projekt(myformat = "", Projektname = "Demo", datum = date(),
   fig_folder = "Fig", html_folder = "Results", OutDec = NULL,
-  contrasts = c("contr.Treatment", "contr.poly"),
-  html_name = stpvers::Clean_Umlaute2(Projektname), css = TRUE, ...)
+  contrasts = c("contr.Treatment", "contr.poly"), css = TRUE, ...)
+
+ProjektProjekt_Rmd(myformat, Projektname, datum, OutDec, contrasts)
+
+Projekt_html(myformat, Projektname, datum, fig_folder, html_folder, OutDec,
+  contrasts, html_name = stpvers::Clean_Umlaute2(Projektname),
+  css = TRUE)
 
 End(anhang = FALSE,
   browser = "C:/Program Files (x86)/Internet Explorer/iexplore.exe",
@@ -49,17 +56,17 @@ get_scriptpath()
 
 \item{datum}{Datum zur Dokumentation}
 
-\item{fig_folder, html_folder}{Folder wenn ein ander Ort gewuenscht}
+\item{fig_folder, html_folder}{Folder bei html wenn ein ander Ort gewuenscht}
 
 \item{OutDec}{Komma oder Punkt}
 
 \item{contrasts}{default wie SPSS}
 
-\item{html_name}{intern nicht aendern}
-
-\item{css}{Eigense Format}
+\item{css}{css Eigense Format}
 
 \item{...}{weitere Objekte nicht benutzt}
+
+\item{html_name}{umlaute bereinigter Projektname}
 
 \item{anhang}{Ja/Nein}
 
@@ -74,13 +81,17 @@ get_scriptpath()
 \item{file}{auszufuerendes File}
 }
 \value{
-Pfad als Text
+html-Pfad oder Projektname als Text
 }
 \description{
-Mit \code{Projekt()} werden die default Einstellungen (Kontraste) gesetzt sowie die Folder erstellt.
+Start eines neuen Prpjekts, mit \code{Projekt()} werden die default Einstellungen (Kontraste) gesetzt sowie die Folder erstellt.
 Weiters wird die Ausgabe als HTML gesteuert.
 Weitere Optionen fuer die Formatierung koennen mit \code{default_stp25_opt()} gesetzt.
 Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
+
+Einstellungen fuer .Rmd files hier werden keine Folder erstellt
+
+Einstellungen fuer HTNL mit \code{R2HTML::HTMLStart()}
 
 \subsection{End}{
 Zuruecksetzen der Einstellungen und Aufruf des Browsers browser = getOption("browser")}
