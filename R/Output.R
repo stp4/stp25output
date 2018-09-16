@@ -1,5 +1,5 @@
 #' Ausgabe von HTML, Knit oder Text
-#'  
+#'
 #' Erstellt den Output von Objekten, diese koennen zB. mit Uberschriften versehen sein.
 #' @name Output
 #' @param x Objekt liste oder Dataframe
@@ -8,31 +8,31 @@
 #' @return HTML oder Textausgabe
 #' @author Wolfgang Peter
 #' @export
-#' 
+#'
 Output <- function(x, ...) {
   UseMethod("Output")
 }
 
-
-
-
-
-Output.character <- function(x, output = options()$prompt[1] == "HTML> ", ...) {
-  if(output){
-  if(any(class(x)== "texregTable")) HTML_CENTER(x)
-   else
-     HTML_P(x)}
-  else x
+#' @rdname Output
+Output.character <- function(x, output = which_output(), ...) {
+  if (output) {
+    if (any(class(x) == "texregTable"))
+      HTML_CENTER(x)
+    else
+      HTML_P(x)
+  }
+  else
+    x
 }
 
 #' @rdname Output
-#' @export
 Output.vector <- function(x,
-                          output = options()$prompt[1] == "HTML> ",
+                          output = which_output() ,
                           ...) {
-  if(output)
-      HTML_P(x)
-  else x
+  if (output)
+    HTML_P(x)
+  else
+    x
 }
 
 
@@ -44,35 +44,39 @@ Output.vector <- function(x,
 #'  schon vorbereitet. Bei Markdown kommt output=FALSE
 #' @export
 Output.htmlTable <- function(x,
-                             output = which_output()) {
-
-  if (output=="html") {
-    if (is.list(x)) # von htmlTable
-      HTML_CENTER( x[[1]] )
-    else HTML_CENTER( x )
-
+                             output = which_output(), ...) {
+  if (output == "html") {
+    if (is.list(x))
+      # von htmlTable
+      HTML_CENTER(x[[1]])
+    else
+      HTML_CENTER(x)
   }
-  else if(output=="markdown"){
-    if (is.list(x)) # von htmlTable
-      print( x[[1]] )
-    else print( x )
+  else if (output == "markdown") {
+    if (is.list(x))
+      # von htmlTable
+      print(x[[1]])
+    else
+      print(x)
   }
   else{
     return(x[[1]])
   }
 }
 
-
 #' @rdname Output
 #' @export
-Output.NULL <- function(x, ...){
+Output.NULL <- function(x, ...) {
   if (!exists("Tab_Index"))
-  cat("\nNach Tabelle ", Tab_Index, " ist der Output NULL!\n")
-  
-  HTML_BR()
+    cat("\nNach Tabelle ", Tab_Index, " ist der Output NULL!\n")
 }
-# @rdname Output
-# @export
+#' @rdname Output
+#'
+Output.default <- function(x, ...) {
+  cat("\nin Output.default class: class(x)[1] \n")
+}
+
+
 # Output.default <- function(x,
 #                            caption = "", note = "",
 #                            output = options()$prompt[1] == "HTML> ",
@@ -80,7 +84,7 @@ Output.NULL <- function(x, ...){
 #                            col_names = NULL,
 #                            print_col = NULL,
 #                            ...) {
-#   
+#
 #   Head("Warning in Output.default")
 #   cat("\nin Output.default\n")
 #   print(class(x))
@@ -90,7 +94,7 @@ Output.NULL <- function(x, ...){
 #  #   Output_info$table <<-  c(Output_info$table, cptn)
 #     cptn
 #   }
-#   
+#
 #   if (output) {
 #     ##htmlreg2Print2
 #     if (is.list(x) ) {
@@ -137,7 +141,7 @@ Output.NULL <- function(x, ...){
 #       #  names(x) <- if(!is.null(col_names)) col_names else Names2Language(names(x))
 #       names(x) <-
 #         find_col_names(col_names, names(x), fix_colnames)
-#       
+#
 #       htmlreg2Print2(
 #         x,
 #         caption = Caption2(Tab(), caption),
@@ -187,7 +191,7 @@ Output.NULL <- function(x, ...){
 #-----------------------------------------------------------------
 
 
- 
+
 # @rdname Output
 # @export
 # text_as_table <- function(x,
@@ -218,7 +222,7 @@ Output.NULL <- function(x, ...){
 #     strg <- strg[!wo_is_line]
 #     wo_is_line <- which(wo_is_line == 1)
 #   }
-#   
+#
 #   if (wo_is_line == 2) {
 #     head_names <- strg[[1]]
 #     mx <- t(sapply(strg[-1], c))
@@ -230,7 +234,7 @@ Output.NULL <- function(x, ...){
 #       note = note,
 #       output = output
 #     )
-#     
+#
 #   }
 #   else {
 #     headernr <- 1:(wo_is_line - 1)
@@ -264,8 +268,6 @@ Output.NULL <- function(x, ...){
 #       output = output
 #     )
 #   }
-#   
+#
 #   invisible(mx)
 # }
-
-

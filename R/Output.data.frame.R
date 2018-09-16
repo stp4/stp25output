@@ -80,8 +80,7 @@ Output.data.frame <-
     
     tbl <- tbl_header(x, col.names)
     # print(tbl)
-    if (output == "html" | output=="markdown_html") {
-     
+    if (output == "html" | output == "markdown_html") {
       x <- insert_nbsp(x)
       tbl$header <-  gsub(" +", '&nbsp;', tbl$header)
       tbl$cgroup <-  gsub(" +", '&nbsp;', tbl$cgroup)
@@ -99,39 +98,36 @@ Output.data.frame <-
           ...
         )
       }
-     else{ res <- htmlTable::htmlTable(
-        x,
-        caption = caption,
-        header = tbl$header,
-        rnames = FALSE,
-        cgroup = tbl$cgroup,
-        n.cgroup = tbl$n.cgroup,
-        align = align,
-        tfoot = note,
-        escape.html = FALSE,
-        css.table = css.table,
-        css.cell = css.table,
-        ...
-     )}
-      if (output == "html" ){
+      else{
+        res <- htmlTable::htmlTable(
+          x,
+          caption = caption,
+          header = tbl$header,
+          rnames = FALSE,
+          cgroup = tbl$cgroup,
+          n.cgroup = tbl$n.cgroup,
+          align = align,
+          tfoot = note,
+          escape.html = FALSE,
+          css.table = css.table,
+          css.cell = css.table,
+          ...
+        )
+      }
+      if (output == "html") {
         HTML_BR()
-      HTML_CENTER(res)
-      }else{print(res)}
+        HTML_CENTER(res)
+        HTML_BR()
+      } else{
+        print(res)
+      }
       
       
     }
     else if (output ==  "markdown") {
-      
-      
     
-      
-      
       x <- cleanup_nbsp(x)
-      
-    #  print(x)
-     
-     
-      
+
       if (is.null(tbl$header_above)) {
         print(kableExtra::kable_styling(
           knitr::kable(
@@ -175,8 +171,7 @@ Output.data.frame <-
                  tbl$header,
                  paste0(tbl$header_above2, " / ", tbl$header))
       
-    
-      print(
+    print(
         knitr::kable(
           x,
           row.names = FALSE,

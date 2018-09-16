@@ -3,9 +3,11 @@
 %   R/Output_kable.R, R/apa_table.R, R/kable.R, R/xtabs.R
 \name{Output}
 \alias{Output}
+\alias{Output.character}
 \alias{Output.vector}
 \alias{Output.htmlTable}
 \alias{Output.NULL}
+\alias{Output.default}
 \alias{Output.list}
 \alias{Output.matrix}
 \alias{Output.stp25}
@@ -16,17 +18,19 @@
 \alias{Output.table}
 \alias{Output.xtabs}
 \alias{Output.ftable}
-\title{Ausgabe von HTML, Knit oder Text
- 
-Erstellt den Output von Objekten, diese koennen zB. mit Uberschriften versehen sein.}
+\title{Ausgabe von HTML, Knit oder Text}
 \usage{
 Output(x, ...)
 
-\method{Output}{vector}(x, output = options()$prompt[1] == "HTML> ", ...)
+\method{Output}{character}(x, output = which_output(), ...)
 
-\method{Output}{htmlTable}(x, output = which_output())
+\method{Output}{vector}(x, output = which_output(), ...)
+
+\method{Output}{htmlTable}(x, output = which_output(), ...)
 
 \method{Output}{NULL}(x, ...)
+
+\method{Output}{default}(x, ...)
 
 \method{Output}{list}(x, ...)
 
@@ -84,6 +88,8 @@ Output_kable(x, ...)
 HTML oder Textausgabe
 }
 \description{
+Erstellt den Output von Objekten, diese koennen zB. mit Uberschriften versehen sein.
+
 Output.htmlTable: Verarbeitet htmlTable-Objekt als auch Listen
  oder auch einfach nur ein string. Die Tabelle mit Header usw ist dabei
  schon vorbereitet. Bei Markdown kommt output=FALSE
