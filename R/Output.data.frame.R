@@ -1,6 +1,7 @@
 
+
 #' Ausgabe von Tabellen
-#' 
+#'
 #' Output.data.frame ist die Standart-Funktion fuer die
 #' Ausgabe. Sie Arbeitet mit \code{htmlTable}, die einzelnen
 #' Header-Ebenen werden ueber Header1_M, Header1_SD gesteuert.
@@ -17,37 +18,37 @@
 #'
 #' @return null
 #' @export
-#' @examples 
-#' 
-#' #' 
+#' @examples
+#'
+#' #'
 #'  df1 <- data.frame(
 #' term = c("A", "B", "C", "D"),
 #' n = c(23, 14, 56, 2),
 #' m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA)
 #' )
-#' 
-#' 
-#' 
+#'
+#'
+#'
 #' df2 <- data.frame(
 #'   term = c("A", "B", "C", "D"),
 #'   G1_k_n = c(23, 14, 56, 2),
 #'   G1_k_m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA),
 #'   G2_n = c(33, 35, 78, 21),
 #'   G2_m = c("4.9 (2.7)", "4.7 (2.5)", "4.1 (5.6)", "4.2 (5.6)")
-#'   
+#'
 #' )
 #'  Output2(df1)
 #' Output2(df2)
-#' 
+#'
 #' Output2(df1, output = "html")
 #' Output2(df2, output = "html")
-#' 
-#' 
+#'
+#'
 #' #"markdown"
-#' 
+#'
 #' Output2(df1, output = "markdown")
 #' Output2(df2, output = "markdown")
- 
+
 Output.data.frame <-
   function(x,
            caption = NULL,
@@ -55,7 +56,7 @@ Output.data.frame <-
            output =  which_output(),
            print_col = NULL,
            col_names = NULL,
-           fix_colnames = TRUE,
+           fix_colnames = FALSE,
            ##Sprachuebesaetzung
            css.table = "padding-left: .5em; padding-right: .2em;",
            css.cell = 'padding-left: .5em; padding-right: .2em;',
@@ -63,24 +64,57 @@ Output.data.frame <-
            latex_options = c("hold_position"),
            align = "l",
            ...) {
-    
-    if (is.na(output) | nrow(x) == 0)
+    if (nrow(x) == 0)
       return(NULL)
-  col.names <-  names(x) 
+    
     caption <- Caption(caption, attr(x, "caption"))
     note <- Note(note, attr(x, "note"))
     
-    if (!is.null(print_col))
-      x <- x[, print_col]
+    
+    if (!is.null(print_col)) {
+      x <- x[print_col]
+    }
     else if (all(x[, 2] == "")) {
       # loesen der leeren Spalte bei APA2
-      x <- x[,-2]
-      col.names <- col.names[-2]
+      
+      if (!is.null(col_names)) {
+        if (length(names(x)) == length(col_names))
+          names(x) <- col_names
+        else
+          warnings("Die col_names stimmen nicht!")
+      }
+      x <- x[, -2]
     }
     
-    tbl <- tbl_header(x, col.names)
+    if (!is.null(col_names)) {
+      if (length(names(x)) == length(col_names))
+        names(x) <- col_names
+      else
+        warnings("Die col_names stimmen nicht!")
+    }
+    
+    tbl <- tbl_header(x, fix_colnames = fix_colnames)
     # print(tbl)
-    if (output == "html" | output == "markdown_html") {
+    
+    if (is.logical(output)) {
+      if (output) {
+        if (!is.null(tbl$header_above))
+          names(x) <-
+            ifelse(
+              tbl$header_above2 == "",
+              tbl$header,
+              paste0(tbl$header_above2, "_", tbl$header)
+            )
+        else{
+          names(x) <-  tbl$header
+        }
+        
+        return(x)
+      }
+      
+      
+    }
+    else if (output == "html" | output == "markdown_html") {
       x <- insert_nbsp(x)
       tbl$header <-  gsub(" +", '&nbsp;', tbl$header)
       tbl$cgroup <-  gsub(" +", '&nbsp;', tbl$cgroup)
@@ -125,9 +159,8 @@ Output.data.frame <-
       
     }
     else if (output ==  "markdown") {
-    
       x <- cleanup_nbsp(x)
-
+      
       if (is.null(tbl$header_above)) {
         print(kableExtra::kable_styling(
           knitr::kable(
@@ -143,7 +176,6 @@ Output.data.frame <-
         
       }
       else {
- 
         print(
           kableExtra::add_header_above(
             kableExtra::kable_styling(
@@ -171,7 +203,7 @@ Output.data.frame <-
                  tbl$header,
                  paste0(tbl$header_above2, " / ", tbl$header))
       
-    print(
+      print(
         knitr::kable(
           x,
           row.names = FALSE,
@@ -229,16 +261,15 @@ Output.stp25 <- function(x, ...) {
 #'Interne Funktion
 #' @param x data.frame
 #' @param col.names colnames(x)
-#' @param col_names optionale Namen 
 #' @param fix_colnames an translate TRUE/FALSE
 #'
-#' @return list()
+#' @return list(header,header_above,cgroup,n.cgroup,header_above2,)
+#' 
 
 tbl_header <-
   function(x,
-           col.names = colnames(x),
-           col_names = NULL,
-           fix_colnames = FALSE) {
+           fix_colnames = FALSE,
+           col.names = colnames(x)) {
     header <- col.names
     header_above <- NULL
     cgroup <- NULL
@@ -265,21 +296,16 @@ tbl_header <-
       header <- a2
       cgroup <-  rle(a1)$values
       n.cgroup <- rle(a1)$lengths
-      
-      
       header_above <- n.cgroup
-      # add_header_above zero-length variable
-      # macht probleme daher
-  
-      names(header_above) <-  ifelse( nchar(cgroup) == 0, " ", cgroup)
-      
+      # add_header_above zero-length variable macht probleme daher
+      names(header_above) <-
+        ifelse(nchar(cgroup) == 0, " ", cgroup)
     }
     
-    header <-
-      find_col_names(col_names, header, fix_colnames)
+    if (fix_colnames)
+      header <- Names2Language(header)
     
     list(
-      ebenen = ebenen,
       header = header,
       header_above = header_above,
       cgroup = cgroup,
@@ -324,9 +350,3 @@ cleanup_nbsp <- function(x) {
 
 
 #
-
-
-
-
-
- 

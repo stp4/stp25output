@@ -4,20 +4,17 @@
 \alias{tbl_header}
 \title{Header aufbereiten}
 \usage{
-tbl_header(x, col.names = colnames(x), col_names = NULL,
-  fix_colnames = FALSE)
+tbl_header(x, fix_colnames = FALSE, col.names = colnames(x))
 }
 \arguments{
 \item{x}{data.frame}
 
-\item{col.names}{colnames(x)}
-
-\item{col_names}{optionale Namen}
-
 \item{fix_colnames}{an translate TRUE/FALSE}
+
+\item{col.names}{colnames(x)}
 }
 \value{
-list()
+list(header,header_above,cgroup,n.cgroup,header_above2,)
 }
 \description{
 Interne Funktion

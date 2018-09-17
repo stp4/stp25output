@@ -2,7 +2,7 @@
 % Please edit documentation in R/Projekt.R
 \name{Projekt}
 \alias{Projekt}
-\alias{ProjektProjekt_Rmd}
+\alias{Projekt_Rmd}
 \alias{Projekt_html}
 \alias{End}
 \alias{Rechnung}
@@ -20,7 +20,7 @@ Projekt(myformat = "", Projektname = "Demo", datum = date(),
   fig_folder = "Fig", html_folder = "Results", OutDec = NULL,
   contrasts = c("contr.Treatment", "contr.poly"), css = TRUE, ...)
 
-ProjektProjekt_Rmd(myformat, Projektname, datum, OutDec, contrasts)
+Projekt_Rmd(myformat, Projektname, datum, OutDec, contrasts)
 
 Projekt_html(myformat, Projektname, datum, fig_folder, html_folder, OutDec,
   contrasts, html_name = stpvers::Clean_Umlaute2(Projektname),

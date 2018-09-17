@@ -113,13 +113,15 @@ fix_levels<- function(x,
 
 
 
+
 # -- Ueberaetzt oder aendert die Namen ----------
 find_col_names <- function(cl_nms = NULL,
                            nms,
                            translate = FALSE) {
- #print(translate)
+
   if (translate)
     nms <- Names2Language(nms)
+  
   if (is.null(cl_nms))
     return(nms)
   else if (length(cl_nms) == length(nms))

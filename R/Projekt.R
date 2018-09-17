@@ -71,29 +71,30 @@ Projekt <- function(myformat = "",
                     css = TRUE,
                     ...) {
   set.seed(0815)
-  path <- NULL
+  path <- "test.R"
   
   if (!is.null(sys.calls())) {
     path <- tolower(as.character(sys.call(1))[2])
-    
-    if (grepl("..+\\.[Rmd|Rnw]",
-              path,
-              perl = TRUE,
-              ignore.case = TRUE)) {
-      Projekt_html(
-        myformat = tolower(myformat),
-        Projektname = Projektname,
-        datum = datum,
-        fig_folder = fig_folder,
-        html_folder = html_folder,
-        OutDec = OutDec,
-        contrasts =  contrasts,
-        css = css,
-        ...
-      )
-    }
   }
-  else{
+  
+  if(is.null(myformat)) {
+    path<- "test.txt"
+    myformat <- "text"
+  }
+  
+  if (grepl("\\.r$", path, perl = TRUE, ignore.case = TRUE)) {
+    Projekt_html(
+      myformat = tolower(myformat),
+      Projektname = Projektname,
+      datum = datum,
+      fig_folder = fig_folder,
+      html_folder = html_folder,
+      OutDec = OutDec,
+      contrasts =  contrasts,
+      css = css,
+      ...
+    )
+  } else   {
     Projekt_Rmd(
       myformat = tolower(myformat),
       Projektname = Projektname,
@@ -112,12 +113,13 @@ Projekt <- function(myformat = "",
 
 #' @rdname Projekt
 #' @description Einstellungen fuer .Rmd files hier werden keine Folder erstellt
-ProjektProjekt_Rmd <- function (myformat,
+Projekt_Rmd <- function (myformat,
                                 Projektname,
                                 datum,
                                 OutDec,
                                 contrasts)
 {
+  #cat("\Projekt_Rmd\n")
   if (is.null(OutDec))
     OutDec <- options()$OutDec
   else
@@ -166,6 +168,8 @@ Projekt_html <- function (myformat,
                           html_name = stpvers::Clean_Umlaute2(Projektname),
                           css = TRUE)
 {
+  
+  #cat("\nProjekt_html\n")
   if (myformat != "rpres") {
     if (Projektname == "Demo")
       setwd("C:/Users/wpete/Dropbox/3_Forschung/R-Project")
@@ -235,6 +239,8 @@ Projekt_html <- function (myformat,
         reset = par(no.readonly = TRUE)
       ))
       
+      
+      cat("\n R2HTML::HTMLStart()\n")
       R2HTML::HTMLStart(
         outdir = output.dir,
         file = html_name,
@@ -738,6 +744,8 @@ get_scriptpath <- function() {
     path <- as.character(sys.call(1))[2]
     
     # make sure we got a file that ends in .R, .Rmd or .Rnw
+    #Achtung grep sit falssch!!!!
+    
     if (grepl("..+\\.[R|Rmd|Rnw]",
               path,
               perl = TRUE,
@@ -746,8 +754,8 @@ get_scriptpath <- function() {
       
       return(path[length(path)])
     } else {
-      message("Obtained value for path does not end with .R, .Rmd or .Rnw: ",
-              path)
+    #  message("Obtained value for path does not end with .R, .Rmd or .Rnw: ",
+     #         path)
     }
   } else{
     # Rscript and R -f put it in commandArgs

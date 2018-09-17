@@ -4,7 +4,7 @@
 #' @param language  Sprache default="de"
 #' @param words Wort-liste Deutsch Englisch
 #' @name dictionary
-#' @export
+#' @expotr
 #' 
 Sprachdatei <-
   function(language = "de",
