@@ -1,10 +1,10 @@
 #' Sprachdatei 
 #' 
-#'Liste mit Uebersaetzung.
+#' Liste mit Uebersaetzung.
 #' @param language  Sprache default="de"
 #' @param words Wort-liste Deutsch Englisch
 #' @name dictionary
-#' @expotr
+#' @export
 #' 
 Sprachdatei <-
   function(language = "de",
@@ -63,6 +63,7 @@ Sprachdatei <-
 #' @export
 #' @examples
 #' Names2Language(c("Pr..Chisq.", "F.value"))
+#' 
 Names2Language <- function(words) {
 
   if(is.null(options()$stp25$language)) return(as.character(words))
