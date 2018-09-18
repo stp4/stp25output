@@ -38,4 +38,5 @@ Names2Language() wird von Output benutzt um die De/En Uebersaetzung durchzufuehr
 }
 \examples{
 Names2Language(c("Pr..Chisq.", "F.value"))
+
 }

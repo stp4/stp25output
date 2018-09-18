@@ -29,15 +29,15 @@ MySet(col = NULL, pch = 15:18, lty = 1:3, cex = 1,
 
 \item{axis.grid}{Referenzlinien = FALSE,}
 
-\item{knit}{einstellung für knitter}
+\item{knit}{einstellung fuer knitter}
 
 \item{...}{nicht verwendet}
 }
 \value{
-Gibt opar zureuck (Wird fue reset benötigt)
+Gibt opar zureuck (Wird fue reset benoetigt)
 }
 \description{
-Initialisiert Lattice ladet die nötigen Pakete und Formatiert die Lattice Grafiken
+Initialisiert Lattice ladet die noetigen Pakete und Formatiert die Lattice Grafiken
 Einstellen der Farben und Symbole ueber \link{trellis.par.set}
 }
 \examples{
@@ -46,10 +46,10 @@ Einstellen der Farben und Symbole ueber \link{trellis.par.set}
  
    lattice::trellis.par.set(effects::effectsTheme())
    
- 
- 
- 
- 
+
+
+
+
 #library(RColorBrewer)
 # Set3 rosa-himmelblau
 # brewer.pal(8,"Set3")[c(3,4)]

@@ -3,7 +3,6 @@
 \name{fix_format}
 \alias{fix_format}
 \alias{fix_irgendwas}
-\alias{fix_format_p}
 \alias{fix_colnames}
 \alias{fix_data_frame2}
 \alias{fix_levels}
@@ -15,8 +14,6 @@ fix_format(x, exclude = NULL, digits = NULL,
   "est.std", "se"), pattern_df = c("Df"), pattern_N = c("N", "n"),
   apa.style = options()$stp25$apa.style, ...)
 
-fix_format_p(x, df1 = NULL, df2 = null, p = NULL)
-
 fix_colnames(x, col_names = NULL, translate = TRUE)
 
 fix_data_frame2(...)
@@ -25,27 +22,21 @@ fix_levels(x, labels = NULL, which = ncol(x) - 1,
   measure.vars = unique(x[, which]), ...)
 }
 \arguments{
-\item{x}{vektor liste oder matrix}
+\item{x}{data.frame}
 
 \item{exclude}{Position der auszuschliedenden Spalten}
 
 \item{digits}{exakt nach muster Runden}
 
-\item{pattern_pval}{fuer fix_format}
+\item{pattern_pval, pattern_est, pattern_df, pattern_N}{# pattern Sonderzeichen mit \\ schreiben!}
 
 \item{pattern_est}{fuer fix_format}
 
 \item{pattern_df}{fuer fix_format}
 
-\item{pattern_N}{N Muster}
-
-\item{apa.style}{fuer fix_format}
+\item{apa.style}{}
 
 \item{...}{alles weiter an data.frame}
-
-\item{df1, df2, }{Dichte}
-
-\item{p}{P-Wert}
 
 \item{col_names}{fuer fix_colnames}
 
@@ -56,25 +47,46 @@ fix_levels(x, labels = NULL, which = ncol(x) - 1,
 \item{which}{fix_levels Indexnummer der Variable ncol(x)-1}
 
 \item{measure.vars}{fix_levels welche Variablen}
+
+\item{x}{vektor liste oder matrix}
+
+\item{pattern_pval}{fuer fix_format}
+
+\item{apa.style}{fuer fix_format}
 }
 \value{
 gleiches Objekt
 }
 \description{
-Repariert Levels und labels und Zahlen
+Auto-Format von data.frames.
 
-fix_format_p sucht automatisch nach den p-Werten die meist an der Letzten stelle sind
-und gibt einen Vector-String mit der LAenge drei aus.
-Nicht zu verwechseln mit \code{rndr_P()}
+Repariert Levels und labels und Zahlen
 }
 \details{
 fix_to_data_frame input Matrix over Vektor Output( Source =Colnames + Daten )
-fix_format_p Input(F, df,und p)  Output: (test, df, p.value)
 
 fix_levels ist fuer dta %>% gather(Parameter, Wert, x1:x5)  %>% fix_levels(dta)
 fix_colnames ist fuer Formatieren in der Funktion \code{Output()}
 }
 \examples{
+
+
+ df2 <- data.frame(
+term = c("A", "B", "C", "D"),
+Estimate = c(23.5, .14, 5.6, 2.9876),
+df1 = c(3.3, 35., 7.8, 2.1),
+df = c(3, 35, 7, 2),
+N = c(33, 35, 78, 21),
+
+F.value = c(2.73, 12.444, 14.576, 30.412),
+pvalue = c(0.73, 0.044, 0.056, 0.042),   stringsAsFactors =FALSE
+
+
+)
+
+x1<-fix_format(df2)
+
+
   df <- data.frame(Item=c("a", "b"),
 x=1:2,
 x2=c(1.2,2.3),

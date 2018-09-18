@@ -32,9 +32,6 @@ fix_to_data_frame(x, ...)
 ein data.frame Objekt
 }
 \description{
-fix_format_p Input(F, df,und p)  Output: (test, df, p.value)
-}
-\details{
 fix_levels ist fuer dta %>% gather(Parameter, Wert, x1:x5)  %>% fix_levels(dta)
 fix_colnames ist fuer Formatieren in der Funktion \code{Output()}
 }
