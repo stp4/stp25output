@@ -1,6 +1,6 @@
 #' MySet
 #'
-#' Initialisiert Lattice ladet die nötigen Pakete und Formatiert die Lattice Grafiken
+#' Initialisiert Lattice ladet die noetigen Pakete und Formatiert die Lattice Grafiken
 #' Einstellen der Farben und Symbole ueber \link{trellis.par.set}
 #' @param col Farben brewer.pal(9,"Set1")
 #' @param pch  Symbole
@@ -11,9 +11,9 @@
 #' @param h.start  Farben = 120,
 #' @param theme LaticeExtra ggplot2like(), #theEconomist.theme() custom.theme()
 #' @param axis.grid  Referenzlinien = FALSE,
-#' @param knit einstellung für knitter
+#' @param knit einstellung fuer knitter
 #' @param ...  nicht verwendet
-#' @return Gibt opar zureuck (Wird fue reset benötigt)
+#' @return Gibt opar zureuck (Wird fue reset benoetigt)
 #' @export
 #' @examples
 #' #graphics.off()
@@ -49,10 +49,10 @@
 #   lattice::lattice.options(latticeExtra::ggplot2like.opts())
 # 
 # lattice::trellis.par.set(effectsTheme())
-#'  
-#'  
-#'  
-#'  
+#'
+#'
+#'
+#'
 #' #library(RColorBrewer)
 #' # Set3 rosa-himmelblau
 #' # brewer.pal(8,"Set3")[c(3,4)]
@@ -132,13 +132,13 @@ MySet <- function(col = NULL,
   require(effects)
   # require(ggplot2)
   
-  # Speichert die Default einstellungen zum zurücksetzen der Optionen
+  # Speichert die Default einstellungen zum zuruecksetzen der Optionen
   if (exists("opar")) {
-    cat("\n  opar existiert und die Einstellungen trellis.par.set() werden zurückgesetzt.\n")
+    cat("\n  opar existiert und die Einstellungen trellis.par.set() werden zurueckgesetzt.\n")
     lattice::trellis.par.set(opar)
     if (exists("oopt")) {
       cat(
-        "oopt existiert und die Einstellungen trellis.par.set() werden zurückgesetzt.\n"
+        "oopt existiert und die Einstellungen trellis.par.set() werden zurueckgesetzt.\n"
       )
       lattice::lattice.options(oopt) #Lattice Options fuer Grid
     }
@@ -147,16 +147,16 @@ MySet <- function(col = NULL,
     cat("\n Erstmaliger Aufruf von trellis.par.set()\n") 
     opar <<- lattice::trellis.par.get()
     
-   if (!knit){
-    cat("Initialisiert trellis.device", getOption("device"),"\n")
-    lattice::trellis.device() #-- new=FALSE 
+    if (!knit){
+      cat("Initialisiert trellis.device", getOption("device"),"\n")
+      lattice::trellis.device() #-- new=FALSE 
       print(show.settings())
-  }   
+    }
     
   }
   
   
-
+  
   
   
   if (!is.null(theme)) {
@@ -197,8 +197,8 @@ MySet <- function(col = NULL,
     }
   }
   
-
-
+  
+  
   cat("done\n\n")
   
   NULL
