@@ -104,7 +104,7 @@ fix_format  <- function(x,
                              x[, i]) > 0, 1, 0))
           }
   } else{
-    x <- stp25rndr::rndr2(x, digits = digits)
+    x <- stp25rndr::Format2(x, digits = digits)
   }
   
   
