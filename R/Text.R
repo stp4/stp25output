@@ -69,6 +69,8 @@ Text <- function(...,
       c(line, paste(char, msg, char), line)
     }
     sfun <- list(underlined = underlined, border = border)
+    
+    
     if (is.numeric(style) &&
         length(style) == 1 && any(style == 1:length(sfun)))
       msg <-
@@ -79,6 +81,9 @@ Text <- function(...,
     m <- matrix(msg, ncol = 1)
     colnames(m) <- ""
     rownames(m) <- rep("", length(msg))
+    
+    
+    
     print.noquote(m)
   }
 
@@ -86,9 +91,13 @@ Text <- function(...,
 
   if (output == "html")
     report_html(paste0(...))
-  else if (output == "markdown")
-    cat(...)
+  else if (output == "markdown" | output == "markdown_html"){
+    if(style>0){
+      paste( paste(rep("#" ,style),   collapse=""),  paste0(...))
+    }else
+    cat(paste0(...))}
   else
+     
     report_txt(paste0(...))
 }
 
