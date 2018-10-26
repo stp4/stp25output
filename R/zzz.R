@@ -29,7 +29,7 @@ updateList <- function(x, val)
 # 'R2HTML' 'htmlTable' 'kableExtra' 'lattice' 'plyr' 'stp25APA2''stringr'
 
 
-#' @importFrom R2HTML HTMLGetFile HTMLStart HTMLGetFile HTMLStop
+
 #' @importFrom graphics par
 #' @importFrom plyr llply
 #' @importFrom utils browseURL citation modifyList read.table
@@ -37,6 +37,8 @@ updateList <- function(x, val)
 #' @importFrom stringr str_split
 #' @importFrom htmlTable htmlTable
 
+
+ 
 
 
 #' @importFrom magrittr %>%
