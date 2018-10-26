@@ -108,10 +108,8 @@ Output.data.frame <-
         else{
           names(x) <-  tbl$header
         }
-        
         return(x)
       }
-      
       
     }
     else if (output == "html" | output == "markdown_html") {
@@ -168,8 +166,7 @@ Output.data.frame <-
             row.names = FALSE,
             col.names = tbl$header,
             booktabs = booktabs,
-            caption = caption,
-            ...
+            caption = caption
           ),
           latex_options = latex_options
         ))
@@ -184,8 +181,7 @@ Output.data.frame <-
                 row.names = FALSE,
                 col.names = tbl$header,
                 booktabs = booktabs,
-                caption = caption,
-                ...
+                caption = caption
               ),
               latex_options = latex_options
             ),
@@ -194,7 +190,42 @@ Output.data.frame <-
         )
       }
     }
+    # else if (output ==  "word") {
+    #   
+    #   # das get noch nicht ----
+    #   x <- cleanup_nbsp(x)
+    #   
+    #   if (is.null(tbl$header_above)) {
+    #     ft <- flextable::regulartable(x)
+    #     ft <- flextable::theme_vanilla(ft)
+    #     
+    #      print( ft )
+    #     
+    #   }
+    #   else { 
+    #     
+    #     tbl$header_above2[1]<- tbl$header[1]
+    #     typology <- data.frame(
+    #       col_keys = names(x),
+    #       what = tbl$header_above2,
+    #       measure = tbl$header,
+    #       stringsAsFactors = FALSE
+    #     )
+    #     ft <- flextable::regulartable(x)
+    #     ft <- flextable::set_header_df(ft, mapping = typology, key = "col_keys")
+    #     ft <- flextable::merge_h(ft, part = "header")
+    #     ft <- flextable::merge_v(ft, part = "header")
+    #     ft <- flextable::theme_vanilla(ft)
+    #     
+    #     print(ft )
+    #   }
+    # }
+    # 
+    # 
+    # 
     else{
+     ## output ==  "text"
+    
       x <- cleanup_nbsp(x)
       
       if (!is.null(tbl$header_above))
@@ -219,7 +250,42 @@ Output.data.frame <-
   }
 
 
-
+#' @rdname Output
+#' @description Output_word: flextable
+#' @export
+#' @importFrom flextable regulartable set_header_df merge_h merge_v theme_vanilla
+Output_word <- function(x,
+                        caption = NULL,
+                        note = NULL,
+                        output =  which_output(),
+                        print_col = NULL,
+                        col_names = NULL,
+                        fix_colnames = FALSE,
+                        ...) {
+  tbl <- tbl_header(x, fix_colnames = fix_colnames)
+  x <- cleanup_nbsp(x)
+  
+  if (is.null(tbl$header_above)) {
+    ft <- flextable::regulartable(x)
+    ft <- flextable::theme_vanilla(ft)
+  }
+  else {
+    tbl$header_above2[1] <- tbl$header[1]
+    typology <- data.frame(
+      col_keys = names(x),
+      what = tbl$header_above2,
+      measure = tbl$header,
+      stringsAsFactors = FALSE
+    )
+    ft <- flextable::regulartable(x)
+    ft <-
+      flextable::set_header_df(ft, mapping = typology, key = "col_keys")
+    ft <- flextable::merge_h(ft, part = "header")
+    ft <- flextable::merge_v(ft, part = "header")
+    ft <- flextable::theme_vanilla(ft)
+  }
+  ft
+}
 
 
 #' @rdname Output
