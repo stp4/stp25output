@@ -53,7 +53,17 @@
 #'  ### Names2Language(c("Pr..Chisq.", "F.value"))
 #'
 #'
-#'
+#' #  hkarz2 <-Label(mutate(hkarz,
+#' #  Lai=factor(lai),
+#' #  x=NA),
+#' #  Lai="1-Smoking Habits",
+#' #  x =   "2-Supplement Intake",
+#' #  tzell = " - to boost your performance" ) 
+#' 
+#' #  Tabelle2(  ~Lai+x[header]+tzell,  hkarz2  , APA=TRUE )
+#' #  Tabelle2(  Lai+x[header]+tzell~gruppe, hkarz2 , test=TRUE, APA=TRUE, include.total=TRUE)
+#' #  set_my_options(mittelwert=list(include_name=FALSE))
+#' #  Tabelle2(  Lai+x[header]+tzell[median]~gruppe, hkarz2 , test=TRUE, APA=TRUE, include.total=TRUE)
 #'
 #' #APA2(~. , hkarz)
 #'
@@ -157,7 +167,7 @@ Projekt_Rmd <- function (myformat,
 #' @rdname Projekt
 #' @description Einstellungen fuer HTNL mit \code{R2HTML::HTMLStart()}
 #' @param html_name umlaute bereinigter Projektname
-
+#' @importFrom R2HTML HTMLGetFile HTMLStart HTMLGetFile HTMLStop
 Projekt_html <- function (myformat,
                           Projektname,
                           datum,
@@ -240,18 +250,22 @@ Projekt_html <- function (myformat,
       ))
       
       
-      cat("\n R2HTML::HTMLStart()\n")
+    #  cat("\n R2HTML::HTMLStart()\n")
       R2HTML::HTMLStart(
         outdir = output.dir,
         file = html_name,
         extension = myformat,
         echo = FALSE,
-        HTMLframe = FALSE
+        HTMLframe = FALSE,
+        CSSFile = "layout.css"
+         
       )
       
       if (css) {
-        myCssFile <- file.path(output.dir, "R2HTML.css")
+        myCssFile <- file.path(output.dir, "layout.css")
         cat("\nCSS-File:" , myCssFile, "\n")
+        
+        
         if (!file.exists(myCssFile))
           cat(MyCss(), file = myCssFile)
       }
@@ -439,6 +453,11 @@ Projekt_html <- function (myformat,
 
 MyCss <- function() {
   '
+/*
+* === MAJOR SECTION HEADING ===
+  */
+
+
   body {
   background: #FFFFFF;
   color: #000000;
@@ -535,6 +554,7 @@ MyCss <- function() {
 #' @param browser Ie oder Chrome
 #' @param output TRUE oder FALSE
 #' @export
+#' @importFrom lattice trellis.par.set lattice.options
 End <- function(anhang = FALSE,
                 browser = "C:/Program Files (x86)/Internet Explorer/iexplore.exe",
                 output = options()$prompt[1] == "HTML> ",
