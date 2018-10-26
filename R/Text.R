@@ -34,8 +34,7 @@ Text <- function(...,
       HTML_P(msg)
       }
     else{
-      
-     # R2HTML::HTML.title(msg, HR = style)
+   
       HTML_default(paste("\n <h", style, "> ", msg, "</h", style, ">\n", sep = "") )
       
       
@@ -122,6 +121,7 @@ Anmerkung <- function(...)
 #' @rdname Text
 #' @description  Kunde() ist ein rot-brauner Text.
 #' @export
+#' @importFrom stringr str_split
 Kunde <- function(x = "",
                   msg = NULL,
                   name = NULL) {
