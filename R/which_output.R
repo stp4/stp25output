@@ -1,6 +1,6 @@
 #' which_output
 #'
-#' @return html, text, markdown
+#' @return html, text, markdown, word
 #' @export
 #'
 #' @examples
@@ -22,6 +22,7 @@ which_output <-
           text = "text",
           pdf = "markdown",
           html = "markdown_html",
+          word ="word",
           spin = "html",
           "markdown"
         )
