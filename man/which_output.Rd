@@ -7,7 +7,7 @@
 which_output()
 }
 \value{
-html, text, markdown
+html, text, markdown, word
 }
 \description{
 which_output

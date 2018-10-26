@@ -141,7 +141,17 @@ set_my_options(mittelwert=list(digits=c(1,0), plusmin_sign=TRUE))
  ### Names2Language(c("Pr..Chisq.", "F.value"))
 
 
+#  hkarz2 <-Label(mutate(hkarz,
+#  Lai=factor(lai),
+#  x=NA),
+#  Lai="1-Smoking Habits",
+#  x =   "2-Supplement Intake",
+#  tzell = " - to boost your performance" ) 
 
+#  Tabelle2(  ~Lai+x[header]+tzell,  hkarz2  , APA=TRUE )
+#  Tabelle2(  Lai+x[header]+tzell~gruppe, hkarz2 , test=TRUE, APA=TRUE, include.total=TRUE)
+#  set_my_options(mittelwert=list(include_name=FALSE))
+#  Tabelle2(  Lai+x[header]+tzell[median]~gruppe, hkarz2 , test=TRUE, APA=TRUE, include.total=TRUE)
 
 #APA2(~. , hkarz)
 
