@@ -25,7 +25,7 @@ default_stp25_opt(myformat = "", fig_folder = "Fig",
   null_percent_sign = NULL, lead.zero = FALSE, p.values = c(0.001,
   0.01, 0.05, 0.1)[1:3], signif.stars = FALSE, plusmin_sign = FALSE,
   sep_element = ",", brackets = c("[", "]"), digits_type = "digits",
-  prozent_style = 1, median.style = "IRQ")
+  prozent_style = 1, median.style = "IQR")
 }
 \arguments{
 \item{...}{zu aendernde Einstellungen}
@@ -68,4 +68,31 @@ default_stp25_opt: Liste mit den Optionen
 }
 \examples{
 options("stp25" = default_stp25_opt(language = "en"))
+
+#-- default options
+set_my_options()
+get_my_options()$apa.style$prozent
+
+#-- Speicherort aendern
+get_my_options()$fig_folder
+#set_my_options(fig_folder="Fig2/")
+get_my_options()$fig_folder
+
+#-- Format aendern
+#set_my_options(prozent=list(digits=c(1,0), style=2))
+
+#set_my_options(mittelwert=list(digits=c(1,0), plusmin_sign=TRUE))
+#set_my_options(prozent = list(null_percent_sign = " . "))
+
+#  APA2(~. , hkarz)
+##  #Names2Language(c("Item", "Characteristics", "Statistics"  ), "de")
+
+
+# options()$stp25$bez$f.value
+
+
+# Impliziet (also nicht als default vorhanen)
+#set_my_options(mittelwert=list(include_name=FALSE)))
+
+
 }

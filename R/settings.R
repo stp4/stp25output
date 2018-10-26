@@ -111,6 +111,33 @@ stp25_options <- function() {
 #' @export
 #' @examples
 #' options("stp25" = default_stp25_opt(language = "en"))
+#' 
+#' #-- default options
+#' set_my_options()
+#' get_my_options()$apa.style$prozent
+#'
+#' #-- Speicherort aendern
+#' get_my_options()$fig_folder
+#' #set_my_options(fig_folder="Fig2/")
+#' get_my_options()$fig_folder
+#'
+#' #-- Format aendern
+#' #set_my_options(prozent=list(digits=c(1,0), style=2))
+#'
+#' #set_my_options(mittelwert=list(digits=c(1,0), plusmin_sign=TRUE))
+#' #set_my_options(prozent = list(null_percent_sign = " . "))
+#'
+#' #  APA2(~. , hkarz)
+#' ##  #Names2Language(c("Item", "Characteristics", "Statistics"  ), "de")
+#'
+#'
+#' # options()$stp25$bez$f.value
+#' 
+#' 
+#' # Impliziet (also nicht als default vorhanen)
+#' #set_my_options(mittelwert=list(include_name=FALSE)))
+#' 
+#' 
 default_stp25_opt <-
   function (myformat = "",
             fig_folder = "Fig",
@@ -140,7 +167,7 @@ default_stp25_opt <-
             digits_type = "digits",
             prozent_style = 1,
             
-            median.style="IRQ"
+            median.style="IQR"
             
             ){
 list(language = language,
