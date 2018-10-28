@@ -51,13 +51,15 @@
 
 Output.data.frame <-
   function(x,
-           caption = NULL,
-           note = NULL,
-           output =  which_output(),
+           caption = NULL, note = NULL, output =  which_output(),
            print_col = NULL,
            col_names = NULL,
-           fix_colnames = FALSE,
            ##Sprachuebesaetzung
+           fix_colnames = FALSE,
+           
+      
+           add_row = NULL,   #c("Erste Zeile" = 1, "Dritte" = 3) #    add_row(df, x = 4, .after = 2 )
+           # HTML Tabelle
            css.table = "padding-left: .5em; padding-right: .2em;",
            css.cell = 'padding-left: .5em; padding-right: .2em;',
            booktabs = TRUE,
@@ -94,7 +96,8 @@ Output.data.frame <-
     }
     
     tbl <- tbl_header(x, fix_colnames = fix_colnames)
-    # print(tbl)
+ 
+    if(!is.null(add_row)) { x <- add_row_df(x, add_row) }
     
     if (is.logical(output)) {
       if (output) {
@@ -324,7 +327,7 @@ Output.stp25 <- function(x, ...) {
 
 #' Header aufbereiten
 #'
-#'Interne Funktion
+#' Interne Funktion
 #' @param x data.frame
 #' @param col.names colnames(x)
 #' @param fix_colnames an translate TRUE/FALSE
@@ -415,4 +418,78 @@ cleanup_nbsp <- function(x) {
 }
 
 
+
+
+
+
+
+
+
+
+
+# add_emty_col(
+#   data.frame(Source=c("A", "B", "C", "F"),
+#              x=1:4,
+#              y=1:4, stringsAsFactors=FALSE
+#   ),
+#   c("Hallo Welt 1",
+#     "Hallo Welt 2",
+#     "Hallo Welt 3")
 #
+# )
+add_emty_col <- function (x,  df = "hallo welt", na_value = NA)
+{
+  df <- tibble(df)
+  names(df) <-  names(x)[1L]
+  attr(df, "row.names") <- .set_row_names(max(1L, nrow(df)))
+  
+  missing_vars <- setdiff(names(x), names(df))
+  df[missing_vars] <- na_value
+  df <- df[names(x)]
+  df
+}
+
+
+#Orginal  tibble:::rbind_at
+rbind_at <- function (old, new, pos)
+{
+  idx <- NULL
+  if (nrow(old) == 0) {
+    old <- old[1, ]
+    out <- rbind(old, new)[-1, ]
+  }
+  else {
+    out <- rbind(old, new)
+    pos_old <- seq_len(nrow(old))
+    pos_new <- seq_len(length(new)) + nrow(old)
+    for (i in pos_old) {
+      if (any(i == pos)) {
+        idx <- c(idx, pos_new[which(i == pos)], i)
+      }
+      else{
+        idx <- c(idx, i)
+      }
+    }
+    out <- out[idx, ]
+  }
+  out
+}
+
+#' @rdname Output
+#' @param add_row list (c("Erste Zeile" = 1, "Dritte" = 3))
+#' @examples 
+#' df <-   data.frame(
+#' Source = c("A", "B", "C", "F"),
+#' x = 1:4,
+#' y = 1:4,
+#' stringsAsFactors = FALSE
+#' )
+#' 
+#' # add_row_df(df, c("Erste Zeile" = 1, "Dritte" = 3))
+#' 
+#' 
+add_row_df <- function(x, add_row = NULL) {
+  new_element <- add_emty_col(x, names(add_row))
+  rbind_at(x, new_element, pos = as.numeric(add_row))
+}
+

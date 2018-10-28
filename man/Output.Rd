@@ -13,6 +13,7 @@
 \alias{Output.list}
 \alias{Output.matrix}
 \alias{Output.stp25}
+\alias{add_row_df}
 \alias{Output_kable}
 \alias{Output_kable.list}
 \alias{Output_kable.default}
@@ -44,6 +45,8 @@ Output_word(x, caption = NULL, note = NULL, output = which_output(),
 
 \method{Output}{stp25}(x, ...)
 
+add_row_df(x, add_row = NULL)
+
 Output_kable(x, ...)
 
 \method{Output_kable}{list}(x, ...)
@@ -69,6 +72,8 @@ Output_kable(x, ...)
 \item{...}{weitere Einstellungen}
 
 \item{output}{HTML, Knit  oder Textfile output=NA verlaesst die Funktion ohne aktion}
+
+\item{add_row}{list (c("Erste Zeile" = 1, "Dritte" = 3))}
 
 \item{col.names}{Output_kable:  fuer tintPdf format = "latex"}
 
@@ -118,6 +123,16 @@ block1 <- lm(sales ~ adverts + airplay, data=album)
 block2 <- lm(sales ~ adverts*airplay, data=album)
 apa.reg.table(block1, block2) \%>\% Output()
  } 
+
+df <-   data.frame(
+Source = c("A", "B", "C", "F"),
+x = 1:4,
+y = 1:4,
+stringsAsFactors = FALSE
+)
+
+# add_row_df(df, c("Erste Zeile" = 1, "Dritte" = 3))
+
 
 }
 \author{
