@@ -6,7 +6,7 @@
 \usage{
 \method{Output}{data.frame}(x, caption = NULL, note = NULL,
   output = which_output(), print_col = NULL, col_names = NULL,
-  fix_colnames = FALSE,
+  fix_colnames = FALSE, add_row = NULL,
   css.table = "padding-left: .5em; padding-right: .2em;",
   css.cell = "padding-left: .5em; padding-right: .2em;",
   booktabs = TRUE, latex_options = c("hold_position"), align = "l",
@@ -41,8 +41,7 @@ Auch die Funktionen Output.table und xtabl arbeiten ueber diese Funktion.
 }
 \examples{
 
-#'
- df1 <- data.frame(
+df1 <- data.frame(
 term = c("A", "B", "C", "D"),
 n = c(23, 14, 56, 2),
 m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA)
@@ -58,15 +57,16 @@ df2 <- data.frame(
   G2_m = c("4.9 (2.7)", "4.7 (2.5)", "4.1 (5.6)", "4.2 (5.6)")
 
 )
- Output2(df1)
+ 
+Output2(df1)
 Output2(df2)
 
 Output2(df1, output = "html")
 Output2(df2, output = "html")
 
 
-#"markdown"
-
 Output2(df1, output = "markdown")
 Output2(df2, output = "markdown")
+
+
 }

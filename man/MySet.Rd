@@ -42,10 +42,10 @@ Einstellen der Farben und Symbole ueber \link{trellis.par.set}
 }
 \examples{
 #graphics.off()
- 
- 
+
+
    lattice::trellis.par.set(effects::effectsTheme())
-   
+
 
 
 
@@ -107,4 +107,5 @@ Einstellen der Farben und Symbole ueber \link{trellis.par.set}
  #windows(7,4)
  #  bwplot(yield ~ site|year, barley )
  #  End()
+ 
 }

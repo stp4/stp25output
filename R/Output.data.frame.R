@@ -1,5 +1,3 @@
-
-
 #' Ausgabe von Tabellen
 #'
 #' Output.data.frame ist die Standart-Funktion fuer die
@@ -18,10 +16,10 @@
 #'
 #' @return null
 #' @export
+#'
 #' @examples
 #'
-#' #'
-#'  df1 <- data.frame(
+#' df1 <- data.frame(
 #' term = c("A", "B", "C", "D"),
 #' n = c(23, 14, 56, 2),
 #' m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA)
@@ -37,41 +35,40 @@
 #'   G2_m = c("4.9 (2.7)", "4.7 (2.5)", "4.1 (5.6)", "4.2 (5.6)")
 #'
 #' )
-#'  Output2(df1)
+#'  
+#' Output2(df1)
 #' Output2(df2)
 #'
 #' Output2(df1, output = "html")
 #' Output2(df2, output = "html")
 #'
-#'
-#' #"markdown"
+ 
 #'
 #' Output2(df1, output = "markdown")
 #' Output2(df2, output = "markdown")
-
+#' 
+#' 
 Output.data.frame <-
   function(x,
-           caption = NULL, note = NULL, output =  which_output(),
+           caption = NULL,
+           note = NULL,
+           output =  which_output(),
            print_col = NULL,
            col_names = NULL,
-           ##Sprachuebesaetzung
            fix_colnames = FALSE,
-           
-      
-           add_row = NULL,   #c("Erste Zeile" = 1, "Dritte" = 3) #    add_row(df, x = 4, .after = 2 )
-           # HTML Tabelle
+           add_row = NULL,
            css.table = "padding-left: .5em; padding-right: .2em;",
            css.cell = 'padding-left: .5em; padding-right: .2em;',
            booktabs = TRUE,
            latex_options = c("hold_position"),
            align = "l",
            ...) {
+    
     if (nrow(x) == 0)
       return(NULL)
     
     caption <- Caption(caption, attr(x, "caption"))
     note <- Note(note, attr(x, "note"))
-    
     
     if (!is.null(print_col)) {
       x <- x[print_col]
@@ -85,7 +82,7 @@ Output.data.frame <-
         else
           warnings("Die col_names stimmen nicht!")
       }
-      x <- x[, -2]
+      x <- x[,-2]
     }
     
     if (!is.null(col_names)) {
@@ -96,8 +93,10 @@ Output.data.frame <-
     }
     
     tbl <- tbl_header(x, fix_colnames = fix_colnames)
- 
-    if(!is.null(add_row)) { x <- add_row_df(x, add_row) }
+    
+    if (!is.null(add_row)) {
+      x <- add_row_df(x, add_row)
+    }
     
     if (is.logical(output)) {
       if (output) {
@@ -194,19 +193,19 @@ Output.data.frame <-
       }
     }
     # else if (output ==  "word") {
-    #   
+    #
     #   # das get noch nicht ----
     #   x <- cleanup_nbsp(x)
-    #   
+    #
     #   if (is.null(tbl$header_above)) {
     #     ft <- flextable::regulartable(x)
     #     ft <- flextable::theme_vanilla(ft)
-    #     
+    #
     #      print( ft )
-    #     
+    #
     #   }
-    #   else { 
-    #     
+    #   else {
+    #
     #     tbl$header_above2[1]<- tbl$header[1]
     #     typology <- data.frame(
     #       col_keys = names(x),
@@ -219,17 +218,15 @@ Output.data.frame <-
     #     ft <- flextable::merge_h(ft, part = "header")
     #     ft <- flextable::merge_v(ft, part = "header")
     #     ft <- flextable::theme_vanilla(ft)
-    #     
+    #
     #     print(ft )
     #   }
     # }
-    # 
-    # 
-    # 
+    #
+    #
+    #
     else{
-     ## output ==  "text"
-    
-      x <- cleanup_nbsp(x)
+     x <- cleanup_nbsp(x)
       
       if (!is.null(tbl$header_above))
         tbl$header <-
@@ -253,47 +250,13 @@ Output.data.frame <-
   }
 
 
-#' @rdname Output
-#' @description Output_word: flextable
-#' @export
-#' @importFrom flextable regulartable set_header_df merge_h merge_v theme_vanilla
-Output_word <- function(x,
-                        caption = NULL,
-                        note = NULL,
-                        output =  which_output(),
-                        print_col = NULL,
-                        col_names = NULL,
-                        fix_colnames = FALSE,
-                        ...) {
-  tbl <- tbl_header(x, fix_colnames = fix_colnames)
-  x <- cleanup_nbsp(x)
-  
-  if (is.null(tbl$header_above)) {
-    ft <- flextable::regulartable(x)
-    ft <- flextable::theme_vanilla(ft)
-  }
-  else {
-    tbl$header_above2[1] <- tbl$header[1]
-    typology <- data.frame(
-      col_keys = names(x),
-      what = tbl$header_above2,
-      measure = tbl$header,
-      stringsAsFactors = FALSE
-    )
-    ft <- flextable::regulartable(x)
-    ft <-
-      flextable::set_header_df(ft, mapping = typology, key = "col_keys")
-    ft <- flextable::merge_h(ft, part = "header")
-    ft <- flextable::merge_v(ft, part = "header")
-    ft <- flextable::theme_vanilla(ft)
-  }
-  ft
-}
+
 
 
 #' @rdname Output
 #' @description Output.iste: einzeln in einen data.frame transformieren
 #' @export
+#' 
 Output.list <- function(x,
                         ...) {
   for (i in 1:length(x))
@@ -306,6 +269,7 @@ Output.list <- function(x,
 #' @rdname Output
 #' @description Output.matrix: umwandeln in einen data.frame
 #' @export
+#' 
 Output.matrix <- function(x, ...) {
   Output(fix_to_data_frame(x), ...)
 }
@@ -315,6 +279,7 @@ Output.matrix <- function(x, ...) {
 #' @rdname Output
 #' @description Output.stp25: experimenteller Prototyp
 #' @export
+#' 
 Output.stp25 <- function(x, ...) {
   # noch nicht getestet
   if (is.list(x)) {
@@ -333,8 +298,7 @@ Output.stp25 <- function(x, ...) {
 #' @param fix_colnames an translate TRUE/FALSE
 #'
 #' @return list(header,header_above,cgroup,n.cgroup,header_above2,)
-#' 
-
+#'
 tbl_header <-
   function(x,
            fix_colnames = FALSE,
@@ -390,6 +354,7 @@ tbl_header <-
 #' @param x data.frame
 #'
 #' @return data.frame
+#' 
 insert_nbsp <- function(x) {
   data.frame(plyr::llply(x, function(x) {
     if (is.character(x))
@@ -405,6 +370,7 @@ insert_nbsp <- function(x) {
 #' @param x data.frame
 #'
 #' @return data.frame
+#' 
 cleanup_nbsp <- function(x) {
   data.frame(plyr::llply(x, function(strg) {
     if (is.character(strg) | is.factor(strg)) {
@@ -418,28 +384,9 @@ cleanup_nbsp <- function(x) {
 }
 
 
-
-
-
-
-
-
-
-
-
-# add_emty_col(
-#   data.frame(Source=c("A", "B", "C", "F"),
-#              x=1:4,
-#              y=1:4, stringsAsFactors=FALSE
-#   ),
-#   c("Hallo Welt 1",
-#     "Hallo Welt 2",
-#     "Hallo Welt 3")
-#
-# )
 add_emty_col <- function (x,  df = "hallo welt", na_value = NA)
 {
-  df <- tibble(df)
+  df <- tibble::tibble(df)
   names(df) <-  names(x)[1L]
   attr(df, "row.names") <- .set_row_names(max(1L, nrow(df)))
   
@@ -450,13 +397,15 @@ add_emty_col <- function (x,  df = "hallo welt", na_value = NA)
 }
 
 
-#Orginal  tibble:::rbind_at
+#' Orginal  tibble:::rbind_at
+#' @noRd
+#' 
 rbind_at <- function (old, new, pos)
 {
   idx <- NULL
   if (nrow(old) == 0) {
-    old <- old[1, ]
-    out <- rbind(old, new)[-1, ]
+    old <- old[1,]
+    out <- rbind(old, new)[-1,]
   }
   else {
     out <- rbind(old, new)
@@ -470,26 +419,25 @@ rbind_at <- function (old, new, pos)
         idx <- c(idx, i)
       }
     }
-    out <- out[idx, ]
+    out <- out[idx,]
   }
   out
 }
 
 #' @rdname Output
 #' @param add_row list (c("Erste Zeile" = 1, "Dritte" = 3))
-#' @examples 
+#' @examples
 #' df <-   data.frame(
 #' Source = c("A", "B", "C", "F"),
 #' x = 1:4,
 #' y = 1:4,
 #' stringsAsFactors = FALSE
 #' )
-#' 
+#'
 #' # add_row_df(df, c("Erste Zeile" = 1, "Dritte" = 3))
-#' 
-#' 
+#'
+#'
 add_row_df <- function(x, add_row = NULL) {
   new_element <- add_emty_col(x, names(add_row))
   rbind_at(x, new_element, pos = as.numeric(add_row))
 }
-

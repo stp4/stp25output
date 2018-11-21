@@ -73,7 +73,7 @@ fix_levels<- function(x,
   else {
 
     if(is.data.frame(labels)){
-      value_labels <- GetLabelOrName(labels[measure.vars])
+      value_labels <- stp25aggregate::GetLabelOrName(labels[measure.vars])
     }else{
       value_labels<- labels[measure.vars]
     }

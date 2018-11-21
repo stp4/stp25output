@@ -1,3 +1,6 @@
+
+
+
 .onLoad <- function(libname, pkgname)
 {
   options("stp25" = default_stp25_opt())
@@ -14,19 +17,23 @@ when_attached <- function(pkg, action) {
 is_attached <- function(pkg) paste0("package:", pkg) %in% search()
 
 
-## update elements of a list recursively. Used in updating trellis or
-## lattice settings using trellis.par.set and lattice.options
-## respectively
-#- noch nicht benutzt von Lattice
+
+ 
+#' updateList
+#' 
+#' noch nicht benutzt von Lattice
+#' @param x old list
+#' @param val new value
+#' @noRd
 updateList <- function(x, val)
 {
   if (is.null(x)) x <- list()
   modifyList(x, val)
 }
+ 
 
 
-
-# 'R2HTML' 'htmlTable' 'kableExtra' 'lattice' 'plyr' 'stp25APA2''stringr'
+ 
 
 
 

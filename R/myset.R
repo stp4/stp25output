@@ -15,21 +15,23 @@
 #' @param ...  nicht verwendet
 #' @return Gibt opar zureuck (Wird fue reset benoetigt)
 #' @export
+#' @importFrom lattice show.settings  trellis.par.set trellis.par.get lattice.options trellis.device
+#' @importFrom latticeExtra ggplot2like ggplot2like.opts
 #' @examples
 #' #graphics.off()
-#'  
-#'  
+#'
+#'
 #'    lattice::trellis.par.set(effects::effectsTheme())
-#'    
+#'
 # pch = 15:18
 # lty = 1:3
 # cex = 1
 # axis.grid = FALSE
-# 
+#
 # lattice::trellis.par.set(latticeExtra::ggplot2like(n = 4, h.start = 120))
 # col <- lattice::trellis.par.get()$superpose.polygon$col
 # col.bar <- lattice::trellis.par.get()$plot.polygon$col
-# 
+#
 # lattice::trellis.par.set(
 #   axis.text = list(
 #     cex = 0.8,
@@ -43,11 +45,11 @@
 #   box.dot = list(pch = 19, cex = cex),
 #   plot.symbol = list(pch = 1)
 # )
-# 
-# 
-# if (axis.grid)  
+#
+#
+# if (axis.grid)
 #   lattice::lattice.options(latticeExtra::ggplot2like.opts())
-# 
+#
 # lattice::trellis.par.set(effectsTheme())
 #'
 #'
@@ -110,31 +112,31 @@
 #'  #windows(7,4)
 #'  #  bwplot(yield ~ site|year, barley )
 #'  #  End()
+#'  
 MySet <- function(col = NULL,
-                  # brewer.pal(9,"Set1")
                   pch = 15:18,
                   lty = 1:3,
                   cex = 1,
                   col.bar = NULL,
-                  n = if (is.numeric(col)) col else 4,
+                  n = if (is.numeric(col))
+                    col
+                  else
+                    4,
                   h.start = 120,
                   theme = latticeExtra::ggplot2like(n = n, h.start = h.start),
                   axis.grid = FALSE,
                   knit = stp25output::which_output() == "markdown",
-                  #theEconomist.theme() custom.theme()
-                  # reset = FALSE,
-                  #  show.device = FALSE,
-                  
                   ...) {
   require(lattice)
   require(latticeExtra)
   require(RColorBrewer)
   require(effects)
-  # require(ggplot2)
   
   # Speichert die Default einstellungen zum zuruecksetzen der Optionen
   if (exists("opar")) {
-    cat("\n  opar existiert und die Einstellungen trellis.par.set() werden zurueckgesetzt.\n")
+    cat(
+      "\n  opar existiert und die Einstellungen trellis.par.set() werden zurueckgesetzt.\n"
+    )
     lattice::trellis.par.set(opar)
     if (exists("oopt")) {
       cat(
@@ -144,20 +146,18 @@ MySet <- function(col = NULL,
     }
   }
   else{
-    cat("\n Erstmaliger Aufruf von trellis.par.set()\n") 
+    cat("\n Erstmaliger Aufruf von trellis.par.set()\n")
     opar <<- lattice::trellis.par.get()
     
-    if (!knit){
-      cat("Initialisiert trellis.device", getOption("device"),"\n")
-      lattice::trellis.device() #-- new=FALSE 
-      print(show.settings())
+    if (!knit) {
+      cat("Initialisiert trellis.device",
+          getOption("device"),
+          "\n")
+      lattice::trellis.device() #-- new=FALSE
+      print(lattice::show.settings())
     }
     
   }
-  
-  
-  
-  
   
   if (!is.null(theme)) {
     lattice::trellis.par.set(theme)
@@ -197,9 +197,6 @@ MySet <- function(col = NULL,
     }
   }
   
-  
-  
   cat("done\n\n")
-  
   NULL
 }

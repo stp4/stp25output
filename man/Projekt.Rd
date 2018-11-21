@@ -23,7 +23,7 @@ Projekt(myformat = "", Projektname = "Demo", datum = date(),
 Projekt_Rmd(myformat, Projektname, datum, OutDec, contrasts)
 
 Projekt_html(myformat, Projektname, datum, fig_folder, html_folder, OutDec,
-  contrasts, html_name = stpvers::Clean_Umlaute2(Projektname),
+  contrasts, html_name = stpvers::cleansing_umlaute(Projektname),
   css = TRUE)
 
 End(anhang = FALSE,

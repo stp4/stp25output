@@ -88,7 +88,7 @@ Anhang <- function(include.literatur = TRUE,
   }
    
   if (include.regression) {
-    n <- length(myCitation)
+  #  n <- length(myCitation)
     str_appendix <- c(
       str_appendix,
       "<B>Regressionsanalyse</B>

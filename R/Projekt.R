@@ -175,7 +175,7 @@ Projekt_html <- function (myformat,
                           html_folder,
                           OutDec,
                           contrasts,
-                          html_name = stpvers::Clean_Umlaute2(Projektname),
+                          html_name = stpvers::cleansing_umlaute(Projektname),
                           css = TRUE)
 {
   
@@ -554,7 +554,6 @@ MyCss <- function() {
 #' @param browser Ie oder Chrome
 #' @param output TRUE oder FALSE
 #' @export
-#' @importFrom lattice trellis.par.set lattice.options
 End <- function(anhang = FALSE,
                 browser = "C:/Program Files (x86)/Internet Explorer/iexplore.exe",
                 output = options()$prompt[1] == "HTML> ",
@@ -754,6 +753,7 @@ Statistic <-
 #' @description  \subsection{Interne Funktion}{
 #' \code{get_scriptpath()} Ausfuehrendes File finden
 #' Quelle: https://stackoverflow.com/questions/18000708/find-location-of-current-r-file}
+#' 
 get_scriptpath <- function() {
   # location of script can depend on how it was invoked:
   # source() and knit() put it in sys.calls()
