@@ -1,5 +1,8 @@
 #' Projekt
 #'
+#' Ein R-File ruft die Interne Funktion Projekt_html() auf und ein Rmd-File Projekt_Rmd().
+#' 
+#' 
 #' Start eines neuen Prpjekts, mit \code{Projekt()} werden die default Einstellungen (Kontraste) gesetzt sowie die Folder erstellt.
 #' Weiters wird die Ausgabe als HTML gesteuert.
 #' Weitere Optionen fuer die Formatierung koennen mit \code{default_stp25_opt()} gesetzt.
@@ -88,7 +91,7 @@ Projekt <- function(myformat = "",
   }
   
   if(is.null(myformat)) {
-    path<- "test.txt"
+    path <- "test.txt"
     myformat <- "text"
   }
   
@@ -190,14 +193,10 @@ Projekt_html <- function (myformat,
     
     myDir <- getwd()
     myURL <-
-      paste("file://",
-            myDir,
-            "/",
-            html_folder,
-            "/",
-            html_name,
-            ".",
-            myformat,
+      paste("file://", myDir,
+            "/", html_folder,
+            "/", html_name,
+            ".", myformat,
             sep = "")
     output.dir <- paste(myDir, html_folder, sep = "/")
     
@@ -308,149 +307,7 @@ Projekt_html <- function (myformat,
 
 
 
-# Projekt <- function (myformat = "",
-#                      Projektname = "Demo",
-#                      datum = date(),
-#                      fig_folder = "Fig",
-#                      html_folder = "Results",
-#                      OutDec = NULL,
-#                      contrasts =  c("contr.Treatment", "contr.poly"),
-#                      html_name = Clean_Umlaute2(Projektname),
-#                      css = TRUE,
-#                      ...)
-# {
-#   #t1 <- Sys.time()
-#   myformat <- tolower(myformat)
-#   
-#   if (myformat != "rpres") {
-#     set.seed(0815)
-#     if (Projektname == "Demo")
-#       setwd("C:/Users/wpete/Dropbox/3_Forschung/R-Project")
-#     #-- Fehler Abfangen
-#     if (options()$prompt[1] == "HTML> ") {
-#       options(prompt = "> ")
-#     }
-#     
-#     myDir <- getwd()
-#     myURL <-
-#       paste("file://",
-#             myDir,
-#             "/",
-#             html_folder,
-#             "/",
-#             html_name,
-#             ".",
-#             myformat,
-#             sep = "")
-#     output.dir <- paste(myDir, html_folder, sep = "/")
-#     
-#     
-#     if (is.null(OutDec))
-#       OutDec <- options()$OutDec
-#     else
-#       options(OutDec = OutDec)
-#     
-#     options(R2HTML.format.decimal.mark = OutDec)
-#     
-#     
-#     if (!dir.exists(output.dir))
-#       dir.create(
-#         output.dir,
-#         showWarnings = TRUE,
-#         recursive = FALSE,
-#         mode = "0777"
-#       )
-#     
-#     if (!dir.exists(fig_folder))
-#       dir.create(
-#         fig_folder,
-#         showWarnings = TRUE,
-#         recursive = FALSE,
-#         mode = "0777"
-#       )
-#     
-#     if (fig_folder != "Fig")
-#       set_my_options(fig_folder = paste0(fig_folder, "/"))
-#     
-#     if (!is.null(contrasts)) {
-#       oldc <- getOption("contrasts")
-#       options(contrasts = contrasts)
-#       cat(
-#         "\nKontraste von " ,
-#         paste(oldc, collapse = ", "),
-#         "auf\n",
-#         paste(contrasts, collapse = ", "),
-#         " umgestellt!\n"
-#       )
-#     }
-#     
-#     set_default_params(list(Tab_Index = 0, Abb_Index = 0))
-#   
-#     if (myformat == "html") {
-#       set_default_params(list(
-#         file.name.index = 0,
-#         reset = par(no.readonly = TRUE)
-#       ))
-#       
-#       R2HTML::HTMLStart(
-#         outdir = output.dir,
-#         file = html_name,
-#         extension = myformat,
-#         echo = FALSE,
-#         HTMLframe = FALSE
-#       )
-#       
-#       if (css) {
-#         myCssFile <- file.path(output.dir, "R2HTML.css")
-#         cat("\nCSS-File:" , myCssFile, "\n")
-#         if (!file.exists(myCssFile))
-#           cat(MyCss(), file = myCssFile)
-#       }
-#     }   
-#     else{
-#       options(continue = "  ")
-#     }
-#     
-#     
-#     pr_string <- paste(
-#       Projektname,
-#       "\n Datum: ",
-#       datum,
-#       ", Software: ",
-#       R.version.string ,
-#       ", Link: www.R-project.org/\nFile: ",
-#       get_scriptpath()
-#     )
-#     Text(pr_string)
-#     
-#   }
-#   else{
-#     #myDir <- getwd()
-#     if (!is.null(OutDec))
-#       options(OutDec = OutDec)
-#     if (fig_folder != "Fig")
-#       set_my_options(fig_folder = paste0(fig_folder, "/"))
-#     
-#     if (!is.null(contrasts)) {
-#       oldc <- getOption("contrasts")
-#       options(contrasts = contrasts)
-#     }
-#     
-#     set_default_params(list(Tab_Index = 0, Abb_Index = 0))
-#     pr_string <- NULL
-#   }
-#   
-#   set_my_options(output = myformat)
-#   invisible(pr_string)
-# }
-
-
-
-
-
-
-
-
+ 
 MyCss <- function() {
   '
 /*
@@ -593,6 +450,7 @@ End <- function(anhang = FALSE,
 
 
 #' @rdname Projekt
+#' @description Rechnung(): setzt ein Datum und Beendet mit Ende und stop die Auswertung
 #' @export
 Rechnung  <- function(datum = "") {
   Text(paste("Rechnung: ", datum))
@@ -687,6 +545,7 @@ Measures <- function(h = "Messinstrument",
 }
 
 #' @rdname Projekt
+#' @description Results(), Measures(), Materials(), usw Ueberschrift mit aufruf eies exteren R-Scripts.
 #' @export
 Results <- function(h = "Ergebnisse",
                     x = NULL,

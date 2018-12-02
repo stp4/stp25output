@@ -11,6 +11,8 @@ NULL
 #' @export
 
 set_my_options <- function(...) {
+  
+  #Alternative modifyList(x, list(fig_folder="fig3"))
   my_canges <- list(...)
 
   if (length(my_canges) == 0) {

@@ -19,6 +19,13 @@ is_attached <- function(pkg) paste0("package:", pkg) %in% search()
 
 
  
+# Start a new environment to hold the session key so all other functions can access it
+# See http://trestletech.com/2013/04/package-wide-variablescache-in-r-package/
+
+# session_stp <- new.env(parent = emptyenv())
+
+
+
 #' updateList
 #' 
 #' noch nicht benutzt von Lattice
@@ -27,10 +34,11 @@ is_attached <- function(pkg) paste0("package:", pkg) %in% search()
 #' @noRd
 updateList <- function(x, val)
 {
-  if (is.null(x)) x <- list()
+  if (is.null(x))
+    x <- list()
   modifyList(x, val)
 }
- 
+
 
 
  
