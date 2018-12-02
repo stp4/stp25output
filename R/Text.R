@@ -159,24 +159,38 @@ Zitat <- function(...)
   Text('<blockquote>', ..., "<br></blockquote>")
 
 
+
 #' @rdname Text
 #' @description Arbeitszeit() Tabelle zur Dokumentation der Arbeiszeit.
 #' @param Lines in Arbeitszeit der Input-String
 #' @param sep in Arbeitszeit das Input-String-Trennzeichen
 #'
 #' @export
-Arbeitszeit<- function(Lines,
-                       sep = "\\t"
-) {
-  zeit <- read.table(
-    zz <- textConnection(gsub(sep, " ", Lines)),
-    header = TRUE)
+Arbeitszeit <- function(Lines,
+                        sep = "\\t",
+                        ...) {
+  zeit <- read.table(zz <- textConnection(gsub(sep, " ", Lines)),
+                     header = TRUE)
   close(zz)
+  
   names(zeit) <- c("Datum",  "Start",   "Ende",   "Task")
   zeit$strt <- strptime(zeit$Start, "%H:%M")
   zeit$end <- strptime(zeit$Ende, "%H:%M")
-  zeit$Zeit_Stunden<-  round(as.numeric(difftime(zeit$end,zeit$strt, units = "hours")), 2)
+  zeit$Zeit_Stunden <-
+    round(as.numeric(difftime(zeit$end, zeit$strt, units = "hours")), 2)
   zeit$Zeit_Summe <- cumsum(zeit$Zeit_Stunden)
-  Output(zeit[, c("Datum", "Start", "Ende", "Task", "Zeit_Stunden", "Zeit_Summe" )])
+  
+  zeit$Pos <-  stringi::stri_extract_first_regex(zeit$Task, "[0-9]+")
+  zeit$Task <- gsub("_", " ", zeit$Task)
+  zeit$Task <- gsub("[0-9]+", "", zeit$Task)
+  
+  
+  Output(zeit[, c("Datum",
+                  "Start",
+                  "Ende",
+                  "Pos",
+                  "Task",
+                  "Zeit_Stunden",
+                  "Zeit_Summe")], ...)
   invisible(zeit)
 }
