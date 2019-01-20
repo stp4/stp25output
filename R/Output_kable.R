@@ -33,7 +33,7 @@ Output_kable.default <-
            output =  which_output(),
            print_col = NULL,
            ##Sprachuebesaetzung
-           fix_colnames = TRUE,
+          fix_colnames =   options()$stp25$language != "",
            ...) {
 
     # format <- switch(
@@ -45,6 +45,8 @@ Output_kable.default <-
     #   "html"
     # )
 
+  #  Text("In Output_kable.default")
+  #  print("In Output_kable.default")
     caption <- Caption(caption, attr(x, "caption"))
     note <- Note(note, attr(x, "note"))
 
@@ -52,6 +54,9 @@ Output_kable.default <-
       x <- x[, print_col]
       col.names <- colnames(x)
     }
+    
+    
+   # tbl <- tbl_header(x, fix_colnames = fix_colnames)
     
     result_tbl_names <- stringr::str_split(col.names, "_")
     ebenen <- max(lengths(result_tbl_names), na.rm = TRUE)

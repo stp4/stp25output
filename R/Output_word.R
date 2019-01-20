@@ -9,7 +9,7 @@ Output_word <- function(x,
                         output =  which_output(),
                         print_col = NULL,
                         col_names = NULL,
-                        fix_colnames = FALSE,
+                        fix_colnames =   options()$stp25$language != "",
                         ...) {
   
   

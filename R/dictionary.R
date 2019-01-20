@@ -11,13 +11,16 @@ Sprachdatei <-
 
            words = list(
              characteristics =  c("Characteristics", "Bezeichnung"),
-             statistics = c("Statistics", "Statistik"),
-             statistic = c("Statistics", "Statistik"),
+             
+             statistics = c("Test Statistic", "Test Statistik"),
+             statistic = c("Test Statistic", "Test Statistik"),
+             sig.test = c("Test Statistic", "Test Statistik"),
+             
              mean.Rank = c("mean Rank", "mittlerer Rang"),
-             skalenwert = c("Characteristic Value", "MerkmalsausprAegung"),
+             skalenwert = c("Characteristic Value", "Merkmalsauspraegung"),
              items  = c("Items", "Items"),
              item  = c("Item", "Item"),
-             sig.test = c("significance Test", "signifikanz Test"),
+            
              value = c("Value", "Wert"),
              variable = c ("Variable", "Merkmal"),
              mass= c ("Value", "Anpassungsmass"),

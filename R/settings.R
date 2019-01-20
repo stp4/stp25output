@@ -27,8 +27,9 @@ set_my_options <- function(...) {
       # cat(class(my_canges[i]), i,"\n")
       if (i == "bez" | i == "language") {
         if ( i == "language" ) {
+          
           old_options$bez <- Sprachdatei(my_canges[i])
-
+          old_options$language<-my_canges[i]
         }
         if( i == "bez"  ){  # Sprache kann unabhaengig von den einzelnen Woertern geaendert werden
         if (is.null(my_canges[[i]])){
