@@ -93,11 +93,15 @@ Projekt <- function(myformat = "",
   if(is.null(myformat)) {
     path <- "test.txt"
     myformat <- "text"
-  }
+  }else{ myformat <- tolower(myformat)}
   
-  if (grepl("\\.r$", path, perl = TRUE, ignore.case = TRUE)) {
+  is_r_file <- grepl("\\.r$", path, perl = TRUE, ignore.case = TRUE)
+  is_not_knit <- which_output() != "markdown"
+  
+  
+  if (is_r_file & is_not_knit) {
     Projekt_html(
-      myformat = tolower(myformat),
+      myformat = myformat,
       Projektname = Projektname,
       datum = datum,
       fig_folder = fig_folder,
@@ -109,7 +113,7 @@ Projekt <- function(myformat = "",
     )
   } else   {
     Projekt_Rmd(
-      myformat = tolower(myformat),
+      myformat = myformat,
       Projektname = Projektname,
       datum = datum,
       OutDec = OutDec,

@@ -51,11 +51,12 @@ Output_kable(x, ...)
 \method{Output_kable}{default}(x, caption = NULL,
   col.names = colnames(x), booktabs = TRUE,
   latex_options = c("hold_position"), note = NULL,
-  output = which_output(), print_col = NULL, fix_colnames = TRUE,
-  ...)
+  output = which_output(), print_col = NULL,
+  fix_colnames = options()$stp25$language != "", ...)
 
 Output_word(x, caption = NULL, note = NULL, output = which_output(),
-  print_col = NULL, col_names = NULL, fix_colnames = FALSE, ...)
+  print_col = NULL, col_names = NULL,
+  fix_colnames = options()$stp25$language != "", ...)
 
 \method{Output}{table}(x, caption = attr(x, "caption"), note = attr(x,
   "note"), ...)

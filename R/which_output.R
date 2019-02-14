@@ -19,12 +19,12 @@ which_output <-
       if (knitr:::out_format() == "markdown") {
         switch(
           options()$stp25$output,
-          text = "text",
-          pdf = "markdown",
-          html = "markdown_html",
-          word ="word",
-          spin = "html",
-          "markdown"
+          text =  "text",
+          pdf =   "markdown",
+          html =  "markdown_html",
+          word =  "word",
+          spin =  "markdown",
+                  "markdown"
         )
       }
       

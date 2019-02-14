@@ -83,10 +83,7 @@ get_scriptpath()
 html-Pfad oder Projektname als Text
 }
 \description{
-Start eines neuen Prpjekts, mit \code{Projekt()} werden die default Einstellungen (Kontraste) gesetzt sowie die Folder erstellt.
-Weiters wird die Ausgabe als HTML gesteuert.
-Weitere Optionen fuer die Formatierung koennen mit \code{default_stp25_opt()} gesetzt.
-Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
+Ein R-File ruft die Interne Funktion Projekt_html() auf und ein Rmd-File Projekt_Rmd().
 
 Einstellungen fuer .Rmd files hier werden keine Folder erstellt
 
@@ -95,14 +92,24 @@ Einstellungen fuer HTNL mit \code{R2HTML::HTMLStart()}
 \subsection{End}{
 Zuruecksetzen der Einstellungen und Aufruf des Browsers browser = getOption("browser")}
 
+Rechnung(): setzt ein Datum und Beendet mit Ende und stop die Auswertung
+
 \subsection{Methode}{
 Methode, Materials, Research_Design, Measures
 Results, Demographic_Variables und Statistic sind Platzhalter Funktionen um den R-Code
 in verschiedenen Files aiszulagern.}
 
+Results(), Measures(), Materials(), usw Ueberschrift mit aufruf eies exteren R-Scripts.
+
 \subsection{Interne Funktion}{
 \code{get_scriptpath()} Ausfuehrendes File finden
 Quelle: https://stackoverflow.com/questions/18000708/find-location-of-current-r-file}
+}
+\details{
+Start eines neuen Prpjekts, mit \code{Projekt()} werden die default Einstellungen (Kontraste) gesetzt sowie die Folder erstellt.
+Weiters wird die Ausgabe als HTML gesteuert.
+Weitere Optionen fuer die Formatierung koennen mit \code{default_stp25_opt()} gesetzt.
+Mit  \code{stp25_options} koennen die  Formatierungs-Optionen geaendert werden.
 }
 \examples{
 
