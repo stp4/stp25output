@@ -1,9 +1,24 @@
 #' Ausgabe von HTML, Knit oder Text
 #'
-#' Erstellt den Output von Objekten, diese koennen zB. mit Uberschriften versehen sein.
+#' HTML :  htmlTable::htmlTable
+#' 
+#' markdown: knitr::kable -> kableExtra::kable_styling 
+#' 
+#' Text: knitr::kable
+#' 
+#' Word: knitr::kable(x, format = "pandoc")  
+#' 
+#' Output_word() flextable::regulartable
+#'
+#'
 #' @name Output
 #' @param x Objekt liste oder Dataframe
-#' @param output HTML, Knit  oder Textfile output=NA verlaesst die Funktion ohne aktion
+#' @param output FALSE = NULL,
+#' TRUE = print,
+#' "html" = htmlTable(), "markdown_html"= htmlTable(),
+#' "markdown"= kable(),
+#' "text"=kable(... "pandoc") und
+#' "word"= flextable()
 #' @param ... weitere Einstellungen
 #' @return HTML oder Textausgabe
 #' @author Wolfgang Peter
@@ -15,7 +30,7 @@ Output <- function(x, ...) {
 
 #' @rdname Output
 Output.character <- function(x, output = which_output(), ...) {
-  if (output) {
+  if (output=="html" | output=="markdown_html") {
     if (any(class(x) == "texregTable"))
       HTML_CENTER(x)
     else
@@ -27,9 +42,9 @@ Output.character <- function(x, output = which_output(), ...) {
 
 #' @rdname Output
 Output.vector <- function(x,
-                          output = which_output() ,
+                          output = which_output(),
                           ...) {
-  if (output)
+  if (output=="html" | output=="markdown_html")
     HTML_P(x)
   else
     x
@@ -77,197 +92,4 @@ Output.default <- function(x, ...) {
 }
 
 
-# Output.default <- function(x,
-#                            caption = "", note = "",
-#                            output = options()$prompt[1] == "HTML> ",
-#                            # print = TRUE,
-#                            col_names = NULL,
-#                            print_col = NULL,
-#                            ...) {
-#
-#   Head("Warning in Output.default")
-#   cat("\nin Output.default\n")
-#   print(class(x))
-#   Caption2 <- function(...) {
-#     cptn <- gsub(" {2,}", " ", paste(...))
-#     #  cat("\n", cptn)
-#  #   Output_info$table <<-  c(Output_info$table, cptn)
-#     cptn
-#   }
-#
-#   if (output) {
-#     ##htmlreg2Print2
-#     if (is.list(x) ) {
-#       for (i in names(x)) {
-#         if (!is.null(print_col))
-#           x[[i]] <- x[[i]][, print_col]
-#         else if (all(x[[i]][, 2] == ""))  {
-#           mynames <- names(x[[i]])
-#           x[[i]] <- x[[i]][, -2]
-#           names(x[[i]]) <- mynames[-2]
-#         }
-#         names(x[[i]]) <-
-#           find_col_names(col_names, names(x[[i]]), fix_colnames)
-#         htmlreg2Print2(
-#           x[[i]],
-#           caption = Caption2(Tab(), i, caption),
-#           caption.above = TRUE,
-#           inline.border = FALSE,
-#           note = note,
-#           center = TRUE
-#         )
-#       }
-#     } else if (is.matrix(x)) {
-#       Text("is.matrix")
-#       tab <- as.data.frame.matrix(x)
-#       tab <- cbind(" " = rownames(x), tab)
-#       htmlreg2Print2(
-#         tab,
-#         caption =  Caption2(Tab(), caption),
-#         caption.above = TRUE,
-#         inline.border = FALSE,
-#         note = note,
-#         center = TRUE
-#       )
-#     } else {
-#       # Text("else")
-#       if (!is.null(print_col))
-#         x <- x[, print_col]
-#       else if (all(x[, 2] == "")) {
-#         mynames <- names(x)
-#         x <- x[, -2]
-#         names(x) <- mynames[-2]
-#       }## x <- x[,-2] ## Spalte charactristik loeschen
-#       #  names(x) <- if(!is.null(col_names)) col_names else Names2Language(names(x))
-#       names(x) <-
-#         find_col_names(col_names, names(x), fix_colnames)
-#
-#       htmlreg2Print2(
-#         x,
-#         caption = Caption2(Tab(), caption),
-#         caption.above = TRUE,
-#         inline.border = FALSE,
-#         note = note,
-#         center = TRUE
-#       )
-#     }
-#     x <- caption
-#     Text("")    #-- Leerzeichen zum besseren kopieren
-#   } else {
-#     if (!is.data.frame(x) & is.list(x)) {
-#       ##  ?
-#       for (i in names(x)) {
-#         if (!is.null(print_col))
-#           x[[i]] <- x[[i]][, print_col]
-#         else if (all(x[[i]][, 2] == "")) {
-#           mynames <- names(x[[i]])
-#           x[[i]] <- x[[i]][, -2]
-#           names(x[[i]]) <- mynames[-2]
-#         }
-#         names(x[[i]]) <-
-#           find_col_names(col_names, names(x[[i]]), fix_colnames)
-#       }
-#     }
-#     else if (is.data.frame(x)) {
-#       if (!is.null(print_col)) {
-#         x <- x[, print_col]
-#       }
-#       else if (all(x[, 2] == ""))  {
-#         mynames <- names(x)
-#         x <- x[, -2]
-#         names(x) <- mynames[-2]
-#       } else {
-#         cat("\n", class(x), "\n")
-#       }
-#       names(x) <-
-#         find_col_names(col_names, names(x), fix_colnames)
-#     }
-#     else {
-#       cat("\n", class(x), "\n")
-#     }
-#   }
-#   return(x)
-# }
-#-----------------------------------------------------------------
 
-
-
-# @rdname Output
-# @export
-# text_as_table <- function(x,
-#                           caption = "",
-#                           note = "",
-#                           output =  which_output()
-#                           ,
-#                           ...) {
-#   strg <-  str_split(str_split(x, "\n")[[1]], "\\|")
-#   strg <- lapply(strg, function(x) {
-#     x <- gsub("\\t", "", x)
-#     gsub("(^ +)|( +$)", "", x)
-#   })
-#   if (length(strg) == 1) {
-#     Text(x)
-#     return(strg)
-#   }
-#   #Formatierungssymbole
-#   if (!all(lengths(strg) == lengths(strg)[1])) {
-#     wer_is_line <-
-#       function(s)
-#         lengths(lapply(s, function(x)
-#           grep("---", x[1])))
-#     wo_is_line <- wer_is_line(strg)
-#     wo_is_leer <- lengths(strg) == 1 - wo_is_line
-#     strg <- strg[!wo_is_leer]
-#     wo_is_line <- wer_is_line(strg)
-#     strg <- strg[!wo_is_line]
-#     wo_is_line <- which(wo_is_line == 1)
-#   }
-#
-#   if (wo_is_line == 2) {
-#     head_names <- strg[[1]]
-#     mx <- t(sapply(strg[-1], c))
-#     colnames(mx) <- head_names
-#     Output(
-#       htmlTable::htmlTable(mx,
-#                            escape.html = FALSE, ...),
-#       caption = caption,
-#       note = note,
-#       output = output
-#     )
-#
-#   }
-#   else {
-#     headernr <- 1:(wo_is_line - 1)
-#     mx <- t(sapply(strg[-headernr], c))
-#     head_names <- strg[headernr]
-#     header <- head_names[[2]]
-#     cgroup <- head_names[[1]]
-#     if (header[1] == "") {
-#       #-erste Spalte Loeschen
-#       header <- header[-1]
-#       cgroup <- cgroup[-1]
-#       cgroup_space <- cgroup == ""
-#       n.cgroup <-
-#         diff(c(which(!cgroup_space), length(cgroup_space) + 1))
-#       cgroup <- cgroup [!cgroup_space]
-#       rnames <- mx[, 1]
-#       mx <- mx[, -1]
-#     }
-#     Output(
-#       htmlTablehtmlTable(
-#         mx,
-#         cgroup = cgroup,
-#         n.cgroup = n.cgroup,
-#         rnames = rnames,
-#         header = header,
-#         escape.html = FALSE,
-#         ...
-#       ),
-#       caption = caption,
-#       note = note,
-#       output = output
-#     )
-#   }
-#
-#   invisible(mx)
-# }

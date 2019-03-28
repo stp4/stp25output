@@ -12,41 +12,57 @@
 #' @param css.table,css.cell,align Format an Output.data.frame (htmlTable)
 #'  padding-left: .5em; padding-right: .2em; Output.data.frame (htmlTable)
 #' @param booktabs,latex_options an kableExtra
-#' @param ... an knit
+#' @param linesep linesep = ""  linesep = c("", "", "\\midrule")
+#' @param ...  
 #'
 #' @return null
 #' @export
 #'
 #' @examples
-#'
+#' #
+#' 
+#' 
+#' 
 #' df1 <- data.frame(
 #' term = c("A", "B", "C", "D"),
 #' n = c(23, 14, 56, 2),
 #' m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA)
 #' )
-#'
-#'
-#'
+#' 
+#' 
+#' 
 #' df2 <- data.frame(
 #'   term = c("A", "B", "C", "D"),
 #'   G1_k_n = c(23, 14, 56, 2),
 #'   G1_k_m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA),
 #'   G2_n = c(33, 35, 78, 21),
 #'   G2_m = c("4.9 (2.7)", "4.7 (2.5)", "4.1 (5.6)", "4.2 (5.6)")
-#'
-#' )
-#'  
-#' Output2(df1)
-#' Output2(df2)
-#'
-#' Output2(df1, output = "html")
-#' Output2(df2, output = "html")
-#'
- 
-#'
-#' Output2(df1, output = "markdown")
-#' Output2(df2, output = "markdown")
+#' #+ df-default ,  results='asis'
+#' df1 %>% Output()
 #' 
+#' #+ df-false ,  results='asis'
+#' df1 %>% Output(output=FALSE)
+#' 
+#' #+ df-true
+#' df1 %>% Output(output=TRUE)
+#' 
+#' #+ df-html
+#' df1 %>% Output(output="html")
+#' 
+#' #+ df-text ,  results='asis'
+#' df1 %>% Output(output="text")
+#' 
+#' #+ df-word ,  results='asis'
+#' df1 %>% Output(output="word")
+#' 
+#' 
+#' #+ df-mark
+#' df1 %>% Output(output="markdown")
+#' 
+#' 
+#' 
+#' # df1 %>%  Output(linesep = c("", "", "\\midrule"))
+
 #' 
 Output.data.frame <-
   function(x,
@@ -61,15 +77,20 @@ Output.data.frame <-
            css.cell = 'padding-left: .5em; padding-right: .2em;',
            booktabs = TRUE,
            latex_options = c("hold_position"),
+           linesep = "",
            align = "l",
            ...) {
     
-    if (nrow(x) == 0)
-      return(NULL)
+    if (nrow(x) == 0)  return(NULL)
+    # abbruch bei output=FALSE bei TRUE Ausgabe als Text
+    if (is.logical(output)) {
+      if (output)
+        output <- "console"
+      else
+        return(NULL)
+    }
     
-    caption <- Caption(caption, attr(x, "caption"))
-    note <- Note(note, attr(x, "note"))
-    
+    # Zellen-Spalten bearbeiten
     if (!is.null(print_col)) {
       x <- x[print_col]
     }
@@ -98,21 +119,39 @@ Output.data.frame <-
       x <- add_row_df(x, add_row)
     }
     
-    if (is.logical(output)) {
-      if (output) {
-        if (!is.null(tbl$header_above))
-          names(x) <-
-            ifelse(
-              tbl$header_above2 == "",
-              tbl$header,
-              paste0(tbl$header_above2, "_", tbl$header)
-            )
-        else{
-          names(x) <-  tbl$header
-        }
-        return(x)
+    
+
+    
+    # wen Output() in spin-word direkt aufgerufen wird soll Output_word() die Tabelle erstellen
+    # APA(..., output=FALSE) %>% Output()
+    ## output ==  "word" geht nicht weil  ausgabe nicht an knit_print weitergegeben wird.
+    if (output == "word")
+      return(Output_word(x,
+                         caption,
+                         note,
+                         output,
+                         print_col,
+                         col_names,
+                         fix_colnames))
+    
+   
+    caption <- Caption(caption, attr(x, "caption"))
+    note <- Note(note, attr(x, "note"))
+    
+    if( output == "console") {
+      if (!is.null(tbl$header_above))
+        names(x) <-
+          ifelse(
+            tbl$header_above2 == "",
+            tbl$header,
+            paste0(tbl$header_above2, "_", tbl$header)
+          )
+      else{
+        names(x) <-  tbl$header
       }
-      
+      cat("\n", caption, "\n" )
+      print(x)
+      cat("\n", note, "\n\n")
     }
     else if (output == "html" | output == "markdown_html") {
       x <- insert_nbsp(x)
@@ -161,6 +200,8 @@ Output.data.frame <-
     else if (output ==  "markdown") {
       x <- cleanup_nbsp(x)
       
+      
+  
       if (is.null(tbl$header_above)) {
         print(kableExtra::kable_styling(
           knitr::kable(
@@ -168,7 +209,8 @@ Output.data.frame <-
             row.names = FALSE,
             col.names = tbl$header,
             booktabs = booktabs,
-            caption = caption
+            caption = caption,
+            linesep=linesep
           ),
           latex_options = latex_options
         ))
@@ -183,7 +225,8 @@ Output.data.frame <-
                 row.names = FALSE,
                 col.names = tbl$header,
                 booktabs = booktabs,
-                caption = caption
+                caption = caption,
+                linesep=linesep
               ),
               latex_options = latex_options
             ),
@@ -192,48 +235,15 @@ Output.data.frame <-
         )
       }
     }
-    # else if (output ==  "word") {
-    #
-    #   # das get noch nicht ----
-    #   x <- cleanup_nbsp(x)
-    #
-    #   if (is.null(tbl$header_above)) {
-    #     ft <- flextable::regulartable(x)
-    #     ft <- flextable::theme_vanilla(ft)
-    #
-    #      print( ft )
-    #
-    #   }
-    #   else {
-    #
-    #     tbl$header_above2[1]<- tbl$header[1]
-    #     typology <- data.frame(
-    #       col_keys = names(x),
-    #       what = tbl$header_above2,
-    #       measure = tbl$header,
-    #       stringsAsFactors = FALSE
-    #     )
-    #     ft <- flextable::regulartable(x)
-    #     ft <- flextable::set_header_df(ft, mapping = typology, key = "col_keys")
-    #     ft <- flextable::merge_h(ft, part = "header")
-    #     ft <- flextable::merge_v(ft, part = "header")
-    #     ft <- flextable::theme_vanilla(ft)
-    #
-    #     print(ft )
-    #   }
-    # }
-    #
-    #
-    #
     else{
-     x <- cleanup_nbsp(x)
+       x <- cleanup_nbsp(x)
       
       if (!is.null(tbl$header_above))
         tbl$header <-
           ifelse(tbl$header_above2 == "",
                  tbl$header,
                  paste0(tbl$header_above2, " / ", tbl$header))
-      
+       
       print(
         knitr::kable(
           x,
@@ -241,9 +251,11 @@ Output.data.frame <-
           col.names = tbl$header,
           booktabs = booktabs,
           caption = caption,
-          format = "pandoc"
+          format = "pandoc",
+          linesep=linesep
         )
       )
+      cat("\n", note, "\n\n")
     }
     
     invisible(x)
@@ -258,9 +270,14 @@ Output.data.frame <-
 #' @export
 #' 
 Output.list <- function(x,
+                        output =  which_output(),
                         ...) {
-  for (i in 1:length(x))
-    Output(x[[i]], ...)
+  res<- list()
+    for (i in 1:length(x))
+     res[[i]] <- Output(x[[i]], ...)
+  
+  if(output=="word"){ return(res) }
+  else { invisible(x)}
 }
 
 

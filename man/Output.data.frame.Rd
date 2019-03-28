@@ -6,11 +6,11 @@
 \usage{
 \method{Output}{data.frame}(x, caption = NULL, note = NULL,
   output = which_output(), print_col = NULL, col_names = NULL,
-  fix_colnames = FALSE, add_row = NULL,
+  fix_colnames = options()$stp25$language != "", add_row = NULL,
   css.table = "padding-left: .5em; padding-right: .2em;",
   css.cell = "padding-left: .5em; padding-right: .2em;",
-  booktabs = TRUE, latex_options = c("hold_position"), align = "l",
-  ...)
+  booktabs = TRUE, latex_options = c("hold_position"), linesep = "",
+  align = "l", ...)
 }
 \arguments{
 \item{x}{dataframe}
@@ -28,7 +28,9 @@ padding-left: .5em; padding-right: .2em; Output.data.frame (htmlTable)}
 
 \item{booktabs, latex_options}{an kableExtra}
 
-\item{...}{an knit}
+\item{linesep}{linesep = ""  linesep = c("", "", "\\midrule")}
+
+\item{...}{}
 }
 \value{
 null
@@ -40,6 +42,9 @@ Header-Ebenen werden ueber Header1_M, Header1_SD gesteuert.
 Auch die Funktionen Output.table und xtabl arbeiten ueber diese Funktion.
 }
 \examples{
+#
+
+
 
 df1 <- data.frame(
 term = c("A", "B", "C", "D"),
@@ -55,18 +60,30 @@ df2 <- data.frame(
   G1_k_m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA),
   G2_n = c(33, 35, 78, 21),
   G2_m = c("4.9 (2.7)", "4.7 (2.5)", "4.1 (5.6)", "4.2 (5.6)")
+#+ df-default ,  results='asis'
+df1 \%>\% Output()
 
-)
- 
-Output2(df1)
-Output2(df2)
+#+ df-false ,  results='asis'
+df1 \%>\% Output(output=FALSE)
 
-Output2(df1, output = "html")
-Output2(df2, output = "html")
+#+ df-true
+df1 \%>\% Output(output=TRUE)
+
+#+ df-html
+df1 \%>\% Output(output="html")
+
+#+ df-text ,  results='asis'
+df1 \%>\% Output(output="text")
+
+#+ df-word ,  results='asis'
+df1 \%>\% Output(output="word")
 
 
-Output2(df1, output = "markdown")
-Output2(df2, output = "markdown")
+#+ df-mark
+df1 \%>\% Output(output="markdown")
 
+
+
+# df1 \%>\%  Output(linesep = c("", "", "\\\\midrule"))
 
 }
