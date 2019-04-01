@@ -30,6 +30,9 @@ which_output <-
         else  if (knitr::is_html_output()) {
           "markdown_html"
         }
+        else if(knitr:::pandoc_to()== "docx"){
+          "word"
+        }
         else {
           "text"
         }
@@ -42,7 +45,8 @@ which_output <-
             pdf =   "markdown",
             html =  "markdown_html",
             word =  "word",
-            spin =  "markdown",
+            doc = "word",
+            #spin =  "markdown",
             "markdown"
           )
         }
