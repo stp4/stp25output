@@ -22,6 +22,7 @@ Text <- function(...,
                  style = 0,
                  char = "-",
                  output =  which_output()) {
+  
   report_html <- function(msg) {
     if (is.null(msg))
       msg <- ""
@@ -30,17 +31,16 @@ Text <- function(...,
       msg <- gsub("\\n", "<BR>", msg)
     } else
       stop("msg must be of type vector")
-    if (style == 0 | style == "p"){
+    if (style == 0 | style == "p") {
       HTML_P(msg)
-      }
+    }
     else{
-   
-      HTML_default(paste("\n <h", style, "> ", msg, "</h", style, ">\n", sep = "") )
+      HTML_default(paste("\n <h", style, "> ", msg, "</h", style, ">\n", sep = ""))
       
       
-      }
+    }
   }
-
+  
   report_txt <- function(msg = NULL) {
     if (is.null(msg))
       msg <- ""
@@ -51,7 +51,7 @@ Text <- function(...,
     } else {
       stop("msg must be of type vector")
     }
-
+    
     char <- substr(char, 1, 1)
     underlined <- function(arg) {
       c(arg, paste(rep(char, max(nchar(
@@ -85,19 +85,22 @@ Text <- function(...,
     
     print.noquote(m)
   }
-
-
-
+  
+  msg <- paste0(...)
+  msg <- gsub("#' ", "", msg)
+  
   if (output == "html")
-    report_html(paste0(...))
-  else if (output == "markdown" | output == "markdown_html"){
-    if(style>0){
-      paste( paste(rep("#" ,style),   collapse=""),  paste0(...))
-    }else
-    cat(paste0(...))}
+    report_html(msg)
+  else if (output == "markdown" | output == "markdown_html") {
+    if (style > 0) {
+      paste(paste(rep("#", style), collapse = ""),  
+            msg)
+    } else
+      cat(msg)
+  }
   else
-     
-    report_txt(paste0(...))
+    
+    report_txt(msg)
 }
 
 #' @rdname Text
