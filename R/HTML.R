@@ -15,10 +15,8 @@ HTML_ <- function(x, output = which_output()) {
 }
 
 HTML_default <- function(x, output =  which_output()) {
-  if (options()$stp25$output == "spin") {
-    cat(x)
-  }
-  else  if (output == "html") {
+ 
+  if (output == "html") {
     cat("\n",
         x,
         "\n",
