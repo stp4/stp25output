@@ -22,10 +22,11 @@
 #' apa.reg.table(block1, block2) %>% Output()
 #'  } 
 #' 
-Output.apa_table <- function(x) {
+Output.apa_table <- function(x, output=which_output()) {
   names(x$table_body) <- gsub("_", ".", names(x$table_body))
   Output(x$table_body,
          caption = x$table_title,
-         note = x$table_note)
+         note = x$table_note,
+         output=output)
   invisible(x$table_body)
 }
