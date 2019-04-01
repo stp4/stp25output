@@ -99,6 +99,8 @@ Projekt <- function(myformat = "",
   is_not_knit <- which_output() != "markdown"
   
   
+ # cat("\n\n", is_r_file, is_not_knit, "\n\n")
+  
   if (is_r_file & is_not_knit) {
     Projekt_html(
       myformat = myformat,
