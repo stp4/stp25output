@@ -89,7 +89,21 @@ Output.NULL <- function(x, ...) {
 #'
 Output.default <- function(x, ...) {
   cat("\nin Output.default class: class(x)[1] \n")
+ Outout( broom::tidy(x), ...) 
+  
 }
 
 
-
+#' @rdname Output
+#' @export
+#'
+#' @examples
+#' warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
+#' x <- emmeans::emmeans(warp.lm,  ~ wool | tension)
+#' Output(x)
+#' 
+Output.emmGrid <- function(x, 
+                           caption="Estimated marginal means", 
+                           note="Least-squares means", ...) {
+Output(fix_format(as.data.frame(x)), caption = caption, note = note, ...)
+}

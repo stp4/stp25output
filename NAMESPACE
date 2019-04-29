@@ -3,6 +3,7 @@
 S3method(Output,"NULL")
 S3method(Output,apa_table)
 S3method(Output,data.frame)
+S3method(Output,emmGrid)
 S3method(Output,ftable)
 S3method(Output,htmlTable)
 S3method(Output,list)

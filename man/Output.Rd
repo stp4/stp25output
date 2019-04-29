@@ -8,6 +8,7 @@
 \alias{Output.htmlTable}
 \alias{Output.NULL}
 \alias{Output.default}
+\alias{Output.emmGrid}
 \alias{Output.apa_table}
 \alias{Output.list}
 \alias{Output.matrix}
@@ -32,6 +33,9 @@ Output(x, ...)
 \method{Output}{NULL}(x, ...)
 
 \method{Output}{default}(x, ...)
+
+\method{Output}{emmGrid}(x, caption = "Estimated marginal means",
+  note = "Least-squares means", ...)
 
 \method{Output}{apa_table}(x, output = which_output())
 
@@ -114,6 +118,10 @@ Word: knitr::kable(x, format = "pandoc")
 Output_word() flextable::regulartable
 }
 \examples{
+warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
+x <- emmeans::emmeans(warp.lm,  ~ wool | tension)
+Output(x)
+
 
 \dontrun{
 library(apaTables) 
