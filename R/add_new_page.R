@@ -5,12 +5,23 @@
 #' @return nichts
 #' @export
 #' 
-add_new_page <- function() {
-  if (which_output() == "html")
-    code <- '<br style="page-break-before: always">'
-  
-  else
-    code <- "\n----------------\n\n"
-  HTML_default(code)
-  
-}
+add_new_page<-
+  function() {
+    if (which_output() == "html")
+      HTML_default('<br style="page-break-before: always">')
+    else if(which_output() == "markdown") cat('\\pagebreak')
+    else cat("\n----------------\n\n")
+  }
+
+
+# add_new_page <- function() {
+#   if (which_output() == "html")
+#     code <- '<br style="page-break-before: always">'
+#   
+#   else
+#     code <- "\n----------------\n\n"
+#   HTML_default(code)
+#   
+# }
+
+
