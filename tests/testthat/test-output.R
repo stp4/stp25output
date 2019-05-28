@@ -13,13 +13,14 @@ test_that("Output works", {
                               note = "Anmerkung",
                               N = 256)
   
-  expect_output(Output(df1, output = "text"),  "term")
+  expect_output(Output(df1, output = "text", fix_colnames = FALSE), "term")
   
-  expect_output(Output(df1, output = "html"),  "<table")
+  expect_output(Output(df1, output = "html"), "<table")
   
-  expect_output(Output(df1, output = "markdown"),  "<table")
+  expect_output(Output(df1, output = "markdown"), "<table")
   
 })
+
 
 
 test_that("tbl_header works", {
@@ -39,13 +40,11 @@ test_that("tbl_header works", {
   )
   
   expect_equal(stp25output:::tbl_header(df1)$header,
-               c("term" , "n",    "m"))
+               c("term" , "n", "m"))
   expect_equal(stp25output:::tbl_header(df2)$cgroup,
-               c("",   "G1", "G2"))
+               c("", "G1", "G2"))
   
 })
-
-
 
 
 
@@ -59,16 +58,13 @@ test_that("Output header", {
     
   )
   
-  expect_output(Output(df2, output = "text"),  "term")
+  expect_output(Output(df2, output = "text", fix_colnames = FALSE), "term")
   
-  expect_output(Output(df2, output = "html"),  "<table")
+  expect_output(Output(df2, output = "html"), "<table")
   
-  expect_output(Output(df2, output = "markdown"),  "<table")
+  expect_output(Output(df2, output = "markdown"), "<table")
   
 })
-
-
-
 
 
 test_that("xtabs header", {
@@ -80,7 +76,7 @@ test_that("xtabs header", {
   
   expect_output(
     APA2(
-      xtabs( ~ gruppe + LAI + Tzell, hkarz),
+      xtabs(~ gruppe + LAI + Tzell, hkarz),
       caption = "APA_Xtabs: 2x2x3 Tabelle",
       test = FALSE,
       output = "markdown"
@@ -89,10 +85,6 @@ test_that("xtabs header", {
   )
   
 })
-
-
-
-
 
 
 
@@ -105,8 +97,6 @@ test_that("optionen  header", {
     G2_m = c("4.9 (2.7)", "4.7 (2.5)", "4.1 (5.6)", "4.2 (5.6)"),
     F.value = c(2.73, 1.44, 4.56, 0.42),
     Pr..Chisq. = c(0.73, 0.044, 0.056, 0.042)
-    
-    
   )
   
   expect_equal(names(
@@ -118,16 +108,14 @@ test_that("optionen  header", {
       fix_colnames = TRUE
     )
   ),
-  c("Quelle", "G1_k_n", "G1_k_m", "G2_n" ,  "G2_m"  , "F" ,     "p"))
+  c("Quelle", "G1_k_n", "G1_k_m", "G2_n", "G2_m", "F", "p"))
   
   
   expect_equal(names(Output(
     df2, output = TRUE,
     print_col = -c(2, 4)
   )),
-  
-  
-  c("term",       "G1_k_m",     "G2_m" ,      "F.value" ,   "Pr..Chisq."))
+  c("Quelle", "G1_k_m", "G2_m", "F", "p"))
   
   expect_equal(names(Output(
     df2,
@@ -135,7 +123,7 @@ test_that("optionen  header", {
     print_col =  c(1, 4:7),
     fix_colnames = TRUE
   )),
-  c("Quelle", "G2_n",   "G2_m",   "F" ,     "p"))
+  c("Quelle", "G2_n", "G2_m", "F" , "p"))
   
   
   expect_equal(names(
@@ -152,14 +140,9 @@ test_that("optionen  header", {
   expect_equal(names(Output(
     df2,
     output = TRUE,
-    col_names =   c("term",       "G1_k_m",     "G2_m" ,      "F " ,   "Sig"),
+    col_names =   c("term", "G1_k_m", "G2_m", "F ", "Sig"),
     print_col = -c(2, 4)
   )),
-  c("term",       "G1_k_m",     "G2_m" ,      "F " ,   "Sig"))
-  
-  
+  c("term", "G1_k_m", "G2_m", "F ", "Sig"))
   
 })
-
-
-
