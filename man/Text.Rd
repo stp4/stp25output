@@ -23,7 +23,7 @@ CitationLib(lib)
 
 Zitat(...)
 
-Arbeitszeit(Lines, sep = "\\\\t")
+Arbeitszeit(Lines, sep = "\\\\t", ...)
 
 Anhang(include.literatur = TRUE, include.software = TRUE,
   include.mean = FALSE, include.test = FALSE,
