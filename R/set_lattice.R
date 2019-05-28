@@ -200,3 +200,158 @@ MySet <- function(col = NULL,
   cat("done\n\n")
   NULL
 }
+
+
+
+#' set_lattice
+#' 
+#' @name set_lattice
+#'
+#' @param pch,lty,cex parameter an plot
+#' @param col.bar Farben
+#' @param ... nicht benutzt
+#'
+#' @return im Hintergrund oopt unt opar sowie  invisible(lattice::trellis.par.get()) 
+#'
+#' @examples
+#' #' 
+#' set.seed(2)
+#' n <- 20 * 3 * 2
+#' DF <- data.frame(
+#'   n = runif(n, min = 1, max = 5),
+#'   e = runif(n, min = 1, max = 5),
+#'   o = runif(n, min = 1, max = 5),
+#'   g = runif(n, min = 1, max = 5),
+#'   a = runif(n, min = 1, max = 5),
+#'   treatment = gl(3, n / 3, labels = c("UG1", "UG2", "KG"))[sample.int(n)],
+#'   sex = gl(2, n / 2, labels = c("male", "female"))
+#' )
+#' 
+#' 
+#' 
+#' set_lattice_ggplot()
+#' bwplot2(e ~ treatment,
+#'         DF,
+#'         groups = sex,
+#'         auto.key = list(columns = 2))
+#' 
+#' 
+#' set_lattice_bw()
+#' bwplot2(e ~ treatment,
+#'         DF,
+#'         groups = sex,
+#'         auto.key = list(columns = 2))
+#'  
+NULL
+
+
+
+#' @rdname set_lattice
+#' @description set_lattice_ggplot:   lattice-Theme
+#' @export
+set_lattice_ggplot <- function(pch = 15:18,
+                               lty = 1:3,
+                               cex = 1,
+                               col = NULL,
+                               # "#00BA38" "#00BFC4" "#619CFF" "#F564E3" "#F8766D" "#B79F00"
+                               col.bar = NULL ,
+                               strip.background.col =c("grey80", "grey70", "grey60"),
+                               # "grey20"
+                               ...) {
+  reset_lattice()
+  theme = latticeExtra::ggplot2like(n = 6, h.start = 120)
+  
+  lattice::trellis.par.set(theme)
+  if (is.null(col))
+    col <- lattice::trellis.par.get()$superpose.polygon$col
+  if (is.null(col.bar))
+    col.bar <- lattice::trellis.par.get()$plot.polygon$col
+  
+  lattice::trellis.par.set(
+    strip.background=list(col=strip.background.col),
+    axis.text = list(cex = 0.8, lineheight = 0.9, col = "#000000"),
+    superpose.symbol = list(col = col, pch = pch),
+    superpose.polygon = list(col = col, border = "transparent"),
+    plot.polygon = list(col = col.bar),
+    superpose.line = list(col = col, lty = lty),
+    box.dot = list(pch = 19, cex = cex),
+    plot.symbol = list(pch = 1)
+    # box.rectangle =list(),
+    # box.umbrella = list(),
+  )
+  
+  invisible(lattice::trellis.par.get()) 
+}
+
+
+
+#' @rdname set_lattice
+#' @param  strip.background.col set_lattice_bw: "white" sonst  c("grey80", "grey70", "grey60"),
+#' @param  col Farbe 
+#'   rosa-himmelblau brewer.pal(8,"Set3")[c(3,4)] 
+#' Grau   grey.colors(5, start = 0.3, end = 0.9) oder gray(seq(0,.9,len = 25))
+#' @description set_lattice_bw:  schwarz-weis lattice-Theme
+#' @export
+set_lattice_bw <- function(pch = 15:18,
+                           lty = 1:3,
+                           cex = 1,
+                           col = grey.colors(7, start = 0.3, end = 0.9),
+                           col.bar =  "grey50",
+                           strip.background.col = "white",
+                           
+                           
+                           ...) {
+  reset_lattice()
+  theme <- lattice::standard.theme(color = FALSE)  # name = "pdf", name = .Device,
+  lattice::trellis.par.set(theme)
+  lattice::trellis.par.set(
+    strip.background=list(col=strip.background.col),
+    #  axis.text = list(cex = 0.8,lineheight = 0.9,col = "grey20"),
+    superpose.symbol = list(pch = pch, fill = col, col = col) ,
+    superpose.polygon = list(col = col, border = "transparent"),
+    plot.polygon = list(col = col.bar),
+    superpose.line = list(col = col, lty = lty),
+    box.dot = list(pch = 19, cex = cex),
+    plot.symbol = list(pch = 1),
+    # box.rectangle =list(),
+    # box.umbrella = list(),
+    strip.shingle=list(col=col)
+  )
+  invisible(lattice::trellis.par.get()) 
+}
+
+#' @rdname set_lattice
+#' @param theme ggplot2like(), custom.theme(), theEconomist.theme
+#' @description  set_lattice: set and reset of lattice default options
+#' @export
+set_lattice <- function(theme = NULL) {
+  if (exists("opar"))
+    lattice::trellis.par.set(opar)
+  else
+    opar <<- lattice::trellis.par.get()
+  
+  # lattice.option wie   axis = axis.grid
+  if (exists("oopt"))
+    lattice::lattice.options(oopt)
+  else
+    oopt <<-
+      lattice::lattice.options(latticeExtra::ggplot2like.opts())
+  
+  if (!is.null(theme)) {
+    lattice::trellis.par.set(theme)
+  }
+  
+  invisible(lattice::trellis.par.get())
+}
+
+#' @rdname set_lattice
+#' @export
+reset_lattice <- function(...) {
+  set_lattice()
+}
+
+
+
+
+
+
