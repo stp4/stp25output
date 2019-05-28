@@ -41,9 +41,9 @@ Output(x, ...)
 
 \method{Output}{list}(x, output = which_output(), ...)
 
-\method{Output}{matrix}(x, ...)
+\method{Output}{matrix}(x, output = which_output(), ...)
 
-\method{Output}{stp25}(x, ...)
+\method{Output}{stp25}(x, output = which_output(), ...)
 
 add_row_df(x, add_row = NULL)
 

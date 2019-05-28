@@ -313,12 +313,14 @@ Projekt_html <- function (myformat,
 
 
 
- 
+
+
+
 MyCss <- function() {
   '
 /*
-* === MAJOR SECTION HEADING ===
-  */
+* === MyCss layout.css MAJOR SECTION HEADING ===
+*/
 
 
   body {
@@ -326,7 +328,7 @@ MyCss <- function() {
   color: #000000;
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 10pt;
-  font-weight: normal
+  font-weight: normal;
   line-height: normal;
   }
   
@@ -336,7 +338,7 @@ MyCss <- function() {
   font-style: normal;
   font-weight: bold;
   line-height: 25pt;
-  color: #004080;
+  color: #800000;
   
   }
   
@@ -386,13 +388,13 @@ MyCss <- function() {
   
   LI {
   font-family: "Times New Roman", Times, serif;
-  font-size: 10pt
+  font-size: 10pt;
   }
   
   A {
   font-family: "Times New Roman", Times, serif;
   font-size: 10pt;
-  text-decoration: none
+  text-decoration: none;
   }
   
   
