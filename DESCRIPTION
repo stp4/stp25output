@@ -2,8 +2,8 @@ Package: stp25output
 Type: Package
 Encoding: UTF-8
 Title: Reports und Auswertungen
-Version: 0.4.3
-Date: 2018-11-22
+Version: 0.4.4
+Date: 2019-05-28
 Author: Wolfgang Peter
 Maintainer: Wolfgang Peter <w.peter@statistik-peter.at>
 Description: Reports erstellen die Tabellen und Texte werden dabei als HTML ausgegeben.
