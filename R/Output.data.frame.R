@@ -37,6 +37,7 @@
 #'   G1_k_m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA),
 #'   G2_n = c(33, 35, 78, 21),
 #'   G2_m = c("4.9 (2.7)", "4.7 (2.5)", "4.1 (5.6)", "4.2 (5.6)")
+#'   )
 #' #+ df-default ,  results='asis'
 #' df1 %>% Output()
 #' 
@@ -71,9 +72,9 @@ Output.data.frame <-
            output =  which_output(),
            print_col = NULL,
            col_names = NULL, 
-           fix_colnames =   options()$stp25$language != "",
+           fix_colnames = options()$stp25$language != "",
            add_row = NULL,
-           css.table = "padding-left: .5em; padding-right: .2em;",
+           css.table = 'padding-left: .5em; padding-right: .2em;',
            css.cell = 'padding-left: .5em; padding-right: .2em;',
            booktabs = TRUE,
            latex_options = c("hold_position"),
@@ -85,10 +86,12 @@ Output.data.frame <-
     # abbruch bei output=FALSE bei TRUE Ausgabe als Text
     if (is.logical(output)) {
       if (output)
-        output <- "console"
+        output <- "text"
       else
         return(NULL)
     }
+    
+ #   cat(" In Output.data.frame output=", output, "  \n")
     
     # Zellen-Spalten bearbeiten
     if (!is.null(print_col)) {
@@ -100,8 +103,11 @@ Output.data.frame <-
       if (!is.null(col_names)) {
         if (length(names(x)) == length(col_names))
           names(x) <- col_names
+         
         else
           warnings("Die col_names stimmen nicht!")
+       fix_colnames <- FALSE  
+         
       }
       x <- x[,-2]
     }
@@ -111,6 +117,7 @@ Output.data.frame <-
         names(x) <- col_names
       else
         warnings("Die col_names stimmen nicht!")
+      fix_colnames <- FALSE 
     }
     
     tbl <- tbl_header(x, fix_colnames = fix_colnames)
@@ -120,36 +127,27 @@ Output.data.frame <-
     }
     
     
-
+    caption <- Caption(caption, attr(x, "caption"))
+    note <- Note(note, attr(x, "note"))
     
     # wen Output() in spin-word direkt aufgerufen wird soll Output_word() die Tabelle erstellen
     # APA(..., output=FALSE) %>% Output()
     ## output ==  "word" geht nicht weil  ausgabe nicht an knit_print weitergegeben wird.
-    if (output == "word")
+    if (output == "word") {
       return(Output_word(x,
-                         caption,
-                         note,
-                         output,
-                         print_col,
-                         col_names,
-                         fix_colnames))
-    
-   
-    caption <- Caption(caption, attr(x, "caption"))
-    note <- Note(note, attr(x, "note"))
-    
-    if( output == "console") {
+                         caption, note, output,
+                         print_col, col_names, fix_colnames))
+    }
+    else if (output == "text") {
       if (!is.null(tbl$header_above))
         names(x) <-
-          ifelse(
-            tbl$header_above2 == "",
-            tbl$header,
-            paste0(tbl$header_above2, "_", tbl$header)
-          )
+          ifelse(tbl$header_above2 == "",
+                 tbl$header,
+                 paste0(tbl$header_above2, "_", tbl$header))
       else{
-        names(x) <-  tbl$header
+        names(x) <- tbl$header
       }
-      cat("\n", caption, "\n" )
+      cat("\n", caption, "\n")
       print(x)
       cat("\n", note, "\n\n")
     }
@@ -194,14 +192,10 @@ Output.data.frame <-
       } else{
         print(res)
       }
-      
-      
     }
     else if (output ==  "markdown") {
       x <- cleanup_nbsp(x)
       
-      
-  
       if (is.null(tbl$header_above)) {
         print(kableExtra::kable_styling(
           knitr::kable(
@@ -210,40 +204,37 @@ Output.data.frame <-
             col.names = tbl$header,
             booktabs = booktabs,
             caption = caption,
-            linesep=linesep
+            linesep = linesep
           ),
           latex_options = latex_options
         ))
-        
       }
       else {
-        print(
-          kableExtra::add_header_above(
-            kableExtra::kable_styling(
-              knitr::kable(
-                x,
-                row.names = FALSE,
-                col.names = tbl$header,
-                booktabs = booktabs,
-                caption = caption,
-                linesep=linesep
-              ),
-              latex_options = latex_options
+        print(kableExtra::add_header_above(
+          kableExtra::kable_styling(
+            knitr::kable(
+              x,
+              row.names = FALSE,
+              col.names = tbl$header,
+              booktabs = booktabs,
+              caption = caption,
+              linesep = linesep
             ),
-            tbl$header_above
-          )
-        )
+            latex_options = latex_options
+          ),
+          tbl$header_above
+        ))
       }
     }
     else{
-       x <- cleanup_nbsp(x)
+      x <- cleanup_nbsp(x)
       
       if (!is.null(tbl$header_above))
         tbl$header <-
           ifelse(tbl$header_above2 == "",
                  tbl$header,
                  paste0(tbl$header_above2, " / ", tbl$header))
-       
+      
       print(
         knitr::kable(
           x,
@@ -252,7 +243,7 @@ Output.data.frame <-
           booktabs = booktabs,
           caption = caption,
           format = "pandoc",
-          linesep=linesep
+          linesep = linesep
         )
       )
       cat("\n", note, "\n\n")
@@ -274,7 +265,7 @@ Output.list <- function(x,
                         ...) {
   res<- list()
     for (i in 1:length(x))
-     res[[i]] <- Output(x[[i]], ...)
+     res[[i]] <- Output(x[[i]], output=output, ...)
   
   if(output=="word"){ return(res) }
   else { invisible(x)}
@@ -287,8 +278,10 @@ Output.list <- function(x,
 #' @description Output.matrix: umwandeln in einen data.frame
 #' @export
 #' 
-Output.matrix <- function(x, ...) {
-  Output(fix_to_data_frame(x), ...)
+Output.matrix <- function(x,
+                          output =  which_output(),
+                          ...) {
+  Output(fix_to_data_frame(x), output=output, ...)
 }
 
 
@@ -297,14 +290,16 @@ Output.matrix <- function(x, ...) {
 #' @description Output.stp25: experimenteller Prototyp
 #' @export
 #' 
-Output.stp25 <- function(x, ...) {
+Output.stp25 <- function(x,
+                         output =  which_output(),
+                         ...) {
   # noch nicht getestet
   if (is.list(x)) {
     for (i in i:length(x))
-      Output.data.frame(x[[i]], ...)
+      Output.data.frame(x[[i]], output=output, ...)
   }
   else
-    Output.data.frame(x, ...)
+    Output.data.frame(x, output=output, ...)
 }
 
 #' Header aufbereiten
