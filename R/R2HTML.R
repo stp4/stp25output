@@ -19,30 +19,7 @@ HTMLSetFile2 <- function(file) {
 #----------------------------------------------------------------------------------------------------#
 ###   R2HTML CORE
 #----------------------------------------------------------------------------------------------------#
-.HTMLEnv <- new.env(parent = emptyenv())
-
-
-html_init <-
-  function(outdir = tempdir(),
-           filename = "index",
-           extension = "html",
-           withprompt = "HTML> ",
-           CSSFile = "R2HTML.css",
-           Title = "R output",
-           .HTML.file  = file.path(outdir, paste(filename, ".", extension, sep = "")))
-    
-  {
-    .HTMLTmpEnv <- new.env(parent = .GlobalEnv)
-    assign(".HTML.outdir", outdir, envir = .HTMLTmpEnv)
-    assign(".HTML.file", .HTML.file, .HTMLTmpEnv)
-    assign("HTMLtorefresh", file.path(outdir, paste(filename, extension, sep = ".")), envir = .HTMLTmpEnv)
-    options(prompt = withprompt)
-    
-    cat(MyHlmlStart(Title), file = .HTML.file, append = FALSE)
-    HTMLSetFile2(.HTML.file)
-}
-
-
+#.HTMLEnv <- new.env(parent = emptyenv())
 HTMLEndFile2 <-
   function(date = format(Sys.time(), "%a %d %b %Y %H:%M:%S "),
            file = HTMLGetFile())
@@ -99,83 +76,74 @@ HTML_End <- function(anhang = FALSE,
   HTMLEndFile2()
   
   
-  invisible(removeTaskCallback("HTML"))
+  #?removeTaskCallback("HTML")
   
-  
-  
-  
-  
-  # R2HTML::HTMLStop()
-  #   print(tmp)
-  # getOption("browser")
+
   browseURL(HTMLGetFile(), browser = browser)
-  #else {cat("Die Funktion Projekt() mus vorher ausgefuert werden.",  "\n\n")}
-  
-  
   options(prompt = "> ")
   
   if (output)
     file
   else
     cat("\nReset Kontraste\n")
+  
+  HTMLGetFile()
 }
+
+
+html_init <-
+  function(title, file)
+    
+  {
+    .HTMLTmpEnv <- new.env(parent = .GlobalEnv)
+ #   assign(".HTML.outdir", outdir, envir = .HTMLTmpEnv)
+    assign(".HTML.file", file, .HTMLTmpEnv)
+  #  assign("HTMLtorefresh", file.path(outdir, paste(filename, extension, sep = ".")), envir = .HTMLTmpEnv)
+   
+    cat(MyHlmlStart(title), file = file, append = FALSE)
+    HTMLSetFile2(file)
+}
+
+
 
 
 #' @rdname Projekt
 #' @export
 HTML_Start <- function (Projektname = "Demo",
-                        myformat = "html",
                         datum = date(),
                         fig_folder = "Fig",
                         html_folder = "Results",
                         OutDec = NULL,
                         contrasts =  c("contr.Treatment", "contr.poly"),
-                        
-                        html_name = cleansing_umlaute(Projektname),
-                        css = "layout.css")
+                        withprompt = "HTML> ",
+                        .extension = "html",
+                        .myDir = getwd(),
+                        .filename = cleansing_umlaute(Projektname),
+                        .output.dir = file.path(.myDir, html_folder),
+                        .HTML.file  = file.path(.output.dir, paste(.filename, ".", .extension, sep = "")),
+                        .css.file = file.path(.output.dir, "layout.css")
+                         )
 {
   if (Projektname == "Demo")
     setwd("C:/Users/wpete/Dropbox/3_Forschung/R-Project")
   #-- Fehler Abfangen
-  if (options()$prompt[1] == "HTML> ") {
+  if (options()$prompt[1] == withprompt) {
     options(prompt = "> ")
+        return()
   }
   
-  myDir <- getwd()
-  myURL <-
-    paste("file://",
-          myDir,
-          "/",
-          html_folder,
-          "/",
-          html_name,
-          ".",
-          myformat,
-          sep = "")
-  output.dir <- paste(myDir, html_folder, sep = "/")
+
   
-  
-  if (is.null(OutDec))
-    OutDec <- options()$OutDec
-  else
-    options(OutDec = OutDec)
-  
-  
-  
-  if (!dir.exists(output.dir))
+  if (!dir.exists(.output.dir))
     dir.create(
-      output.dir,
-      showWarnings = TRUE,
-      recursive = FALSE,
-      mode = "0777"
+      .output.dir, showWarnings = TRUE,
+      recursive = FALSE,mode = "0777"
     )
   
   if (!dir.exists(fig_folder))
     dir.create(
-      fig_folder,
-      showWarnings = TRUE,
-      recursive = FALSE,
-      mode = "0777"
+      fig_folder, showWarnings = TRUE,
+      recursive = FALSE, mode = "0777"
     )
   
   if (fig_folder != "Fig")
@@ -187,58 +155,38 @@ HTML_Start <- function (Projektname = "Demo",
     cat(
       "\nKontraste von " ,
       paste(oldc, collapse = ", "),
-      "auf\n",
-      paste(contrasts, collapse = ", "),
+      "auf\n",paste(contrasts, collapse = ", "),
       " umgestellt!\n"
     )
   }
+  options(prompt = withprompt)
   
+  if (is.null(OutDec))
+    OutDec <- options()$OutDec
+  else
+    options(OutDec = OutDec)
   set_default_params(list(Tab_Index = 0, Abb_Index = 0))
-  
-  
+  set_my_options(output = .extension)
   set_default_params(list(
     file.name.index = 0,
     reset = par(no.readonly = TRUE)
   ))
   
-  html_init(
-    outdir = output.dir,
-    filename = html_name,
-    extension = myformat,
-    CSSFile = css,
-    Title = Projektname
-    
+  html_init(Projektname, .HTML.file)
+  
+  if (!file.exists(.css.file))  cat(MyCss(), file = .css.file)
+  
+  
+  Text(
+    paste(
+      Projektname,
+      "\n Datum: ",  datum,
+      ", Software: ",  R.version.string ,
+      ", Link: www.R-project.org/\nFile: ",
+      get_scriptpath()
+    )
   )
   
-  myCssFile <- file.path(output.dir, "layout.css")
-  if (!file.exists(myCssFile))
-    cat(MyCss(), file = myCssFile)
-  
-  
-  
-  
-  
-  pr_string <- paste(
-    Projektname,
-    "\n Datum: ",
-    datum,
-    ", Software: ",
-    R.version.string ,
-    ", Link: www.R-project.org/\nFile: ",
-    stp25output:::get_scriptpath()
-  )
-  Text(pr_string)
-  
-  
-  if (fig_folder != "Fig")
-    set_my_options(fig_folder = paste0(fig_folder, "/"))
-  
-  
-  
-  
-  
-  set_my_options(output = myformat)
-  invisible(pr_string)
 }
 
 
