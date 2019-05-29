@@ -15,34 +15,114 @@ knitr::opts_chunk$set(
 # stp25output
 
 Die Scripten dienen der Erstellung von Reports als HTML aber auch von PDF ueber knit.
-Zum Teil handelt es sich um modifizerte Funktionen von Hmisc, car, reshape2,  R2HTML, texreg oder htmlTable.
+Zum Teil handelt es sich um modifizerte Funktionen von  R2HTML, texreg und htmlTable.
 
 Overview
 --------
 
 
--   `Projekt` und `End` Initialisiert ein neues Projekt und aufruf der HTML-Seite.
--   `Output` Erstellt Tabellen
--   `Text`, `HTML_P` und `HTML_...` Schreibt HTML Text.
--   `SaveDate` Speichert Bilder in den Arbeitsfolder.
--    `fix_irgendwas`  Repariert Levels und Labels und Zahlen fuer die Ausgabe.
--   `set_my_options` und `get_my_options` Formatierungs-Optionen
+* Initialisiert von neuen Projekten
+   + `Projekt()` und `End()` Initialisiert ein neues Projekt und aufruf der HTML-Seite mit Hilfe von R2HTML.
+   + `HTML_Start()` und `HTML_End()` Wie Projekt aber ohne den ganzen Überhau von R2HTML.
+* Text und Tabellen-Formatierung
+   + `Output` Erstellt Tabellen
+   + `Text`, `HTML_P` und `HTML_...` Schreibt HTML Text.
+
+* Hilfsfunktionen
+   + `SaveDate` Speichert Bilder in den Arbeitsfolder.
+   +  `fix_irgendwas`  Repariert Levels und Labels und Zahlen fuer die Ausgabe.
+   +  `set_my_options` und `get_my_options` Formatierungs-Optionen
 
 
 ### Usage
 
-```{r}
+```{r, results='markup'}
 # devtools::install_github("stp4/stp25output")
-require(stp25vers)
-set_my_options(prozent=list(digits=c(1,0), style=2))
-get_my_options()$apa.style$prozent
- 
-#Projekt("html", "Beispiel Projekt")
+require(stpvers)
 Projekt("", "Beispiel Projekt")
+set_my_options(prozent=list(digits=c(1,0), style=2))
+ 
+
+# Optionen format:  HTML, Spin, Knit, Rpres oder Text
 APA2(.~ gruppe , hkarz, caption="Deskriptive Analyse")
 
 End()
 
 ```
 
+
+```{r, include = FALSE}
+
+df1 <- data.frame(
+term = c("A", "B", "C", "D"),
+n = c(23, 14, 56, 2),
+m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA)
+)
+
+
+
+```
+
+
+
+
+```{r}
+ knitr::kable(
+          df1, row.names = FALSE,
+          format = "pandoc" 
+        )
+```
+
+
+
+```{r}
+
+knitr::kable(
+  df1, row.names = FALSE,
+  format = "markdown" 
+)
+
+```
+
+
+```{r}
+ knitr::kable(
+          df1, row.names = FALSE,
+          format = "pandoc" 
+        )
+```
+
+
+```{r df-default}
+#+ 
+df1 %>% Output()
+
+
+df1 %>% Output(output=TRUE)
+
+df1 %>% Output(output=FALSE)
+
+```
+
+
+
+
+```{r df-false ,  results='asis'}
+
+df1 %>% Output(output="html")
+
+```
+
+
+
+```{r df-text, results='markup'}
+#+
+df1 %>% Output(output="text")
+
+```
+
+```{r,  results='asis'}
+ 
+df1 %>% Output(output="markdown")
+```
 

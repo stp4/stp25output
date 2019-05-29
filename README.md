@@ -5,7 +5,7 @@
 
 Die Scripten dienen der Erstellung von Reports als HTML aber auch von
 PDF ueber knit. Zum Teil handelt es sich um modifizerte Funktionen von
-Hmisc, car, reshape2, R2HTML, texreg und htmlTable.
+R2HTML, texreg und htmlTable.
 
 ## Overview
 
@@ -418,3 +418,58 @@ D
 </tbody>
 
 </table>
+
+### Grafik settings
+
+``` r
+require(stpvers)
+set.seed(2)
+n <- 20 * 3 * 2
+DF <- data.frame(
+  n = runif(n, min = 1, max = 5),
+  e = runif(n, min = 1, max = 5),
+  o = runif(n, min = 1, max = 5),
+  g = runif(n, min = 1, max = 5),
+  a = runif(n, min = 1, max = 5),
+  treatment = gl(3, n / 3, labels = c("UG1", "UG2", "KG"))[sample.int(n)],
+  sex = gl(2, n / 2, labels = c("male", "female"))
+)
+
+set_lattice()
+bwplot2(e ~ treatment,
+        DF,
+        groups = sex,
+        auto.key = list(columns = 2))
+```
+
+![](README-unnamed-chunk-8-1.png)<!-- -->
+
+``` r
+
+
+set_lattice_ggplot()
+bwplot2(e ~ treatment,
+        DF,
+        groups = sex,
+        auto.key = list(columns = 2))
+```
+
+![](README-unnamed-chunk-8-2.png)<!-- -->
+
+``` r
+
+
+set_lattice_bw()
+bwplot2(e ~ treatment,
+        DF,
+        groups = sex,
+        auto.key = list(columns = 2))
+```
+
+![](README-unnamed-chunk-8-3.png)<!-- -->
+
+``` r
+
+
+reset_lattice()
+```
