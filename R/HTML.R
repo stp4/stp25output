@@ -17,9 +17,7 @@ HTML_ <- function(x, output = which_output()) {
 HTML_default <- function(x, output =  which_output()) {
  
   if (output == "html") {
-    cat("\n",
-        x,
-        "\n",
+    cat("\n", x, "\n",
         file = HTMLGetFile(),
         sep = "",
         append = TRUE)
