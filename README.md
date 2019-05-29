@@ -434,7 +434,9 @@ DF <- data.frame(
   treatment = gl(3, n / 3, labels = c("UG1", "UG2", "KG"))[sample.int(n)],
   sex = gl(2, n / 2, labels = c("male", "female"))
 )
+```
 
+``` r
 set_lattice()
 bwplot2(e ~ treatment,
         DF,
@@ -442,10 +444,9 @@ bwplot2(e ~ treatment,
         auto.key = list(columns = 2))
 ```
 
-![](README-unnamed-chunk-8-1.png)<!-- -->
+![](README-fig-default-1.png)<!-- -->
 
 ``` r
-
 
 set_lattice_ggplot()
 bwplot2(e ~ treatment,
@@ -454,11 +455,9 @@ bwplot2(e ~ treatment,
         auto.key = list(columns = 2))
 ```
 
-![](README-unnamed-chunk-8-2.png)<!-- -->
+![](README-fig-ggplot-1.png)<!-- -->
 
 ``` r
-
-
 set_lattice_bw()
 bwplot2(e ~ treatment,
         DF,
@@ -466,7 +465,7 @@ bwplot2(e ~ treatment,
         auto.key = list(columns = 2))
 ```
 
-![](README-unnamed-chunk-8-3.png)<!-- -->
+![](README-fig-bw-1.png)<!-- -->
 
 ``` r
 
