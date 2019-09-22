@@ -3,7 +3,6 @@
 \name{Projekt}
 \alias{Projekt}
 \alias{Projekt_Rmd}
-\alias{Projekt_html}
 \alias{End}
 \alias{Rechnung}
 \alias{Methode}
@@ -14,8 +13,8 @@
 \alias{Demographic_Variables}
 \alias{Statistic}
 \alias{get_scriptpath}
-\alias{HTML_End}
 \alias{HTML_Start}
+\alias{HTML_End}
 \title{Projekt}
 \usage{
 Projekt(myformat = "", Projektname = "Demo", datum = date(),
@@ -23,9 +22,6 @@ Projekt(myformat = "", Projektname = "Demo", datum = date(),
   contrasts = c("contr.Treatment", "contr.poly"), css = TRUE, ...)
 
 Projekt_Rmd(myformat, Projektname, datum, OutDec, contrasts)
-
-Projekt_html(myformat, Projektname, datum, fig_folder, html_folder, OutDec,
-  contrasts, html_name = cleansing_umlaute(Projektname), css = TRUE)
 
 End(anhang = FALSE,
   browser = "C:/Program Files (x86)/Internet Explorer/iexplore.exe",
@@ -50,10 +46,6 @@ Statistic(h = "Resultate", x = NULL, file = "(4) Analyse.R")
 
 get_scriptpath()
 
-HTML_End(anhang = FALSE,
-  browser = "C:/Program Files (x86)/Internet Explorer/iexplore.exe",
-  output = options()$prompt[1] == "HTML> ", ...)
-
 HTML_Start(Projektname = "Demo", datum = date(), fig_folder = "Fig",
   html_folder = "Results", OutDec = NULL,
   contrasts = c("contr.Treatment", "contr.poly"),
@@ -62,6 +54,8 @@ HTML_Start(Projektname = "Demo", datum = date(), fig_folder = "Fig",
   .output.dir = file.path(.myDir, html_folder),
   .HTML.file = file.path(.output.dir, paste(.filename, ".", .extension,
   sep = "")), .css.file = file.path(.output.dir, "layout.css"))
+
+HTML_End(browser = "iexplore")
 }
 \arguments{
 \item{myformat}{HTML, Spin, Knit, Rpres oder Text. Spin ist knitr wobei die Ausgabe der Tabellen mit html erfolgt}
@@ -79,8 +73,6 @@ HTML_Start(Projektname = "Demo", datum = date(), fig_folder = "Fig",
 \item{css}{css Eigense Format}
 
 \item{...}{weitere Objekte nicht benutzt}
-
-\item{html_name}{umlaute bereinigter Projektname}
 
 \item{anhang}{Ja/Nein}
 
@@ -102,8 +94,6 @@ Ein R-File ruft die Interne Funktion Projekt_html() auf und ein Rmd-File Projekt
 
 Einstellungen fuer .Rmd files hier werden keine Folder erstellt
 
-Einstellungen fuer HTNL mit \code{R2HTML::HTMLStart()}
-
 \subsection{End}{
 Zuruecksetzen der Einstellungen und Aufruf des Browsers browser = getOption("browser")}
 
@@ -119,6 +109,8 @@ Results(), Measures(), Materials(), usw Ueberschrift mit aufruf eies exteren R-S
 \subsection{Interne Funktion}{
 \code{get_scriptpath()} Ausfuehrendes File finden
 Quelle: https://stackoverflow.com/questions/18000708/find-location-of-current-r-file}
+
+HTML_Start ist ein e Kopie von  R2HTML
 }
 \details{
 Start eines neuen Prpjekts, mit \code{Projekt()} werden die default Einstellungen (Kontraste) gesetzt sowie die Folder erstellt.

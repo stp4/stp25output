@@ -2,15 +2,20 @@
 % Please edit documentation in R/Projekt.R
 \name{cleansing_umlaute}
 \alias{cleansing_umlaute}
+\alias{cleansing_umlaute2}
 \title{cleansing_umlaute cleansing}
 \usage{
 cleansing_umlaute(x)
+
+cleansing_umlaute2(x)
 }
 \arguments{
 \item{x}{string}
 }
 \description{
 Data cleansing
+
+Sonderzeichen aus socisurvy
 }
 \details{
 cleansing_umlaute(): Funktion entfernt stoerende Umlaute,

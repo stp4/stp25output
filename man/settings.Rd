@@ -22,7 +22,7 @@ default_stp25_opt(myformat = "", fig_folder = "Fig",
   data_folder = "Raw data", html_folder = "Results", OutDec = ".",
   Align = "center", language = "de", digits.prozent = 0,
   digits.mean = 2, digits.r = 2, digits.p = 3, digits.Fstat = 2,
-  null_percent_sign = NULL, lead.zero = FALSE, p.values = c(0.001,
+  null_percent_sign = ".", lead.zero = FALSE, p.values = c(0.001,
   0.01, 0.05, 0.1)[1:3], signif.stars = FALSE, plusmin_sign = FALSE,
   sep_element = ",", brackets = c("[", "]"), digits_type = "digits",
   prozent_style = 1, median.style = "IQR")

@@ -5,15 +5,14 @@
 \title{Speichern von Grafiken}
 \usage{
 SaveData(caption = "", filename = "", w = dev.size("in")[1],
-  h = dev.size("in")[2], Width = 520, Height = 520,
-  GraphBorder = 0, Align = options()$stp25$apa.style$Align,
-  GraphBackGround = "white", save_plot = TRUE,
-  output = which_output(), ...)
+  h = dev.size("in")[2], save_plot = TRUE, output = which_output())
 }
 \arguments{
 \item{caption}{Grafik Abbildung  caption=data,}
 
 \item{filename}{Daten oder Character fuer die speicherung einer Grafik}
+
+\item{save_plot}{speichern als file = TRUE,}
 
 \item{Width, Height, w, h}{an HTMLplot default = 520, Breite der  Grafik  also zb w=8=dev.size("in")[2], h=dev.size("in")[1] Hoehe der Grafik also zb h=8}
 
@@ -22,8 +21,6 @@ SaveData(caption = "", filename = "", w = dev.size("in")[1],
 \item{Align}{Centriert}
 
 \item{GraphBackGround}{Hintergrund= "white"}
-
-\item{save_plot}{speichern als file = TRUE,}
 
 \item{...}{zusaetliche Parameter}
 }

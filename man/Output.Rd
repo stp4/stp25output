@@ -8,6 +8,7 @@
 \alias{Output.htmlTable}
 \alias{Output.NULL}
 \alias{Output.default}
+\alias{Output.psychobject}
 \alias{Output.emmGrid}
 \alias{Output.apa_table}
 \alias{Output.list}
@@ -33,6 +34,8 @@ Output(x, ...)
 \method{Output}{NULL}(x, ...)
 
 \method{Output}{default}(x, ...)
+
+\method{Output}{psychobject}(x, digits = c(2, 2, 1, 3, 2, 2), ...)
 
 \method{Output}{emmGrid}(x, caption = "Estimated marginal means",
   note = "Least-squares means", ...)
