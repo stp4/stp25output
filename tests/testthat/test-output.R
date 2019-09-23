@@ -8,7 +8,7 @@ test_that("Output works", {
   )
   
   df1 <-
-    stp25APA2::prepare_output(df,
+    stp25stat::prepare_output(df,
                               caption = "Überschrift",
                               note = "Anmerkung",
                               N = 256)
@@ -17,7 +17,7 @@ test_that("Output works", {
   
   expect_output(Output(df1, output = "html"), "<table")
   
-  expect_output(Output(df1, output = "markdown"), "<table")
+  expect_output(Output(df1, output = "markdown_html"), "<table")
   
 })
 
@@ -62,14 +62,14 @@ test_that("Output header", {
   
   expect_output(Output(df2, output = "html"), "<table")
   
-  expect_output(Output(df2, output = "markdown"), "<table")
+  expect_output(Output(df2, output = "markdown_html"), "<table")
   
 })
 
 
 test_that("xtabs header", {
   require(stp25data)
-  require(stp25APA2)
+  require(stp25stat)
   
   hkarz$LAI <- factor(hkarz$lai, 0:1, c("pos", "neg"))
   hkarz$Tzell <- cut(hkarz$tzell, 3, c("low", "med", "hig"))
@@ -79,7 +79,7 @@ test_that("xtabs header", {
       xtabs(~ gruppe + LAI + Tzell, hkarz),
       caption = "APA_Xtabs: 2x2x3 Tabelle",
       test = FALSE,
-      output = "markdown"
+      output = "markdown_html"
     ),
     "<table"
   )
