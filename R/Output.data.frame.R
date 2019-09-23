@@ -193,13 +193,18 @@ Output.data.frame <-
         print(res)
       }
     }
-    else if (output ==  "markdown") {
+    else if (output ==  "markdown" | output=="md") {
+      
+    #  cat("\nin output markdown\n")
       x <- cleanup_nbsp(x)
       
       if (is.null(tbl$header_above)) {
         print(kableExtra::kable_styling(
           knitr::kable(
-            x,
+            x, format="latex",
+            #  wegen kableExtra in stp25output ( Null ist aber die Default Einstellung)
+            #  die Caption wird bei Null oberhalb der Tabelle angebracht bei
+            #  Latex am Rand (Margin)
             row.names = FALSE,
             col.names = tbl$header,
             booktabs = booktabs,
@@ -213,7 +218,7 @@ Output.data.frame <-
         print(kableExtra::add_header_above(
           kableExtra::kable_styling(
             knitr::kable(
-              x,
+              x, format="latex",
               row.names = FALSE,
               col.names = tbl$header,
               booktabs = booktabs,
