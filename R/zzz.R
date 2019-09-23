@@ -3,19 +3,24 @@
 
 .onLoad <- function(libname, pkgname)
 {
-  options("stp25" = default_stp25_opt())
+  options("stp25" = default_stp25_opt() )
 }
 
-when_attached <- function(pkg, action) {
-  if (is_attached(pkg)) {
-    action
-  } else {
-     setHook(packageEvent(pkg, "attach"), function(...) action)
-  }
-}
 
-is_attached <- function(pkg) paste0("package:", pkg) %in% search()
+#geloescht 
 
+
+
+# when_attached <- function(pkg, action) {
+#   if (is_attached(pkg)) {
+#     action
+#   } else {
+#      setHook(packageEvent(pkg, "attach"), function(...) action)
+#   }
+# }
+# 
+# is_attached <- function(pkg) paste0("package:", pkg) %in% search()
+# 
 
 
  
