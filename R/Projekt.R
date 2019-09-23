@@ -102,17 +102,20 @@ Projekt <- function(myformat = "",
  # cat("\n\n", is_r_file, is_not_knit, "\n\n")
   
   if (is_r_file & is_not_knit) {
-    Projekt_html(
-      myformat = myformat,
-      Projektname = Projektname,
-      datum = datum,
-      fig_folder = fig_folder,
-      html_folder = html_folder,
-      OutDec = OutDec,
-      contrasts =  contrasts,
-      css = css,
-      ...
-    )
+    if (myformat == "html") {
+      HTML_Start(
+        Projektname = Projektname,
+        datum = datum,
+        fig_folder = fig_folder,
+        html_folder = html_folder,
+        OutDec = OutDec,
+        contrasts = contrasts
+      )
+    }
+    else{
+        projekt_settings(contrasts, withprompt="> ", OutDec)
+    }
+
   } else   {
     Projekt_Rmd(
       myformat = myformat,
@@ -173,143 +176,143 @@ Projekt_Rmd <- function (myformat,
 }
 
 
-#' @rdname Projekt
-#' @description Einstellungen fuer HTNL mit \code{R2HTML::HTMLStart()}
-#' @param html_name umlaute bereinigter Projektname
-#' @importFrom R2HTML HTMLGetFile HTMLStart HTMLGetFile HTMLStop
-Projekt_html <- function (myformat,
-                          Projektname,
-                          datum,
-                          fig_folder,
-                          html_folder,
-                          OutDec,
-                          contrasts,
-                          html_name = cleansing_umlaute(Projektname),
-                          css = TRUE)
-{
-  
-  #cat("\nProjekt_html\n")
-  if (myformat != "rpres") {
-    if (Projektname == "Demo")
-      setwd("C:/Users/wpete/Dropbox/3_Forschung/R-Project")
-    #-- Fehler Abfangen
-    if (options()$prompt[1] == "HTML> ") {
-      options(prompt = "> ")
-    }
-    
-    myDir <- getwd()
-    myURL <-
-      paste("file://", myDir,
-            "/", html_folder,
-            "/", html_name,
-            ".", myformat,
-            sep = "")
-    output.dir <- paste(myDir, html_folder, sep = "/")
-    
-    
-    if (is.null(OutDec))
-      OutDec <- options()$OutDec
-    else
-      options(OutDec = OutDec)
-    
-    options(R2HTML.format.decimal.mark = OutDec)
-    
-    
-    if (!dir.exists(output.dir))
-      dir.create(
-        output.dir,
-        showWarnings = TRUE,
-        recursive = FALSE,
-        mode = "0777"
-      )
-    
-    if (!dir.exists(fig_folder))
-      dir.create(
-        fig_folder,
-        showWarnings = TRUE,
-        recursive = FALSE,
-        mode = "0777"
-      )
-    
-    if (fig_folder != "Fig")
-      set_my_options(fig_folder = paste0(fig_folder, "/"))
-    
-    if (!is.null(contrasts)) {
-      oldc <- getOption("contrasts")
-      options(contrasts = contrasts)
-      cat(
-        "\nKontraste von " ,
-        paste(oldc, collapse = ", "),
-        "auf\n",
-        paste(contrasts, collapse = ", "),
-        " umgestellt!\n"
-      )
-    }
-    
-    set_default_params(list(Tab_Index = 0, Abb_Index = 0))
-    
-    if (myformat == "html") {
-      set_default_params(list(
-        file.name.index = 0,
-        reset = par(no.readonly = TRUE)
-      ))
-      
-      
-    #  cat("\n R2HTML::HTMLStart()\n")
-      R2HTML::HTMLStart(
-        outdir = output.dir,
-        file = html_name,
-        extension = myformat,
-        echo = FALSE,
-        HTMLframe = FALSE,
-        CSSFile = "layout.css"
-         
-      )
-      
-      if (css) {
-        myCssFile <- file.path(output.dir, "layout.css")
-        cat("\nCSS-File:" , myCssFile, "\n")
-        
-        
-        if (!file.exists(myCssFile))
-          cat(MyCss(), file = myCssFile)
-      }
-    }
-    else{
-      options(continue = "  ")
-    }
-    
-    
-    pr_string <- paste(
-      Projektname,
-      "\n Datum: ",
-      datum,
-      ", Software: ",
-      R.version.string ,
-      ", Link: www.R-project.org/\nFile: ",
-      get_scriptpath()
-    )
-    Text(pr_string)
-    
-  }
-  else{
-    if (!is.null(OutDec))
-      options(OutDec = OutDec)
-    if (fig_folder != "Fig")
-      set_my_options(fig_folder = paste0(fig_folder, "/"))
-    
-    if (!is.null(contrasts)) {
-      oldc <- getOption("contrasts")
-      options(contrasts = contrasts)
-    }
-    
-    set_default_params(list(Tab_Index = 0, Abb_Index = 0))
-    pr_string <- NULL
-  }
-  
-  set_my_options(output = myformat)
-  invisible(pr_string)
-}
+# @rdname Projekt
+# @description Einstellungen fuer HTNL mit \code{R2HTML::HTMLStart()}
+# @param html_name umlaute bereinigter Projektname
+# @importFrom R2HTML HTMLGetFile HTMLStart HTMLGetFile HTMLStop
+# Projekt_html <- function (myformat,
+#                           Projektname,
+#                           datum,
+#                           fig_folder,
+#                           html_folder,
+#                           OutDec,
+#                           contrasts,
+#                           html_name = cleansing_umlaute(Projektname),
+#                           css = TRUE)
+# {
+# 
+#   #cat("\nProjekt_html\n")
+#   if (myformat != "rpres") {
+#     if (Projektname == "Demo")
+#       setwd("C:/Users/wpete/Dropbox/3_Forschung/R-Project")
+#     #-- Fehler Abfangen
+#     if (options()$prompt[1] == "HTML> ") {
+#       options(prompt = "> ")
+#     }
+# 
+#     myDir <- getwd()
+#     myURL <-
+#       paste("file://", myDir,
+#             "/", html_folder,
+#             "/", html_name,
+#             ".", myformat,
+#             sep = "")
+#     output.dir <- paste(myDir, html_folder, sep = "/")
+# 
+# 
+#     if (is.null(OutDec))
+#       OutDec <- options()$OutDec
+#     else
+#       options(OutDec = OutDec)
+# 
+#     options(R2HTML.format.decimal.mark = OutDec)
+# 
+# 
+#     if (!dir.exists(output.dir))
+#       dir.create(
+#         output.dir,
+#         showWarnings = TRUE,
+#         recursive = FALSE,
+#         mode = "0777"
+#       )
+# 
+#     if (!dir.exists(fig_folder))
+#       dir.create(
+#         fig_folder,
+#         showWarnings = TRUE,
+#         recursive = FALSE,
+#         mode = "0777"
+#       )
+# 
+#     if (fig_folder != "Fig")
+#       set_my_options(fig_folder = paste0(fig_folder, "/"))
+# 
+#     if (!is.null(contrasts)) {
+#       oldc <- getOption("contrasts")
+#       options(contrasts = contrasts)
+#       cat(
+#         "\nKontraste von " ,
+#         paste(oldc, collapse = ", "),
+#         "auf\n",
+#         paste(contrasts, collapse = ", "),
+#         " umgestellt!\n"
+#       )
+#     }
+# 
+#     set_default_params(list(Tab_Index = 0, Abb_Index = 0))
+# 
+#     if (myformat == "html") {
+#       set_default_params(list(
+#         file.name.index = 0,
+#         reset = par(no.readonly = TRUE)
+#       ))
+# 
+# 
+#     #  cat("\n R2HTML::HTMLStart()\n")
+#       R2HTML::HTMLStart(
+#         outdir = output.dir,
+#         file = html_name,
+#         extension = myformat,
+#         echo = FALSE,
+#         HTMLframe = FALSE,
+#         CSSFile = "layout.css"
+# 
+#       )
+# 
+#       if (css) {
+#         myCssFile <- file.path(output.dir, "layout.css")
+#         cat("\nCSS-File:" , myCssFile, "\n")
+# 
+# 
+#         if (!file.exists(myCssFile))
+#           cat(MyCss(), file = myCssFile)
+#       }
+#     }
+#     else{
+#       options(continue = "  ")
+#     }
+# 
+# 
+#     pr_string <- paste(
+#       Projektname,
+#       "\n Datum: ",
+#       datum,
+#       ", Software: ",
+#       R.version.string ,
+#       ", Link: www.R-project.org/\nFile: ",
+#       get_scriptpath()
+#     )
+#     Text(pr_string)
+# 
+#   }
+#   else{
+#     if (!is.null(OutDec))
+#       options(OutDec = OutDec)
+#     if (fig_folder != "Fig")
+#       set_my_options(fig_folder = paste0(fig_folder, "/"))
+# 
+#     if (!is.null(contrasts)) {
+#       oldc <- getOption("contrasts")
+#       options(contrasts = contrasts)
+#     }
+# 
+#     set_default_params(list(Tab_Index = 0, Abb_Index = 0))
+#     pr_string <- NULL
+#   }
+# 
+#   set_my_options(output = myformat)
+#   invisible(pr_string)
+# }
 
 
 #' @rdname Projekt
@@ -323,37 +326,41 @@ End <- function(anhang = FALSE,
                 browser = "C:/Program Files (x86)/Internet Explorer/iexplore.exe",
                 output = options()$prompt[1] == "HTML> ",
                 ...) {
-  options(contrasts = c("contr.treatment", "contr.poly"))
-  #- Reset
-  stp25_options()
-  if (exists("opar"))
-    lattice::trellis.par.set(opar)
-  if (exists("oopt"))
-    lattice::lattice.options(oopt)
-  if (exists("Tab_Index"))
-    Tab_Index <<-  0
-  if (exists("Abb_Index"))
-    Abb_Index <<-  0
-  
-  file <- try(HTMLGetFile(), silent = TRUE)
-  if (output & class(file) !=  "try-error") {
-    if (anhang) {
-      Anhang()
-    }
+  if (options()$prompt[1] == "HTML> ") {
+    HTML_End()
+  } else{
+    options(contrasts = c("contr.treatment", "contr.poly"))
+    #- Reset
+    stp25_options()
+    if (exists("opar"))
+      lattice::trellis.par.set(opar)
+    if (exists("oopt"))
+      lattice::lattice.options(oopt)
+    if (exists("Tab_Index"))
+      Tab_Index <<-  0
+    if (exists("Abb_Index"))
+      Abb_Index <<-  0
     
-    R2HTML::HTMLStop()
-    #   print(tmp)
-    # getOption("browser")
-    browseURL(file, browser = browser)
-  } #else {cat("Die Funktion Projekt() mus vorher ausgefuert werden.",  "\n\n")}
-  
-  
-  options(prompt = "> ")
-  
-  if (output)
-    file
-  else
-    cat("\nReset Kontraste\n")
+    file <- try(HTMLGetFile(), silent = TRUE)
+    if (output & class(file) !=  "try-error") {
+      if (anhang) {
+        Anhang()
+      }
+      
+      R2HTML::HTMLStop()
+      #   print(tmp)
+      # getOption("browser")
+      browseURL(file, browser = browser)
+    } #else {cat("Die Funktion Projekt() mus vorher ausgefuert werden.",  "\n\n")}
+    
+    
+    options(prompt = "> ")
+    
+    if (output)
+      file
+    else
+      cat("\nReset Kontraste\n")
+  }
 }
 
 
@@ -552,6 +559,9 @@ get_scriptpath <- function() {
 }
 
 
+
+
+
 #' cleansing_umlaute cleansing
 #' 
 #' Data cleansing 
@@ -573,6 +583,32 @@ cleansing_umlaute <- function(x){
   x <- gsub(" ", "_", x)
   x
 }
+
+
+
+
+ 
+#' @rdname cleansing_umlaute
+#' @description Sonderzeichen aus socisurvy
+#' @export
+cleansing_umlaute2 <-
+  function(x) {
+    diaeresis <- "\u00A8"
+    ae <-  paste0("a", diaeresis)
+    ue <-  paste0("u", diaeresis)
+    oe <-  paste0("o", diaeresis)
+    Ue <-  paste0("U", diaeresis)
+    Ae <-  paste0("A", diaeresis)
+    Oe <-  paste0("O", diaeresis)
+    x <- gsub(ae, "\u00e4", x)
+    x <- gsub(oe, "\u00f6", x)
+    x <- gsub(ue, "\u00fc", x)
+    x <- gsub(Ae, "\u00c4", x)
+    x <- gsub(Ue, "\u00dc", x)
+    x <- gsub(Oe, "\u00d6", x)
+    x
+  }
+
 
 #' clean_space
 #' 

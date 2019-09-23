@@ -1,9 +1,73 @@
-#R2HTML
+#' @rdname Projekt
+#' @description HTML_Start ist ein e Kopie von  R2HTML
+#' @export
+HTML_Start <- function (Projektname = "Demo",
+                        datum = date(),
+                        fig_folder = "Fig",
+                        html_folder = "Results",
+                        OutDec = NULL,
+                        contrasts =  c("contr.Treatment", "contr.poly"),
+                        withprompt = "HTML> ",
+                        .extension = "html",
+                        .myDir = getwd(),
+                        .filename = cleansing_umlaute(Projektname),
+                        .output.dir = file.path(.myDir, html_folder),
+                        .HTML.file  = file.path(.output.dir, paste(.filename, ".", .extension, sep = "")),
+                        .css.file = file.path(.output.dir, "layout.css")){
+  if (Projektname == "Demo")
+    setwd("C:/Users/wpete/Dropbox/3_Forschung/R-Project")
+  #-- Fehler Abfangen
+  if (options()$prompt[1] == withprompt) {
+    options(prompt = "> ")
+    return()
+  }
+  
+  creat_folder(.output.dir, fig_folder, .css.file)
+  projekt_settings(contrasts, withprompt, OutDec, .extension, .HTML.file)
+  html_open(Projektname, .HTML.file)
+  
+  Text(
+    Projektname,  "\n Datum: ",   datum,", Software: ",
+    R.version.string,
+    ", Link: www.R-project.org/\nFile: ",
+    paste0(
+      gsub('C:/Users/wpete/Dropbox/', '../' ,
+           getwd()),  "/",  get_scriptpath()
+    )
+  )
+  
+}
+
+#' @rdname Projekt
+#' @export
+HTML_End <- function(browser = "iexplore") {
+  file <-if(browser== "firefox") paste0("file:///", HTMLGetFile() )
+  else HTMLGetFile()
+  brwsr<- list(  
+    chrome= "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
+    firefox= "C:/Program Files/Mozilla Firefox/firefox.exe",
+    iexplore=  "C:/Program Files (x86)/Internet Explorer/iexplore.exe")
+  browser<-  brwsr[[browser]]
+  
+  html_close()
+    browseURL(file, browser = browser)
+  
+  options(contrasts = c("contr.treatment", "contr.poly"))  #  options(contrasts = GetContrasts())
+  set_default_params(list(Tab_Index = 0, Abb_Index = 0, file.name.index = 0))
+  reset_lattice() # assign("old.par", par(no.readonly = TRUE), envir = .HTMLEnv)
+  set_my_options(output = "text")
+  options(prompt = "> ")
+  HTMLGetFile()
+}
 
 
+#' Kopie von R2HTML::HTMLGetFile
+#' @noRd
+.HTMLEnv <- new.env(parent = emptyenv())
 
 
-#R2HTML::HTMLGetFile
+#' Kopie von R2HTML::HTMLGetFile
+#' @noRd
 HTMLGetFile <- function (){
   if (exists(".HTML.file", .HTMLEnv))
     get(".HTML.file", .HTMLEnv)
@@ -11,23 +75,22 @@ HTMLGetFile <- function (){
     stop("not default HTML output file defined; please call HTMLSetFile2() to set it")
 }
 
-GetContrasts <- function (){
-  if (exists("old.contrasts", .HTMLEnv))
-    get("old.contrasts", .HTMLEnv)
-  else
-     c("contr.treatment", "contr.poly")
-  }
+
+# Kopie von R2HTML::HTMLGetFile
+# @noRd
+# GetContrasts <- function (){
+#   if (exists("old.contrasts", .HTMLEnv))
+#     get("old.contrasts", .HTMLEnv)
+#   else
+#      c("contr.treatment", "contr.poly")
+#   }
 
 
-#----------------------------------------------------------------------------------------------------#
-###   R2HTML CORE
-#----------------------------------------------------------------------------------------------------#
-.HTMLEnv <- new.env(parent = emptyenv())
-
-HTMLEndFile2 <-
+#' HTML-Fuss
+#' @noRd 
+html_close <-
   function(date = format(Sys.time(), "%a %d %b %Y %H:%M:%S "),
-           file = HTMLGetFile())
-  {
+           file = HTMLGetFile()){
     cat(
       paste0('<p>', date, '</p>\n</body>\n</html> '),
       sep = "",
@@ -37,42 +100,9 @@ HTMLEndFile2 <-
   }
 
 
- 
-
-
-
-
-
-#' @rdname Projekt
-#' @export
-HTML_End <- function(browser = "iexplore"
-                     ) {
-  file <-if(browser== "firefox") paste0("file:///", HTMLGetFile() )
-  else HTMLGetFile()
-  brwsr<- list(  
-    chrome= "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
-    firefox= "C:/Program Files/Mozilla Firefox/firefox.exe",
-    iexplore=  "C:/Program Files (x86)/Internet Explorer/iexplore.exe")
-  
-  browser<-  brwsr[[browser]]
-
-  HTMLEndFile2()
-  
-  browseURL(file, browser = browser)
-  
-  options(contrasts = c("contr.treatment", "contr.poly"))  #  options(contrasts = GetContrasts())
-  set_default_params(list(Tab_Index = 0, Abb_Index = 0, file.name.index = 0))
-  reset_lattice() # assign("old.par", par(no.readonly = TRUE), envir = .HTMLEnv)
-  set_my_options(output = "text")
- 
-  
-  options(prompt = "> ")
-  
-  HTMLGetFile()
-}
-
-
-html_init <- function(title, file, layout.css = "layout.css"){
+#' HTML Kopf erstellen
+#' @noRd
+html_open <- function(title, file, layout.css = "layout.css"){
 cat(
   paste0(
 '<!DOCTYPE html>
@@ -89,10 +119,8 @@ cat(
 }
 
 
-
-
-
-
+#' CSS erstellen
+#' @noRd
 MyCss <- function() {
   '
 /*
@@ -187,10 +215,9 @@ MyCss <- function() {
 }
 
 
-
-
-
-creat_folder <- function(output.dir, fig_folder, css.file) {
+#' Folder erstellen
+#' @noRd
+creat_folder <- function(output.dir, fig_folder, css.file=NULL) {
   if (!dir.exists(output.dir))
     dir.create(
       output.dir,
@@ -210,13 +237,18 @@ creat_folder <- function(output.dir, fig_folder, css.file) {
   if (fig_folder != "Fig")
     set_my_options(fig_folder = paste0(fig_folder, "/"))
   
-  
+  if(!is.null(css.file)){
   if (!file.exists(css.file))
-    cat(MyCss(), file = css.file)
+    cat(MyCss(), file = css.file)}
 }
 
-html_settings <- function(contrasts, withprompt, OutDec, extension, file) {
 
+
+#' Parameter fuer HTML
+#'
+#' @param contrasts,withprompt,OutDec,extension,file zu fixierende einstellungen
+#' @noRd
+projekt_settings <- function(contrasts=NULL, withprompt="> ", OutDec=NULL, extension="txt", file=NULL) {
   options(prompt = withprompt) 
   oldc <- getOption("contrasts") 
 
@@ -246,41 +278,5 @@ html_settings <- function(contrasts, withprompt, OutDec, extension, file) {
   
 }
 
-
-#' @rdname Projekt
-#' @export
-HTML_Start <- function (Projektname = "Demo",
-                        datum = date(),
-                        fig_folder = "Fig",
-                        html_folder = "Results",
-                        OutDec = NULL,
-                        contrasts =  c("contr.Treatment", "contr.poly"),
-                        withprompt = "HTML> ",
-                        .extension = "html",
-                        .myDir = getwd(),
-                        .filename = cleansing_umlaute(Projektname),
-                        .output.dir = file.path(.myDir, html_folder),
-                        .HTML.file  = file.path(.output.dir, paste(.filename, ".", .extension, sep = "")),
-                        .css.file = file.path(.output.dir, "layout.css")
-                         )
-{
-  if (Projektname == "Demo")
-    setwd("C:/Users/wpete/Dropbox/3_Forschung/R-Project")
-  #-- Fehler Abfangen
-  if (options()$prompt[1] == withprompt) {
-    options(prompt = "> ")
-        return()
-  }
-
-  creat_folder(.output.dir, fig_folder, .css.file)
-  html_settings(contrasts, withprompt, OutDec, .extension, .HTML.file)
-  html_init(Projektname, .HTML.file)
-
-  
-  Text(Projektname, "\n Datum: ", datum,
-      ", Software: ", R.version.string,
-      ", Link: www.R-project.org/\nFile: ", get_scriptpath())
-  
-}
 
 
