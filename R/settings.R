@@ -159,7 +159,7 @@ default_stp25_opt <-
             digits.r = 2,
             digits.p = 3,
             digits.Fstat = 2,
-            null_percent_sign =  NULL,
+            null_percent_sign =  ".",
 
             lead.zero = FALSE,
             p.values = c(0.001, 0.01, 0.05, 0.1)[1:3],
