@@ -88,11 +88,20 @@ Output.NULL <- function(x, ...) {
 #' @rdname Output
 #'
 Output.default <- function(x, ...) {
-  cat("\nin Output.default class: class(x)[1] \n")
- Outout( broom::tidy(x), ...) 
+  cat("\nin Output.default class: ",class(x)[1], " \n")
+ Output( broom::tidy(x), ...) 
   
 }
 
+#' @rdname Output
+#'
+Output.psychobject <- function(x, 
+                               digits = c(2, 2, 1, 3, 2, 2), 
+                               ...) {
+  Output(fix_format(x$summary,
+                    digits = digits), 
+         ...)
+}
 
 #' @rdname Output
 #' @export
@@ -105,5 +114,8 @@ Output.default <- function(x, ...) {
 Output.emmGrid <- function(x, 
                            caption="Estimated marginal means", 
                            note="Least-squares means", ...) {
-Output(fix_format(as.data.frame(x)), caption = caption, note = note, ...)
+Output(fix_format(as.data.frame(x)), 
+       caption = caption, 
+       note = note,
+       ...)
 }
