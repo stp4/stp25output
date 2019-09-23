@@ -26,9 +26,380 @@ R2HTML, texreg und htmlTable.
 ### Usage
 
 ``` r
+
+which_output()
+```
+
+\[1\] “text”
+
+``` r
+ Tabelle2(hkarz,  tzell, lai, gruppe, APA=TRUE,  output = "html" )
+```
+
+<table class="gmisc_table" style="border-collapse: collapse; padding-left: .5em; padding-right: .2em;">
+
+<thead>
+
+<tr>
+
+<td colspan="3" style="text-align: left;">
+
+Tab 1: Charakteristik
+
+</td>
+
+</tr>
+
+<tr>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Item
+
+</th>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+n
+
+</th>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+m
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+tzell (mean)
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+45
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+67.31 (6.41)
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+lai (mean)
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+45
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+0.42 (0.50)
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+gruppe 
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+45
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+ krank
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+53% (24)
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+ gesund
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+47% (21)
+
+</td>
+
+</tr>
+
+</tbody>
+
+<tfoot>
+
+<tr>
+
+<td colspan="3">
+
+</td>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+``` r
+ res<-  Tabelle(hkarz,  tzell, lai, gruppe, APA=TRUE)
+  Output(res, add_row =c("<b>Erste Zeile</b>" = 1, "Dritte Zeile" = 3),  output = "html" )
+```
+
+<table class="gmisc_table" style="border-collapse: collapse; padding-left: .5em; padding-right: .2em;">
+
+<thead>
+
+<tr>
+
+<td colspan="3" style="text-align: left;">
+
+Tab 2: Charakteristik
+
+</td>
+
+</tr>
+
+<tr>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Item
+
+</th>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+n
+
+</th>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+m
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+<b>Erste Zeile</b>
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+tzell (mean)
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+45
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+67.31 (6.41)
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+lai (mean)
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+45
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+0.42 (0.50)
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+Dritte Zeile
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+gruppe 
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+45
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+ krank
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+53% (24)
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+ gesund
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+47% (21)
+
+</td>
+
+</tr>
+
+</tbody>
+
+<tfoot>
+
+<tr>
+
+<td colspan="3">
+
+</td>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+``` r
 # devtools::install_github("stp4/stp25output")
-require(stpvers)
-#> Loading required package: stpvers
+
 Projekt("", "Beispiel Projekt")
 #> 
 #> Kontraste von  contr.treatment, contr.poly auf
@@ -36,8 +407,6 @@ Projekt("", "Beispiel Projekt")
 #> 
 #> set: output =
 set_my_options(prozent=list(digits=c(1,0), style=2))
- 
-
 # Optionen format:  HTML, Spin, Knit, Rpres oder Text
 APA2(.~ gruppe , hkarz, caption="Deskriptive Analyse")
 #> 
@@ -52,49 +421,6 @@ End()
 #> 
 #> Reset Kontraste
 ```
-
-``` r
- knitr::kable(
-          df1, row.names = FALSE,
-          format = "pandoc" 
-        )
-```
-
-| term |  n | m         |
-| :--- | -: | :-------- |
-| A    | 23 | 4.7 (2.4) |
-| B    | 14 | 4.1 (2.3) |
-| C    | 56 | 8.9 (3.6) |
-| D    |  2 | NA        |
-
-``` r
-
-knitr::kable(
-  df1, row.names = FALSE,
-  format = "markdown" 
-)
-```
-
-| term |  n | m         |
-| :--- | -: | :-------- |
-| A    | 23 | 4.7 (2.4) |
-| B    | 14 | 4.1 (2.3) |
-| C    | 56 | 8.9 (3.6) |
-| D    |  2 | NA        |
-
-``` r
- knitr::kable(
-          df1, row.names = FALSE,
-          format = "pandoc" 
-        )
-```
-
-| term |  n | m         |
-| :--- | -: | :-------- |
-| A    | 23 | 4.7 (2.4) |
-| B    | 14 | 4.1 (2.3) |
-| C    | 56 | 8.9 (3.6) |
-| D    |  2 | NA        |
 
 ``` r
 #+ 
@@ -138,8 +464,7 @@ df1 %>% Output(output="html")
 
 <td colspan="3" style="text-align: left;">
 
-Tab
-3:
+Tab 3:
 
 </td>
 
@@ -231,8 +556,7 @@ C
 
 <td style="padding-left: .5em; padding-right: .2em; text-align: left;">
 
-8.9
-(3.6)
+8.9 (3.6)
 
 </td>
 
@@ -293,131 +617,50 @@ df1 %>% Output(output="text")
 df1 %>% Output(output="markdown")
 ```
 
-<table class="table" style="margin-left: auto; margin-right: auto;">
+## knitr::kable
 
-<caption>
+``` r
+ knitr::kable(
+          df1, row.names = FALSE,
+          format = "pandoc" 
+        )
+```
 
-Tab 5:
+| term |  n | m         |
+| :--- | -: | :-------- |
+| A    | 23 | 4.7 (2.4) |
+| B    | 14 | 4.1 (2.3) |
+| C    | 56 | 8.9 (3.6) |
+| D    |  2 | NA        |
 
-</caption>
+``` r
 
-<thead>
+knitr::kable(
+  df1, row.names = FALSE,
+  format = "markdown" 
+)
+```
 
-<tr>
+| term |  n | m         |
+| :--- | -: | :-------- |
+| A    | 23 | 4.7 (2.4) |
+| B    | 14 | 4.1 (2.3) |
+| C    | 56 | 8.9 (3.6) |
+| D    |  2 | NA        |
 
-<th style="text-align:left;">
+``` r
+ knitr::kable(
+          df1, row.names = FALSE,
+          format = "pandoc" 
+        )
+```
 
-Quelle
-
-</th>
-
-<th style="text-align:right;">
-
-n
-
-</th>
-
-<th style="text-align:left;">
-
-m
-
-</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr>
-
-<td style="text-align:left;">
-
-A
-
-</td>
-
-<td style="text-align:right;">
-
-23
-
-</td>
-
-<td style="text-align:left;">
-
-4.7 (2.4)
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-B
-
-</td>
-
-<td style="text-align:right;">
-
-14
-
-</td>
-
-<td style="text-align:left;">
-
-4.1 (2.3)
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-C
-
-</td>
-
-<td style="text-align:right;">
-
-56
-
-</td>
-
-<td style="text-align:left;">
-
-8.9 (3.6)
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-D
-
-</td>
-
-<td style="text-align:right;">
-
-2
-
-</td>
-
-<td style="text-align:left;">
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
+| term |  n | m         |
+| :--- | -: | :-------- |
+| A    | 23 | 4.7 (2.4) |
+| B    | 14 | 4.1 (2.3) |
+| C    | 56 | 8.9 (3.6) |
+| D    |  2 | NA        |
 
 ### Grafik settings
 

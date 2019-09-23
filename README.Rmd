@@ -4,12 +4,14 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "README-"
 )
+
+require(stpvers)
 ```
 
 # stp25output
@@ -36,19 +38,35 @@ Overview
 
 ### Usage
 
+```{r , results='asis'}
+
+which_output()
+ Tabelle2(hkarz,  tzell, lai, gruppe, APA=TRUE,  output = "html" )
+
+
+```
+
+```{r, results='asis'}
+ res<-  Tabelle(hkarz,  tzell, lai, gruppe, APA=TRUE)
+  Output(res, add_row =c("<b>Erste Zeile</b>" = 1, "Dritte Zeile" = 3),  output = "html" )
+```
+
+
+
 ```{r, results='markup'}
 # devtools::install_github("stp4/stp25output")
-require(stpvers)
+
 Projekt("", "Beispiel Projekt")
 set_my_options(prozent=list(digits=c(1,0), style=2))
- 
-
 # Optionen format:  HTML, Spin, Knit, Rpres oder Text
 APA2(.~ gruppe , hkarz, caption="Deskriptive Analyse")
 
 End()
 
 ```
+
+
+
 
 
 ```{r, include = FALSE}
@@ -65,32 +83,6 @@ m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA)
 
 
 
-
-```{r}
- knitr::kable(
-          df1, row.names = FALSE,
-          format = "pandoc" 
-        )
-```
-
-
-
-```{r}
-
-knitr::kable(
-  df1, row.names = FALSE,
-  format = "markdown" 
-)
-
-```
-
-
-```{r}
- knitr::kable(
-          df1, row.names = FALSE,
-          format = "pandoc" 
-        )
-```
 
 
 ```{r df-default}
@@ -125,4 +117,96 @@ df1 %>% Output(output="text")
  
 df1 %>% Output(output="markdown")
 ```
+
+
+##  knitr::kable
+
+
+```{r}
+ knitr::kable(
+          df1, row.names = FALSE,
+          format = "pandoc" 
+        )
+```
+
+
+
+```{r}
+
+knitr::kable(
+  df1, row.names = FALSE,
+  format = "markdown" 
+)
+
+```
+
+
+```{r}
+ knitr::kable(
+          df1, row.names = FALSE,
+          format = "pandoc" 
+        )
+```
+
+
+
+
+
+### Grafik settings
+
+
+```{r}
+require(stpvers)
+set.seed(2)
+n <- 20 * 3 * 2
+DF <- data.frame(
+  n = runif(n, min = 1, max = 5),
+  e = runif(n, min = 1, max = 5),
+  o = runif(n, min = 1, max = 5),
+  g = runif(n, min = 1, max = 5),
+  a = runif(n, min = 1, max = 5),
+  treatment = gl(3, n / 3, labels = c("UG1", "UG2", "KG"))[sample.int(n)],
+  sex = gl(2, n / 2, labels = c("male", "female"))
+)
+
+```
+
+```{r fig-default, fig.height=3, fig.width=4}
+set_lattice()
+bwplot2(e ~ treatment,
+        DF,
+        groups = sex,
+        auto.key = list(columns = 2))
+```
+
+
+
+
+```{r fig-ggplot, fig.height=3, fig.width=4}
+
+set_lattice_ggplot()
+bwplot2(e ~ treatment,
+        DF,
+        groups = sex,
+        auto.key = list(columns = 2))
+
+
+```
+
+
+
+```{r fig-bw, fig.height=3, fig.width=4}
+set_lattice_bw()
+bwplot2(e ~ treatment,
+        DF,
+        groups = sex,
+        auto.key = list(columns = 2))
+
+
+reset_lattice()
+```
+
+
+
+
 
