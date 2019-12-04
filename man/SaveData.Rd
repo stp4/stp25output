@@ -4,8 +4,14 @@
 \alias{SaveData}
 \title{Speichern von Grafiken}
 \usage{
-SaveData(caption = "", filename = "", w = dev.size("in")[1],
-  h = dev.size("in")[2], save_plot = TRUE, output = which_output())
+SaveData(
+  caption = "",
+  filename = "",
+  w = dev.size("in")[1],
+  h = dev.size("in")[2],
+  save_plot = TRUE,
+  output = which_output()
+)
 }
 \arguments{
 \item{caption}{Grafik Abbildung  caption=data,}

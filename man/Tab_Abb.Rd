@@ -17,7 +17,7 @@ Caption(caption = NULL, atr = NULL, output = which_output())
 Note(x = NULL, atr = NULL)
 }
 \arguments{
-\item{caption}{Name der Tabelle/Abbildung}
+\item{caption}{}
 
 \item{filename}{Name des Foles}
 
@@ -26,8 +26,6 @@ Note(x = NULL, atr = NULL)
 \item{atr}{in Caption: alternativer Text}
 
 \item{x}{Text}
-
-\item{caption}{}
 }
 \value{
 Name plus Nummer

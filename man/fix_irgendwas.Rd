@@ -8,21 +8,32 @@
 \alias{fix_levels}
 \title{Fix Objekt zu Data.Frame}
 \usage{
-fix_format(x, exclude = NULL, digits = NULL,
-  pattern_pval = c("Pr\\\\(\\\\>", "Pr\\\\.\\\\.", "p\\\\.value",
-  "p value", "pvalue"), pattern_est = c("Estimate", "Std\\\\. Error",
-  "est.std", "se"), pattern_df = c("Df"), pattern_N = c("N", "n"),
-  apa.style = options()$stp25$apa.style, ...)
+fix_format(
+  x,
+  exclude = NULL,
+  digits = NULL,
+  pattern_pval = c("Pr\\\\(\\\\>", "Pr\\\\.\\\\.", "p\\\\.value", "p value", "pvalue"),
+  pattern_est = c("Estimate", "Std\\\\. Error", "est.std", "se"),
+  pattern_df = c("Df"),
+  pattern_N = c("N", "n"),
+  apa.style = options()$stp25$apa.style,
+  ...
+)
 
 fix_colnames(x, col_names = NULL, translate = TRUE)
 
 fix_data_frame2(...)
 
-fix_levels(x, labels = NULL, which = ncol(x) - 1,
-  measure.vars = unique(x[, which]), ...)
+fix_levels(
+  x,
+  labels = NULL,
+  which = ncol(x) - 1,
+  measure.vars = unique(x[, which]),
+  ...
+)
 }
 \arguments{
-\item{x}{data.frame}
+\item{x}{vektor liste oder matrix}
 
 \item{exclude}{Position der auszuschliedenden Spalten}
 
@@ -34,7 +45,7 @@ fix_levels(x, labels = NULL, which = ncol(x) - 1,
 
 \item{pattern_df}{fuer fix_format}
 
-\item{apa.style}{}
+\item{apa.style}{fuer fix_format}
 
 \item{...}{alles weiter an data.frame}
 
@@ -48,11 +59,7 @@ fix_levels(x, labels = NULL, which = ncol(x) - 1,
 
 \item{measure.vars}{fix_levels welche Variablen}
 
-\item{x}{vektor liste oder matrix}
-
 \item{pattern_pval}{fuer fix_format}
-
-\item{apa.style}{fuer fix_format}
 }
 \value{
 gleiches Objekt

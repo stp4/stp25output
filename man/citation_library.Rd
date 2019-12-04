@@ -4,8 +4,7 @@
 \alias{citation_library}
 \title{citation_library}
 \usage{
-citation_library(..., style = "text", .bibstyle = NULL,
-  output = "text")
+citation_library(..., style = "text", .bibstyle = NULL, output = "text")
 }
 \arguments{
 \item{...}{namen der Librarys}

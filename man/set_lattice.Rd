@@ -7,13 +7,25 @@
 \alias{reset_lattice}
 \title{set_lattice}
 \usage{
-set_lattice_ggplot(pch = 15:18, lty = 1:3, cex = 1, col = NULL,
-  col.bar = NULL, strip.background.col = c("grey80", "grey70",
-  "grey60"), ...)
+set_lattice_ggplot(
+  pch = 15:18,
+  lty = 1:3,
+  cex = 1,
+  col = NULL,
+  col.bar = NULL,
+  strip.background.col = c("grey80", "grey70", "grey60"),
+  ...
+)
 
-set_lattice_bw(pch = 15:18, lty = 1:3, cex = 1,
-  col = grey.colors(7, start = 0.3, end = 0.9), col.bar = "grey50",
-  strip.background.col = "white", ...)
+set_lattice_bw(
+  pch = 15:18,
+  lty = 1:3,
+  cex = 1,
+  col = grey.colors(7, start = 0.3, end = 0.9),
+  col.bar = "grey50",
+  strip.background.col = "white",
+  ...
+)
 
 set_lattice(theme = NULL)
 

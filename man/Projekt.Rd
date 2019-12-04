@@ -17,15 +17,26 @@
 \alias{HTML_End}
 \title{Projekt}
 \usage{
-Projekt(myformat = "", Projektname = "Demo", datum = date(),
-  fig_folder = "Fig", html_folder = "Results", OutDec = NULL,
-  contrasts = c("contr.Treatment", "contr.poly"), css = TRUE, ...)
+Projekt(
+  myformat = "",
+  Projektname = "Demo",
+  datum = date(),
+  fig_folder = "Fig",
+  html_folder = "Results",
+  OutDec = NULL,
+  contrasts = c("contr.Treatment", "contr.poly"),
+  css = TRUE,
+  ...
+)
 
 Projekt_Rmd(myformat, Projektname, datum, OutDec, contrasts)
 
-End(anhang = FALSE,
+End(
+  anhang = FALSE,
   browser = "C:/Program Files (x86)/Internet Explorer/iexplore.exe",
-  output = options()$prompt[1] == "HTML> ", ...)
+  output = options()$prompt[1] == "HTML> ",
+  ...
+)
 
 Rechnung(datum = "")
 
@@ -39,21 +50,31 @@ Measures(h = "Messinstrument", x = NULL, file = "(2) Measures.R")
 
 Results(h = "Ergebnisse", x = NULL, file = NULL)
 
-Demographic_Variables(h = "Deskriptive Analyse", x = NULL,
-  file = "(3) Demographic.R")
+Demographic_Variables(
+  h = "Deskriptive Analyse",
+  x = NULL,
+  file = "(3) Demographic.R"
+)
 
 Statistic(h = "Resultate", x = NULL, file = "(4) Analyse.R")
 
 get_scriptpath()
 
-HTML_Start(Projektname = "Demo", datum = date(), fig_folder = "Fig",
-  html_folder = "Results", OutDec = NULL,
+HTML_Start(
+  Projektname = "Demo",
+  datum = date(),
+  fig_folder = "Fig",
+  html_folder = "Results",
+  OutDec = NULL,
   contrasts = c("contr.Treatment", "contr.poly"),
-  withprompt = "HTML> ", .extension = "html", .myDir = getwd(),
+  withprompt = "HTML> ",
+  .extension = "html",
+  .myDir = getwd(),
   .filename = cleansing_umlaute(Projektname),
   .output.dir = file.path(.myDir, html_folder),
-  .HTML.file = file.path(.output.dir, paste(.filename, ".", .extension,
-  sep = "")), .css.file = file.path(.output.dir, "layout.css"))
+  .HTML.file = file.path(.output.dir, paste(.filename, ".", .extension, sep = "")),
+  .css.file = file.path(.output.dir, "layout.css")
+)
 
 HTML_End(browser = "iexplore")
 }

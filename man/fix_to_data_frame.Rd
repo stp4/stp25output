@@ -11,9 +11,13 @@ fix_to_data_frame(x, ...)
 
 \method{fix_to_data_frame}{default}(x, ...)
 
-\method{fix_to_data_frame}{ftable}(x,
+\method{fix_to_data_frame}{ftable}(
+  x,
   ncol = length(attributes(x)$col.vars),
-  nrow = length(attributes(x)$row.vars), nlength = ncol + nrow, ...)
+  nrow = length(attributes(x)$row.vars),
+  nlength = ncol + nrow,
+  ...
+)
 
 \method{fix_to_data_frame}{table}(x, ...)
 }

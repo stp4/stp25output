@@ -25,12 +25,21 @@ Zitat(...)
 
 Arbeitszeit(Lines, sep = "\\\\t", ...)
 
-Anhang(include.literatur = TRUE, include.software = TRUE,
-  include.mean = FALSE, include.test = FALSE,
-  include.regression = FALSE, include.lm = FALSE,
-  include.binom = FALSE, include.lme = FALSE, include.poisso = FALSE,
-  include.rangreihe = FALSE, include.structure = FALSE,
-  include.notation = FALSE, ...)
+Anhang(
+  include.literatur = TRUE,
+  include.software = TRUE,
+  include.mean = FALSE,
+  include.test = FALSE,
+  include.regression = FALSE,
+  include.lm = FALSE,
+  include.binom = FALSE,
+  include.lme = FALSE,
+  include.poisso = FALSE,
+  include.rangreihe = FALSE,
+  include.structure = FALSE,
+  include.notation = FALSE,
+  ...
+)
 }
 \arguments{
 \item{...}{one or more R objects, to be converted to character vectors.}

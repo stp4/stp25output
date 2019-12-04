@@ -17,7 +17,7 @@ below to see their documentation.
 \describe{
   \item{Hmisc}{\code{\link[Hmisc]{Cs}}}
 
-  \item{car}{\code{\link[car]{contr.Treatment}}, \code{\link[car]{contr.Sum}}, \code{\link[car]{contr.Helmert}}}
+  \item{car}{\code{\link[car]{contr.Helmert}}, \code{\link[car]{contr.Sum}}, \code{\link[car]{contr.Treatment}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 }}
