@@ -4,13 +4,23 @@
 \alias{Output.data.frame}
 \title{Ausgabe von Tabellen}
 \usage{
-\method{Output}{data.frame}(x, caption = NULL, note = NULL,
-  output = which_output(), print_col = NULL, col_names = NULL,
-  fix_colnames = options()$stp25$language != "", add_row = NULL,
+\method{Output}{data.frame}(
+  x,
+  caption = NULL,
+  note = NULL,
+  output = which_output(),
+  print_col = NULL,
+  col_names = NULL,
+  fix_colnames = options()$stp25$language != "",
+  add_row = NULL,
   css.table = "padding-left: .5em; padding-right: .2em;",
   css.cell = "padding-left: .5em; padding-right: .2em;",
-  booktabs = TRUE, latex_options = c("hold_position"), linesep = "",
-  align = "l", ...)
+  booktabs = TRUE,
+  latex_options = c("hold_position"),
+  linesep = "",
+  align = "l",
+  ...
+)
 }
 \arguments{
 \item{x}{dataframe}
@@ -85,6 +95,6 @@ df1 \%>\% Output(output="markdown")
 
 
 
-# df1 \%>\%  Output(linesep = c("", "", "\\\\midrule"))
+# df1 \%>\%  Output(linesep = c("", "", "\\midrule"))
 
 }

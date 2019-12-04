@@ -113,10 +113,36 @@ df1 %>% Output(output="text")
 
 ```
 
-```{r,  results='asis'}
+```{r,results='asis'}
  
 df1 %>% Output(output="markdown")
 ```
+
+
+##  xtable
+
+```{r, results='asis'}
+
+require(xtable)
+data(tli)
+## Demonstrate aov
+fm1 <- aov(tlimth ~ sex + ethnicty + grade + disadvg, data = tli)
+ fm1.table <- xtable(fm1)
+ Output(fm1.table, output="html")
+ 
+
+```
+
+
+```{r , results='markup'}
+ 
+ fm2 <- lm(tlimth ~ sex*ethnicty, data = tli)
+ fm2b <- lm(tlimth ~ ethnicty, data = tli)
+ 
+ Output(xtable(anova(fm2b, fm2)), output="markup")
+
+```
+
 
 
 ##  knitr::kable

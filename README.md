@@ -617,6 +617,309 @@ df1 %>% Output(output="text")
 df1 %>% Output(output="markdown")
 ```
 
+## xtable
+
+``` r
+
+require(xtable)
+#> Loading required package: xtable
+data(tli)
+## Demonstrate aov
+fm1 <- aov(tlimth ~ sex + ethnicty + grade + disadvg, data = tli)
+ fm1.table <- xtable(fm1)
+ Output(fm1.table, output="html")
+```
+
+<table class="gmisc_table" style="border-collapse: collapse; padding-left: .5em; padding-right: .2em;">
+
+<thead>
+
+<tr>
+
+<td colspan="6" style="text-align: left;">
+
+Tab 6: Analysis of Variance Table Response: tlimth
+
+</td>
+
+</tr>
+
+<tr>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Quelle
+
+</th>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Df
+
+</th>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Sum Sq
+
+</th>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Mean Sq
+
+</th>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+F
+
+</th>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Pr(\>F)
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+sex
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+1
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+75.37
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+75.37
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+0.38
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+0.5417
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+ethnicty
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+3
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+2572.15
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+857.38
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+4.27
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+0.0072
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+grade
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+1
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+36.31
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+36.31
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+0.18
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+0.6717
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+disadvg
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+1
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+59.30
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+59.30
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+0.30
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+0.5882
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+Residuals
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+93
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+18682.87
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+200.89
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+</td>
+
+</tr>
+
+</tbody>
+
+<tfoot>
+
+<tr>
+
+<td colspan="6">
+
+</td>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+``` r
+ 
+ fm2 <- lm(tlimth ~ sex*ethnicty, data = tli)
+ fm2b <- lm(tlimth ~ ethnicty, data = tli)
+ 
+ Output(xtable(anova(fm2b, fm2)), output="markup")
+#> 
+#> 
+#> Table: Tab 7: Analysis of Variance Table
+#>  Model 1: tlimth ~ ethnicty
+#> Model 2: tlimth ~ sex * ethnicty
+#> 
+#> Quelle   Res.Df   RSS        Df   Sum of Sq   F      Pr(>F) 
+#> -------  -------  ---------  ---  ----------  -----  -------
+#> 1        96       19053.59                                  
+#> 2        93       18480.04   3    573.55      0.96   0.4141 
+#> 
+#> 
+```
+
 ## knitr::kable
 
 ``` r

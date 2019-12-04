@@ -28,6 +28,55 @@ Output <- function(x, ...) {
   UseMethod("Output")
 }
 
+
+
+
+#' @rdname Output
+#' @description Output.xtable mit xtable lassen sich alternativ r-Objekte ausgeben. 
+#'
+#' @export
+#' 
+#' @examples 
+#' 
+#'  require(xtable)
+#' ## Load example dataset
+#' data(tli)
+#' 
+#' ## Demonstrate aov
+#' fm1 <- aov(tlimth ~ sex + ethnicty + grade + disadvg, data = tli)
+#' fm1.table <- xtable(fm1)
+#' 
+#' Output(fm1.table)
+#' 
+#' # ## Demonstrate lm
+#' fm2 <- lm(tlimth ~ sex*ethnicty, data = tli)
+#' fm2.table <- xtable(fm2)
+#' fm2b <- lm(tlimth ~ ethnicty, data = tli)
+#' 
+#' Output(fm2.table)
+#' Output(xtable(anova(fm2)))
+#' Output(xtable(anova(fm2b, fm2)))
+#' 
+#' 
+Output.xtable <- function(x,
+                          caption = attr(x, "heading"),
+                          digits = attr(x, "digits"),
+                          output=which_output(),
+                          ...) {
+  
+  caption <-  paste(caption, collapse= " ")
+  res <- as.data.frame(x)
+  
+  res <- cbind(Source = row.names(res), res)
+  c_names <- names(res)
+  res <- fix_format(res, digits = digits)
+  names(res) <- c_names
+  
+  Output.data.frame(res, caption=caption, output=output, ...)
+  
+}
+
+
 #' @rdname Output
 Output.character <- function(x, output = which_output(), ...) {
   if (output=="html" | output=="markdown_html") {
@@ -92,6 +141,11 @@ Output.default <- function(x, ...) {
  Output( broom::tidy(x), ...) 
   
 }
+
+
+
+
+
 
 #' @rdname Output
 #'

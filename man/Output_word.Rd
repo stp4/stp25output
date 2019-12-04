@@ -4,9 +4,16 @@
 \alias{Output_word}
 \title{Output nach docx}
 \usage{
-Output_word(x, caption = NULL, note = NULL, output = which_output(),
-  print_col = NULL, col_names = NULL,
-  fix_colnames = options()$stp25$language != "", ...)
+Output_word(
+  x,
+  caption = NULL,
+  note = NULL,
+  output = which_output(),
+  print_col = NULL,
+  col_names = NULL,
+  fix_colnames = options()$stp25$language != "",
+  ...
+)
 }
 \arguments{
 \item{x}{data.frame}
