@@ -11,7 +11,7 @@
 \alias{Anhang}
 \title{Text Ausgabe}
 \usage{
-Text(..., style = 0, char = "-", output = which_output())
+Text(x, ...)
 
 Head(..., style = 3, char = "-")
 
@@ -48,8 +48,6 @@ Anhang(
 
 \item{char}{ist nicht zu Verwenden Text Trennzeichen bei Consolen-Ausgabe}
 
-\item{output}{Abrage nach dem Ausgabeformat  which_output()}
-
 \item{lib}{Paketname}
 
 \item{Lines}{in Arbeitszeit der Input-String}
@@ -73,6 +71,8 @@ Anhang(
 \item{include.structure}{Uberschriften Aufbau}
 
 \item{include.notation}{Abkuerzungen}
+
+\item{output}{Abrage nach dem Ausgabeformat  which_output()}
 }
 \value{
 Vector
@@ -100,4 +100,9 @@ Text("hallo", "ich bin ein Test")
 ###plot(sin, -pi, 2*pi,main="Sinus")
 ###HTMLplot( Caption="Look at this curve!")
 #End()
+
+
+
+
+
 }

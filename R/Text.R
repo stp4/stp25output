@@ -18,7 +18,31 @@
 #' ###plot(sin, -pi, 2*pi,main="Sinus")
 #' ###HTMLplot( Caption="Look at this curve!")
 #' #End()
-Text <- function(...,
+#' 
+#' 
+#' 
+#' 
+#' 
+Text <- function(x, ...) {
+  UseMethod("Text")
+}
+
+
+#' @rdname Output
+#'
+#' @export
+Text.default<- function(x, ...){
+  
+  #print(class(x))
+  txt<-  psycho::analyze(fit)
+  text <- txt$text
+  paste(text, collapse ="\n ")
+}
+
+#' @rdname Output
+#'
+#' @export
+Text.character <- function(...,
                  style = 0,
                  char = "-",
                  output =  which_output()) {
