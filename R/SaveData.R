@@ -14,9 +14,10 @@
 #' @return NULL
 #' @importFrom grDevices dev.copy2pdf dev.off dev.size savePlot rgb2hsv
 #' @export
-SaveData <- function(caption = "", 
+SaveData <- function(caption = "",
+                     w = dev.size("in")[1], 
+                     h = dev.size("in")[2],
                      filename = "",
-                     w = dev.size("in")[1], h = dev.size("in")[2],
                      save_plot= TRUE,
                      output =  which_output()
                   ) {
