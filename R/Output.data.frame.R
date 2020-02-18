@@ -91,7 +91,7 @@ Output.data.frame <-
         return(NULL)
     }
     
- #   cat(" In Output.data.frame output=", output, "  \n")
+# cat(" In Output.data.frame output=", output, "  \n")
     
     # Zellen-Spalten bearbeiten
     if (!is.null(print_col)) {
@@ -126,19 +126,29 @@ Output.data.frame <-
       x <- add_row_df(x, add_row)
     }
     
+
+    
+  
+    if (output == "word") {
+    #  warnings("In spin-word geht Word.doc  nicht weil die Ausgabe nicht an knit_print weitergegeben wird. 
+    # Alternative APA(..., output=FALSE) %>% Output()")
+      return(Output_word(x,
+                         caption, 
+                         note, 
+                         output,
+                         print_col, 
+                         col_names, 
+                         fix_colnames))
+      
+    }
+    
+    
     
     caption <- Caption(caption, attr(x, "caption"))
-    note <- Note(note, attr(x, "note"))
+    note <- Note(note, attr(x, "note"))    
     
-    # wen Output() in spin-word direkt aufgerufen wird soll Output_word() die Tabelle erstellen
-    # APA(..., output=FALSE) %>% Output()
-    ## output ==  "word" geht nicht weil  ausgabe nicht an knit_print weitergegeben wird.
-    if (output == "word") {
-      return(Output_word(x,
-                         caption, note, output,
-                         print_col, col_names, fix_colnames))
-    }
-    else if (output == "text") {
+    
+if (output == "text") {
       if (!is.null(tbl$header_above))
         names(x) <-
           ifelse(tbl$header_above2 == "",
@@ -268,12 +278,22 @@ Output.data.frame <-
 Output.list <- function(x,
                         output =  which_output(),
                         ...) {
-  res<- list()
+  if (output == "word") {
+    if (length(x) > 1)
+      Text("Weitere Tabellen:", names(x)[-1])
+    x <- x[[1]]
+    return(Output_word(x,
+                       output = output,
+                       ...))
+  } else {
+    res <- list()
     for (i in 1:length(x))
-     res[[i]] <- Output(x[[i]], output=output, ...)
-  
-  if(output=="word"){ return(res) }
-  else { invisible(x)}
+      res[[i]] <- Output(x[[i]],
+                         output = output, ...)
+    
+    
+    invisible(x)
+  }
 }
 
 

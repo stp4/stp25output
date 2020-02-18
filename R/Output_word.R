@@ -52,9 +52,18 @@ Output_word <- function(x,
     ft <-
       flextable::set_header_df(ft, mapping = typology, key = "col_keys")
     ft <- flextable::merge_h(ft, part = "header")
+    
+
+    
+    
     ft <- flextable::merge_v(ft, part = "header")
+    
+       
+    
     ft <- flextable::theme_booktabs(ft)
     ft <- flextable::autofit(ft, add_w = 0, add_h = 0)
+     ft <- flextable::align(ft, align="center", part = "header")
+    
   }
 
   ft
