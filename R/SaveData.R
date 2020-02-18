@@ -5,12 +5,8 @@
 #' Die Funktion arbeitet ueber  R2HTML::HTMLplot()
 #' @param caption   Grafik Abbildung  caption=data,
 #' @param filename    Daten oder Character fuer die speicherung einer Grafik 
-#' @param Width,Height,w,h  an HTMLplot default = 520, Breite der  Grafik  also zb w=8=dev.size("in")[2], h=dev.size("in")[1] Hoehe der Grafik also zb h=8
-#' @param GraphBorder  Rand um Grafik = 0
-#' @param Align    Centriert
-#' @param GraphBackGround  Hintergrund= "white"
+#' @param w,h  Width, Height, an HTMLplot default = 520, Breite der  Grafik  also zb w=8=dev.size("in")[2], h=dev.size("in")[1] Hoehe der Grafik also zb h=8
 #' @param save_plot speichern als file = TRUE,
-#' @param ...  zusaetliche Parameter
 #' @return NULL
 #' @importFrom grDevices dev.copy2pdf dev.off dev.size savePlot rgb2hsv
 #' @export
@@ -70,8 +66,10 @@ split_path <- function(path,
 
 
 
-
 #' Kopie von R2HTML::HTMLGetFile
+#' @param GraphBorder  Rand um Grafik = 0
+#' @param Align    Centriert
+#' @param GraphBackGround  Hintergrund= "white"#' 
 #' @noRd
 R2HTML_HTMLplot<-
   function (Caption = "",

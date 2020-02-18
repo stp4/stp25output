@@ -6,9 +6,9 @@
 \usage{
 SaveData(
   caption = "",
-  filename = "",
   w = dev.size("in")[1],
   h = dev.size("in")[2],
+  filename = "",
   save_plot = TRUE,
   output = which_output()
 )
@@ -16,19 +16,11 @@ SaveData(
 \arguments{
 \item{caption}{Grafik Abbildung  caption=data,}
 
+\item{w, h}{Width, Height, an HTMLplot default = 520, Breite der  Grafik  also zb w=8=dev.size("in")[2], h=dev.size("in")[1] Hoehe der Grafik also zb h=8}
+
 \item{filename}{Daten oder Character fuer die speicherung einer Grafik}
 
 \item{save_plot}{speichern als file = TRUE,}
-
-\item{Width, Height, w, h}{an HTMLplot default = 520, Breite der  Grafik  also zb w=8=dev.size("in")[2], h=dev.size("in")[1] Hoehe der Grafik also zb h=8}
-
-\item{GraphBorder}{Rand um Grafik = 0}
-
-\item{Align}{Centriert}
-
-\item{GraphBackGround}{Hintergrund= "white"}
-
-\item{...}{zusaetliche Parameter}
 }
 \description{
 Grafik werden  als PDF oder Windows-Metafile
