@@ -1,6 +1,6 @@
 #' which_output
 #'
-#' @return html, text, markdown, word
+#' @return html, text, markdown, markdown_html, word
 #' @export
 #'
 #' @examples

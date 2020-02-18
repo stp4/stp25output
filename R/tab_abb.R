@@ -59,10 +59,10 @@ Caption <- function(caption = NULL,
     caption <- ""
   
   
-  if (output == "html" | output == "text" | output == "markdown_html")
+  #if (output == "html" | output == "text" | output == "markdown_html")
     Tab(caption)
-  else
-    caption
+ # else
+ #   caption
 }
 
 #' @rdname Tab_Abb
