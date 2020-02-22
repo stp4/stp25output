@@ -72,7 +72,7 @@ HTMLGetFile <- function (){
   if (exists(".HTML.file", .HTMLEnv))
     get(".HTML.file", .HTMLEnv)
   else
-    stop("not default HTML output file defined; please call HTMLSetFile2() to set it")
+    warning("not default HTML output file defined; please call HTMLSetFile2() to set it")
 }
 
 

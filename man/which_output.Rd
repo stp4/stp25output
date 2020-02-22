@@ -7,7 +7,7 @@
 which_output()
 }
 \value{
-html, text, markdown, word
+values are text, latex, html, markdown_html markdown, pandoc, and rst
 }
 \description{
 which_output
@@ -15,4 +15,6 @@ which_output
 \examples{
 
 which_output()
+
+
 }

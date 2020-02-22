@@ -60,9 +60,7 @@ Text.character <- function(...,
     }
     else{
       HTML_default(paste("\n <h", style, "> ", msg, "</h", style, ">\n", sep = ""))
-      
-      
-    }
+      }
   }
   
   report_txt <- function(msg = NULL) {
@@ -117,8 +115,7 @@ Text.character <- function(...,
     report_html(msg)
   else if (output == "markdown" | output == "markdown_html") {
     if (style > 0) {
-      paste(paste(rep("#", style), collapse = ""),  
-            msg)
+      cat(paste(rep("#", style), collapse = ""), msg)
     } else
       cat(msg)
   }

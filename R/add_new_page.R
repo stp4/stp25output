@@ -6,10 +6,10 @@
 #' @export
 #' 
 #' @examples 
+#' 
 #' # in MD-Files
 #' # `r pagebreak()`
 #' 
- 
 pagebreak <- function() {
   if(knitr::is_latex_output())
     return("\\newpage")
@@ -19,5 +19,3 @@ pagebreak <- function() {
       HTML_default('<br style="page-break-before: always">') 
   else cat("\n\n***\n\n")
 }
-
-#pagebreak()

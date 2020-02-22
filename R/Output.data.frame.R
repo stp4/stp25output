@@ -82,7 +82,7 @@ Output.data.frame <-
            align = "l",
            ...) {
     
-    if (nrow(x) == 0)  return(NULL)
+if (nrow(x) == 0)  return(NULL)
     # abbruch bei output=FALSE bei TRUE Ausgabe als Text
     if (is.logical(output)) {
       if (output)
@@ -91,16 +91,16 @@ Output.data.frame <-
         return(NULL)
     }
     
-# cat(" In Output.data.frame output=", output, "  \n")
+
     
     # Zellen-Spalten bearbeiten
-    if (!is.null(print_col)) {
+if (!is.null(print_col)) {
       x <- x[print_col]
     }
-    else if (all(x[, 2] == "")) {
-      # loesen der leeren Spalte bei APA2
+else if (all(x[, 2] == "")) {
+      # loeschen der leeren Spalte bei APA2
       
-      if (!is.null(col_names)) {
+if (!is.null(col_names)) {
         if (length(names(x)) == length(col_names))
           names(x) <- col_names
          
@@ -112,7 +112,7 @@ Output.data.frame <-
       x <- x[,-2]
     }
     
-    if (!is.null(col_names)) {
+if (!is.null(col_names)) {
       if (length(names(x)) == length(col_names))
         names(x) <- col_names
       else
@@ -120,19 +120,17 @@ Output.data.frame <-
       fix_colnames <- FALSE 
     }
     
-    tbl <- tbl_header(x, fix_colnames = fix_colnames)
+tbl <- tbl_header(x, fix_colnames = fix_colnames)
     
-    if (!is.null(add_row)) {
+if (!is.null(add_row)) {
       x <- add_row_df(x, add_row)
     }
     
-
-    
-  
-    if (output == "word") {
+if (output == "docx") {
     #  warnings("In spin-word geht Word.doc  nicht weil die Ausgabe nicht an knit_print weitergegeben wird. 
     # Alternative APA(..., output=FALSE) %>% Output()")
-      return(Output_word(x,
+      
+return(Output_word(x,
                          caption, 
                          note, 
                          output,
@@ -140,15 +138,14 @@ Output.data.frame <-
                          col_names, 
                          fix_colnames))
       
-    }
+}
     
-    
-    
-    caption <- Caption(caption, attr(x, "caption"))
-    note <- Note(note, attr(x, "note"))    
+  
     
     
 if (output == "text") {
+  caption <- Caption(caption, attr(x, "caption"))
+  note <- Note(note, attr(x, "note"))  
       if (!is.null(tbl$header_above))
         names(x) <-
           ifelse(tbl$header_above2 == "",
@@ -159,9 +156,11 @@ if (output == "text") {
       }
       cat("\n", caption, "\n")
       print(x)
-      cat("\n", note, "\n\n")
+      if (is.character(note))  cat("\n", note, "\n\n")
     }
-    else if (output == "html" | output == "markdown_html") {
+else if ( output == "html" | output=="markdown_html") {
+  caption <- Caption(caption, attr(x, "caption"))
+  note <- Note(note, attr(x, "note"))  
       x <- insert_nbsp(x)
       tbl$header <-  gsub(" +", '&nbsp;', tbl$header)
       tbl$cgroup <-  gsub(" +", '&nbsp;', tbl$cgroup)
@@ -198,14 +197,15 @@ if (output == "text") {
       if (output == "html") {
         HTML_BR()
         HTML_CENTER(res)
+      #  if (is.character(note))   Text(note)
         HTML_BR()
       } else{
         print(res)
+      #  if (is.character(note))  print(note)
       }
     }
-    else if (output ==  "markdown" | output=="md") {
-      
-    #  cat("\nin output markdown\n")
+else if (output =="latex") {
+
       x <- cleanup_nbsp(x)
       
       if (is.null(tbl$header_above)) {
@@ -240,8 +240,10 @@ if (output == "text") {
           tbl$header_above
         ))
       }
+      
+     if (is.character(note)) Text(note)
     }
-    else{
+else{
       x <- cleanup_nbsp(x)
       
       if (!is.null(tbl$header_above))
@@ -257,14 +259,14 @@ if (output == "text") {
           col.names = tbl$header,
           booktabs = booktabs,
           caption = caption,
-          format = "pandoc",
+          format = output,
           linesep = linesep
         )
       )
-      cat("\n", note, "\n\n")
+      if (is.character(note))   cat("\n", note, "\n\n")
     }
     
-    invisible(x)
+invisible(x)
   }
 
 
@@ -278,7 +280,7 @@ if (output == "text") {
 Output.list <- function(x,
                         output =  which_output(),
                         ...) {
-  if (output == "word") {
+  if (output == "docx") {
     if (length(x) > 1)
       Text("Weitere Tabellen:", names(x)[-1])
     x <- x[[1]]

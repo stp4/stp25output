@@ -8,7 +8,7 @@ Output_word(
   x,
   caption = NULL,
   note = NULL,
-  output = which_output(),
+  output = "docx",
   print_col = NULL,
   col_names = NULL,
   fix_colnames = options()$stp25$language != "",

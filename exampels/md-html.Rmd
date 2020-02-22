@@ -1,0 +1,166 @@
+---
+title: "HTML"
+author: "DI Wolfgang Peter"
+date: "22/02/2020"
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require(stpvers)
+note<- "Auswertung für die Puplikationen in medizinische Fachzeitschriften."
+```
+
+
+```{r kabel-1}
+knitr::kable(head(iris) , caption = "Title of the table")
+```
+
+
+
+
+```{r kabel3, results='asis'}
+knitr::kable(head(iris), format = "latex", caption = "Title of the table")
+
+knitr::kable(head(iris), format = "latex", caption = "Title of the table", booktabs = TRUE)
+```
+
+
+
+## Text Output
+ 
+Hallo Welt!
+
+```{r text-asis, results='asis', echo=FALSE}
+Head("H3", style=3)
+Text("
+Auswertung für die Puplikationen in medizinische Fachzeitschriften.
+
+Online-Befragung mit LimeSurvey.
+
+Consulting-Services bei der Planung und Auswertung von statistischer Erhebungen.
+
+Analyse von Labor und Messwerten aus Versuchsreihen.")
+```
+
+
+
+
+
+
+```{r which_output, include=FALSE}
+knitr:::out_format()
+knitr::is_latex_output()
+knitr::is_html_output()
+knitr:::pandoc_to()
+
+```
+ 
+```{r which_output2}
+which_output()
+get_my_options()$output
+```
+ 
+ 
+```{r, include=FALSE}
+which_output()
+get_my_options()$output
+
+
+#+ data, include = FALSE
+dat <- data.frame(
+  term = c("A", "B", "C", "D"),
+  n = c(23, 14, 56, 2),
+  m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA),
+  stringsAsFactors = FALSE
+)
+DF2 <-data.frame(
+  term = c("A", "B", "C", "D"),
+  G1_k_n = c(23, 14, 56, 2),
+  G1_k_m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA),
+  G2_n = c(33, 35, 78, 21),
+  G2_m = c("4.9 (2.7)", "4.7 (2.5)", "4.1 (5.6)", "4.2 (5.6)")
+)
+```
+ 
+
+```{r, results='asis'}
+ dat %>% Output( caption="default", note=note)
+ DF2 %>% Output( caption="default", note=note)
+ #dat  %>% Output(output="html", caption="html")
+ 
+```
+ 
+ 
+```{r}
+ dat  %>% Output(output="docx", caption="docx", note=note)
+DF2  %>% Output(output="docx", caption="docx", note=note)
+```
+ 
+
+
+ 
+```{r, results='asis'}
+ dat  %>% Output(output="docx", caption="docx", note=note)
+ DF2  %>% Output(output="docx", caption="docx", note=note)
+```
+
+
+ 
+```{r}
+ dat  %>% Output(output="pandoc", caption="pandoc", note=note)
+ #dat  %>% Output(output="markdown", caption="markdown")
+```
+
+ 
+ 
+## Default
+ 
+```{r default}
+dat %>% Output(  caption="default", note=note)
+ dat  %>% Output(output="html", caption="html")
+ dat  %>% Output(output="docx", caption="docx")
+ dat  %>% Output(output="latex", caption="latex")
+ dat  %>% Output(output="text", caption="text")
+ dat  %>% Output(output="pandoc", caption="pandoc")
+ dat  %>% Output(output="markdown", caption="markdown")
+ dat  %>% Output(output="rst", caption="rst")
+ 
+```
+ 
+## Asis
+
+
+```{r asis, results='asis'}
+ dat %>% Output( caption="default", note=note)
+ dat  %>% Output(output="html", caption="html")
+ dat  %>% Output(output="docx", caption="docx")
+ dat  %>% Output(output="latex", caption="latex")
+ dat  %>% Output(output="text", caption="text")
+ dat  %>% Output(output="pandoc", caption="pandoc")
+ dat  %>% Output(output="markdown", caption="markdown")
+ dat  %>% Output(output="rst", caption="rst") 
+```
+
+ 
+ 
+## Asis 2
+
+
+```{r asis-long, results='asis'}
+ DF2 %>% Output( caption="default", note=note)
+ DF2  %>% Output(output="html", caption="html")
+ DF2  %>% Output(output="docx", caption="docx")
+ DF2  %>% Output(output="latex", caption="latex")
+ DF2  %>% Output(output="text", caption="text")
+ DF2  %>% Output(output="pandoc", caption="pandoc")
+ DF2  %>% Output(output="markdown", caption="markdown")
+ DF2  %>% Output(output="rst", caption="rst") 
+```
+
+ 
+ 
+ 
