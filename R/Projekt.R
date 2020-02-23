@@ -93,13 +93,19 @@ Projekt <- function(myformat = "",
   if(is.null(myformat)) {
     path <- "test.txt"
     myformat <- "text"
-  }else{ myformat <- tolower(myformat)}
+  }else{ 
+    myformat <- tolower(myformat)
+    }
   
   is_r_file <- grepl("\\.r$", path, perl = TRUE, ignore.case = TRUE)
-  is_not_knit <- which_output() != "markdown"
+  is_not_knit <- which_output() %in% c("text",	"html")
   
   
- # cat("\n\n", is_r_file, is_not_knit, "\n\n")
+  # cat("\n\nis_r_file: ", is_r_file, " is_not_knit: ", is_not_knit, 
+  #     "\n myformat: ", myformat,
+  #     "\n which_output: ",
+  #     which_output(),
+  #     "\n\n")
   
   if (is_r_file & is_not_knit) {
     if (myformat == "html") {
@@ -118,7 +124,7 @@ Projekt <- function(myformat = "",
 
   } else   {
     Projekt_Rmd(
-      myformat = myformat,
+      myformat = if(myformat=="") which_output() else myformat,
       Projektname = Projektname,
       datum = datum,
       OutDec = OutDec,
@@ -141,7 +147,7 @@ Projekt_Rmd <- function (myformat,
                                 OutDec,
                                 contrasts)
 {
-  #cat("\Projekt_Rmd\n")
+#  cat("\n Projekt_Rmd \n myformat:", myformat, "\n\n")
   if (is.null(OutDec))
     OutDec <- options()$OutDec
   else

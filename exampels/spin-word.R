@@ -10,22 +10,27 @@
 #+ setup, include=FALSE
 knitr::opts_chunk$set(echo = TRUE, warnings=FALSE)
 require(stpvers)
+note<- "Auswertung für die Puplikationen in medizinische Fachzeitschriften."
 
+#+ setup2
+Projekt("", "spin Word")
 
-
-
-#+ which_output
-
-knitr:::out_format()
-knitr::is_latex_output()
-knitr::is_html_output()
-knitr:::pandoc_to()
-
-
-
-#+ which_output2
+#set_my_options(output="latex")
 which_output()
 get_my_options()$output
+
+#' ## Text Output
+#' 
+#' Hallo Welt!
+#' 
+
+#+ text-asis, results='asis', echo=FALSE
+Head("H3", style=3)
+Text("
+Auswertung für die Puplikationen in medizinische Fachzeitschriften.
+Online-Befragung mit LimeSurvey.
+Consulting-Services bei der Planung und Auswertung von statistischer Erhebungen.
+Analyse von Labor und Messwerten aus Versuchsreihen.")
 
 
 #+ data, include = FALSE
@@ -45,6 +50,10 @@ DF2 <-data.frame(
 
 
 
+#+ default1, results='asis'
+
+dat %>% Output(caption="default", note=note)
+DF2 %>% Output(caption="default", note=note)
 
 
 #' ## default

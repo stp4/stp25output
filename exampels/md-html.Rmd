@@ -3,9 +3,9 @@ title: "HTML"
 author: "DI Wolfgang Peter"
 date: "22/02/2020"
 output:
-  pdf_document: default
-  word_document: default
   html_document: default
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -15,17 +15,13 @@ note<- "Auswertung für die Puplikationen in medizinische Fachzeitschriften."
 ```
 
 
-```{r kabel-1}
-knitr::kable(head(iris) , caption = "Title of the table")
-```
+```{r setup2}
+#+ 
+Projekt("", "Rmd HTML")
 
-
-
-
-```{r kabel3, results='asis'}
-knitr::kable(head(iris), format = "latex", caption = "Title of the table")
-
-knitr::kable(head(iris), format = "latex", caption = "Title of the table", booktabs = TRUE)
+#set_my_options(output="latex")
+which_output()
+get_my_options()$output
 ```
 
 
@@ -49,25 +45,10 @@ Analyse von Labor und Messwerten aus Versuchsreihen.")
 
 
 
-
-
-```{r which_output, include=FALSE}
-knitr:::out_format()
-knitr::is_latex_output()
-knitr::is_html_output()
-knitr:::pandoc_to()
-
-```
- 
-```{r which_output2}
-which_output()
-get_my_options()$output
-```
  
  
 ```{r, include=FALSE}
-which_output()
-get_my_options()$output
+ 
 
 
 #+ data, include = FALSE

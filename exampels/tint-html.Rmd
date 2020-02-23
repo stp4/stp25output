@@ -1,0 +1,63 @@
+---
+title: "Tint Is Not Tufte"
+subtitle: "An implementation in R Markdown"
+author: "JJ Allaire, Yihui Xie, Dirk Eddelbuettel"
+date: "`r Sys.Date()`"
+output: tint::tintHtml
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+library(tint)
+# invalidate cache when the package version changes
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tint'))
+options(htmltools.dir.version = FALSE)
+require(stpvers)
+note<- "Auswertung für die Puplikationen in medizinische Fachzeitschriften."
+
+
+#+ data, include = FALSE
+dat <- data.frame(
+  term = c("A", "B", "C", "D"),
+  n = c(23, 14, 56, 2),
+  m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA),
+  stringsAsFactors = FALSE
+)
+DF2 <-data.frame(
+  term = c("A", "B", "C", "D"),
+  G1_k_n = c(23, 14, 56, 2),
+  G1_k_m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA),
+  G2_n = c(33, 35, 78, 21),
+  G2_m = c("4.9 (2.7)", "4.7 (2.5)", "4.1 (5.6)", "4.2 (5.6)")
+)
+
+ 
+
+```
+ 
+
+ 
+
+```{r, echo = TRUE}
+which_output()
+get_my_options()$output
+```
+ 
+
+## Slide with R Output
+
+```{r tab-1, echo = TRUE, results='asis'}
+dat %>% Output(caption="default", note=note) 
+```
+
+## Slide with Plot
+
+```{r  tab-2, echo = TRUE, results='asis'}
+DF2 %>% Output(caption="default", note=note) 
+```
+
+
+
+
+
+ 

@@ -9,20 +9,9 @@
 #' 
 #' 
 which_output <- function() {
-  
   in_opt <- options()$stp25$output
-  in_formats <- c("text",
-                  "pandoc",
-                  "html",
-                  "markdown",
-                  "md",
-                  "word",
-                  "latex",
-                  "docx", "rst")
-  
-  
+  in_formats <- c("text", "markdown", "md", "pandoc", "rst", "html", "docx", "word", "latex")
   if (is.null(in_opt)) in_opt <- ""
-  
   in_formats <- in_formats[pmatch(in_opt, in_formats, dup = TRUE)]
   
   in_formats <- switch(in_formats,
@@ -44,6 +33,9 @@ which_output <- function() {
       
       in_formats <- knitr:::pandoc_to()
       if(in_formats=="html")  in_formats <- "markdown_html"
+      else if(in_formats=="beamer")  in_formats <- "latex"
+      else if(in_formats=="gfm")  in_formats <- "markdown_html"   #github_document
+      
       
     }
     
