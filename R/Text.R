@@ -33,10 +33,10 @@ Text <- function(x, ...) {
 #' @export
 Text.default<- function(x, ...){
   
-  #print(class(x))
-  txt<-  psycho::analyze(fit)
-  text <- txt$text
-  paste(text, collapse ="\n ")
+  print(class(x))
+  # txt<-  psycho::analyze(fit)
+  # text <- txt$text
+  # paste(text, collapse ="\n ")
 }
 
 #' @rdname Output
