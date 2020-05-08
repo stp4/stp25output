@@ -7,28 +7,36 @@
 #' @param ... weiter Argumente
 #' @return ein data.frame Objekt
 #' @export
+#' 
 fix_to_data_frame <- function(x, ...) {
   UseMethod("fix_to_data_frame")
 }
 
 #' @rdname fix_to_data_frame
 #' @export
-fix_to_data_frame.default<- function(x, ...){
-
-  if (is.matrix(x)){
-    if(!is.null( rownames(x)))
-      cbind(data.frame(Source=rownames(x), stringsAsFactors = FALSE),
-            as.data.frame(x, stringsAsFactors = FALSE))
-    else  as.data.frame(x, stringsAsFactors = FALSE)
-  }else if (is.data.frame(x) ){ return (x)
-  }else if(is.vector(x)){
-    if(length(names(x))== length(x))
-      as.data.frame(matrix(x,
-                           nrow=1,
-                           dimnames=list("Source", names(x)))
-                    , stringsAsFactors = FALSE)
-    else x
+fix_to_data_frame.default <- function(x, ...) {
+  if (is.matrix(x)) {
+    if (!is.null(rownames(x)))
+      x <-   cbind(
+        data.frame(Source = rownames(x), stringsAsFactors = FALSE),
+        as.data.frame(x, stringsAsFactors = FALSE)
+      )
+    else
+      x <-  as.data.frame(x, stringsAsFactors = FALSE)
+    # } else if (is.data.frame(x)) {
+    #   x
+  } else if (is.vector(x)) {
+    if (length(names(x)) == length(x))
+      x <- as.data.frame(matrix(x,
+                                nrow = 1,
+                                dimnames = list("Source", names(x)))
+                         , stringsAsFactors = FALSE)
+    #else
+    # x
   }
+  
+  tibble::as_tibble(x)
+  
 }
 
 #' @rdname fix_to_data_frame
@@ -71,7 +79,9 @@ fix_to_data_frame.ftable <-
     else
       res <- x
   
-   as.data.frame(res, stringsAsFactors = FALSE)
+ #  as.data.frame(res, stringsAsFactors = FALSE)
+   
+   tibble::as_tibble(res)
   }
 
 
@@ -103,6 +113,8 @@ fix_to_data_frame.table <- function(x,...){
 
   } else stop("Kann in fix_to_data_frame.table keine mehrfach tabellen aufdroeseln!")
   res
+  
+  tibble::as_tibble(res)
 }
 
 

@@ -45,11 +45,13 @@ fix_format  <- function(x,
                                       "n"),
                         apa.style = options()$stp25$apa.style,
                         ...) {
-  x <- as.data.frame(x)  # eventuell entfernen
+ 
+  if (!tibble::is_tibble(x)) x<- tibble::as_tibble(x)
+  
   vars <- tolower(names(x))
   
   if (is.null(digits)) {
-    # - Suchen nach Parameter --------
+
     pattern_pval <- paste(tolower(pattern_pval), collapse = '|')
     pattern_est  <- paste(tolower(pattern_est), collapse = '|')
     pattern_df   <- paste(tolower(pattern_df), collapse = '|')
@@ -61,52 +63,40 @@ fix_format  <- function(x,
     Anzahl       <- which(stringr::str_detect(vars, pattern_N))
     fstat        <- setdiff(1:length(vars), c(est, pval, dichte))
     
-    if (!is.null(exclude)) {
-      pval   <- setdiff(pval, exclude)
-      est    <- setdiff(est, exclude)
-      dichte <- setdiff(dichte, exclude)
-      Anzahl <- setdiff(Anzahl, exclude)
-      fstat  <- setdiff(fstat, exclude)
-    }
-    
-    
-    
-    if (length(Anzahl) > 0)
-      x[, Anzahl] <- stp25rndr::rndr2(x[, Anzahl],
-                                      digits = 0)
-    
-    if (length(pval) > 0)
-      x[, pval] <- stp25rndr::rndr_P(x[, pval],
-                                     include.symbol = FALSE)
-    
-    
-    if (length(est) > 0)
-      x[, est] <-
-      stp25rndr::rndr2(
-        x[, est],
-        digits = 2,
-        type = "signif" #   apa.style$est$type
-        )
-        
-        if (length(fstat) > 0)
-          x[, fstat] <-
-          stp25rndr::rndr2(
-            x[, fstat],
-            digits =   apa.style$Fstat$digits,
-            lead.zero =   apa.style$Fstat$lead.zero
-          )
-        
-        if (length(dichte) > 0){
-          for(i in dichte)
-          x[, i] <-
-          stp25rndr::rndr2(x[, i],
-                           digits =  ifelse(stp25rndr::countDigits(
-                             x[, i]) > 0, 1, 0))
-          }
+      if (!is.null(exclude)) {
+          pval   <- setdiff(pval, exclude)
+          est    <- setdiff(est, exclude)
+          dichte <- setdiff(dichte, exclude)
+          Anzahl <- setdiff(Anzahl, exclude)
+          fstat  <- setdiff(fstat, exclude)}
+      
+      if (length(Anzahl) > 0){
+         x[, Anzahl] <- stp25rndr::rndr2(x[, Anzahl],digits = 0)}
+      
+      if (length(pval) > 0){
+         x[, pval] <- stp25rndr::rndr_P(x[, pval],
+                                       include.symbol = FALSE)}
+      
+      if (length(est) > 0){
+         x[, est] <-stp25rndr::rndr2(
+                        x[, est],
+                        digits = 2,
+                        type = "signif")}
+          
+      if (length(fstat) > 0){
+         x[, fstat] <- stp25rndr::rndr2(
+                              x[, fstat],
+                              digits =   apa.style$Fstat$digits,
+                              lead.zero =   apa.style$Fstat$lead.zero)}
+          
+      if (length(dichte) > 0){
+            for(i in dichte)
+            x[, i] <- stp25rndr::rndr2(x[, i],
+                             digits =  ifelse(stp25rndr::countDigits(
+                               x[, i]) > 0, 1, 0))}
   } else{
     x <- stp25rndr::Format2(x, digits = digits)
   }
-  
   
   x
 }
