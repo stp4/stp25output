@@ -84,3 +84,17 @@ dat %>% Output(  caption="default")
  dat  %>% Output(output="pandoc", caption="pandoc")
  dat  %>% Output(output="markdown", caption="markdown")
  dat  %>% Output(output="rst", caption="rst")
+ 
+ 
+ #+ APA-Table, results='asis'
+ fit1 <- glm(gruppe ~ lai, hkarz, family = binomial)
+ thkarz <- as.data.frame(xtabs(~ gruppe + lai, hkarz))
+ fit2 <- glm(Freq ~ gruppe * lai, thkarz, family = poisson())
+ 
+ APA_Table(fit1, include.odds = TRUE)
+ 
+ 
+ 
+ #+
+ APA_Table(fit1, include.odds = TRUE)
+ 

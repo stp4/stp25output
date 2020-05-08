@@ -87,9 +87,9 @@ End()
 
 
 
+data.frame()
 
-
-```{r, results='asis'}
+```{r output-data-frame, results='asis'}
 get_my_options()$output
 which_output()
  
@@ -99,12 +99,32 @@ n = c(23, 14, 56, 2),
 m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA)
 ) 
 
-dat  %>% Output()
+dat  %>% Output("data.frame()")
  
 
 ```
 
 
+
+
+
+
+```{r output-matrix, results='asis'}
+
+matrix(c("a1","a2",3,4,5,6),
+                nrow=2, byrow=TRUE,
+                dimnames=list(gender=c("M", "F"),
+                              party=c( "Dem", "Ind", "Rep")))  #%>% Output("matrix()")
+
+as.table(matrix(c("a1","a2",3,4,5,6),
+                 nrow=2, byrow=TRUE,
+                 dimnames=list(gender=c("M", "F"),
+                               party=c( "Dem", "Ind", "Rep")))) %>% Output("as.table()")
+
+
+
+
+```
 
 
 

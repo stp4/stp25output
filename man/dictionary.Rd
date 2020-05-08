@@ -12,8 +12,8 @@ Sprachdatei(
     c("Test Statistic", "Test Statistik"), statistic = c("Test Statistic",
     "Test Statistik"), sig.test = c("Test Statistic", "Test Statistik"), mean.Rank =
     c("mean Rank", "mittlerer Rang"), skalenwert = c("Characteristic Value",
-    "Merkmalsauspraegung"), items = c("Items", "Items"), item = c("Item", "Item"), value =
-    c("Value", "Wert"), variable = c("Variable", "Merkmal"), mass = c("Value",
+    "Merkmalsauspraegung"), items = c("Items", "Items"), item = c("Item", "Item"), value
+    = c("Value", "Wert"), variable = c("Variable", "Merkmal"), mass = c("Value",
     "Anpassungsmass"), annforderung = c("Requirement",      "Anforderung"), source =
     c("Source", "Quelle"), N = c("N", "N"), n = c("n", "n"), mean = c("Mean", "M"), sd =
     c("SD", "SD"), ci95.low = c("low 95\% CI", "low 95\% CI"), ci95.hig = c("up 95\% CI",

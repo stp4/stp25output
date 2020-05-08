@@ -85,6 +85,8 @@ End()
 
 ### Usage
 
+data.frame()
+
 ``` r
 get_my_options()$output
 ```
@@ -105,7 +107,7 @@ n = c(23, 14, 56, 2),
 m = c("4.7 (2.4)", "4.1 (2.3)", "8.9 (3.6)", NA)
 ) 
 
-dat  %>% Output()
+dat  %>% Output("data.frame()")
 ```
 
 <table class="gmisc_table" style="border-collapse: collapse; padding-left: .5em; padding-right: .2em;">
@@ -116,7 +118,7 @@ dat  %>% Output()
 
 <td colspan="3" style="text-align: left;">
 
-Tab 1:
+Tab 1: data.frame()
 
 </td>
 
@@ -251,6 +253,184 @@ D
 </table>
 
 ``` r
+
+matrix(c("a1","a2",3,4,5,6),
+                nrow=2, byrow=TRUE,
+                dimnames=list(gender=c("M", "F"),
+                              party=c( "Dem", "Ind", "Rep")))  #%>% Output("matrix()")
+```
+
+``` 
+  party
+```
+
+gender Dem Ind Rep M “a1” “a2” “3” F “4” “5” “6”
+
+``` r
+
+as.table(matrix(c("a1","a2",3,4,5,6),
+                 nrow=2, byrow=TRUE,
+                 dimnames=list(gender=c("M", "F"),
+                               party=c( "Dem", "Ind", "Rep")))) %>% Output("as.table()")
+```
+
+<table class="gmisc_table" style="border-collapse: collapse; padding-left: .5em; padding-right: .2em;">
+
+<thead>
+
+<tr>
+
+<td colspan="5" style="text-align: left;">
+
+Tab 2: as.table()
+
+</td>
+
+</tr>
+
+<tr>
+
+<th colspan="1" style="font-weight: 900; border-top: 2px solid grey; text-align: center;">
+
+</th>
+
+<th style="border-top: 2px solid grey;; border-bottom: hidden;">
+
+ 
+
+</th>
+
+<th colspan="3" style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+party
+
+</th>
+
+</tr>
+
+<tr>
+
+<th style="border-bottom: 1px solid grey; text-align: center;">
+
+gender
+
+</th>
+
+<th style="border-bottom: 1px solid grey;" colspan="1">
+
+ 
+
+</th>
+
+<th style="border-bottom: 1px solid grey; text-align: center;">
+
+Dem
+
+</th>
+
+<th style="border-bottom: 1px solid grey; text-align: center;">
+
+Ind
+
+</th>
+
+<th style="border-bottom: 1px solid grey; text-align: center;">
+
+Rep
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+M
+
+</td>
+
+<td style colspan="1">
+
+ 
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+a1
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+a2
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; text-align: left;">
+
+3
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+F
+
+</td>
+
+<td style="border-bottom: 2px solid grey;" colspan="1">
+
+ 
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+4
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+5
+
+</td>
+
+<td style="padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;">
+
+6
+
+</td>
+
+</tr>
+
+</tbody>
+
+<tfoot>
+
+<tr>
+
+<td colspan="5">
+
+</td>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+``` r
  
 Tabelle2(hkarz,  tzell, lai, gruppe, APA=TRUE )
 ```
@@ -263,7 +443,7 @@ Tabelle2(hkarz,  tzell, lai, gruppe, APA=TRUE )
 
 <td colspan="3" style="text-align: left;">
 
-Tab 2: Charakteristik
+Tab 3: Charakteristik
 
 </td>
 
@@ -428,7 +608,7 @@ Output(res, add_row =c("<b>Erste Zeile</b>" = 1, "Dritte Zeile" = 3) )
 
 <td colspan="3" style="text-align: left;">
 
-Tab 3: Charakteristik
+Tab 4: Charakteristik
 
 </td>
 
@@ -629,7 +809,7 @@ df1 %>% Output()
 #> <table class='gmisc_table' style='border-collapse: collapse; padding-left: .5em; padding-right: .2em;' >
 #> <thead>
 #> <tr><td colspan='3' style='text-align: left;'>
-#> Tab 4: </td></tr>
+#> Tab 5: </td></tr>
 #> <tr>
 #> <th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>Quelle</th>
 #> <th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>n</th>
@@ -665,7 +845,7 @@ df1 %>% Output()
 
 df1 %>% Output(output=TRUE)
 #> 
-#>  Tab 5:  
+#>  Tab 6:  
 #>   Quelle  n         m
 #> 1      A 23 4.7 (2.4)
 #> 2      B 14 4.1 (2.3)
@@ -691,7 +871,7 @@ df1 %>% Output()
 
 <td colspan="3" style="text-align: left;">
 
-Tab 6:
+Tab 7:
 
 </td>
 
@@ -829,7 +1009,7 @@ D
 
 df1 %>% Output(output="text")
 #> 
-#>  Tab 7:  
+#>  Tab 8:  
 #>   Quelle  n         m
 #> 1      A 23 4.7 (2.4)
 #> 2      B 14 4.1 (2.3)
@@ -876,7 +1056,7 @@ Output(fm1.table)
 
 <td colspan="6" style="text-align: left;">
 
-Tab 8: Analysis of Variance Table Response: tlimth
+Tab 9: Analysis of Variance Table Response: tlimth
 
 </td>
 
