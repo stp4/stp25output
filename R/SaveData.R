@@ -1,12 +1,9 @@
-#' Speichern von Grafiken
+#' Speichern von Objekten
 #'
-#' @description  Grafik werden  als PDF oder Windows-Metafile
-#' speichern. Die Funktion Abb() beinhaltet den Pfad.
-#' Die Funktion arbeitet ueber  R2HTML::HTMLplot()
-#' @param caption   Grafik Abbildung  caption=data,
-#' @param filename    Daten oder Character fuer die speicherung einer Grafik
-#' @param w,h  Width, Height, an HTMLplot default = 520, Breite der  Grafik  also zb w=8=dev.size("in")[2], h=dev.size("in")[1] Hoehe der Grafik also zb h=8
-#' @param save_plot speichern als file = TRUE,
+#' Speichert Grafiken als pdf und data.fames  und table-Objekte als csv.
+#' 
+#' @param x Objekt
+#' @param ... alles weitere
 #' @return NULL
 #' @importFrom grDevices dev.copy2pdf dev.off dev.size savePlot rgb2hsv
 #' @export
@@ -16,7 +13,7 @@ SaveData <-   function(x, ...) {
 
 #' @rdname SaveData
 #' @export
-SaveData.character <-   function(...) {
+SaveData.default <-   function(...) {
   SavePlot(...)
 }
 
@@ -129,7 +126,28 @@ generate_name<- function(SaveAs, sub=""){
 
 
 
-
+ 
+#' SavePlot
+#' 
+#' Speichern von Grafiken
+#' Grafik werden  als PDF oder Windows-Metafile
+#' speichern. Die Funktion Abb() beinhaltet den Pfad.
+#'
+#' @param caption TextAbbildung  
+#' @param w,h  Width, Height, an HTMLplot default = 520, Breite der  Grafik  also zb w=8=dev.size("in")[2], h=dev.size("in")[1] Hoehe der Grafik also zb h=8
+#' @param filename Text 
+#' @param save_plot speichern als file = TRUE,
+#' @param output nur wichtig bei html
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' 
+#' plot(1)
+#' SavePlot("Einfache Grafik", w=4, h=4)
+#' 
+#' 
 SavePlot <- function(caption = "",
                      w = dev.size("in")[1],
                      h = dev.size("in")[2],
@@ -170,9 +188,14 @@ SavePlot <- function(caption = "",
   }
 }
 
+#' split_path
+#' https://stackoverflow.com/questions/29214932/split-a-file-path-into-folder-names-vector
+#' gtools::split_
+#'  
+#' @param path Pfad
+#' @param mustWork,rev weitere Einstellungen
+#' @noRd
 
-
-# https://stackoverflow.com/questions/29214932/split-a-file-path-into-folder-names-vector
 split_path <- function(path,
                        mustWork = FALSE,
                        rev = TRUE) {
