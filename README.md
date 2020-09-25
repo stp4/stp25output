@@ -166,7 +166,7 @@ A
 
 <td style="padding-left: .5em; padding-right: .2em; text-align: left;">
 
-4.7 (2.4)
+4.7 (2.4)
 
 </td>
 
@@ -188,7 +188,7 @@ B
 
 <td style="padding-left: .5em; padding-right: .2em; text-align: left;">
 
-4.1 (2.3)
+4.1 (2.3)
 
 </td>
 
@@ -210,7 +210,7 @@ C
 
 <td style="padding-left: .5em; padding-right: .2em; text-align: left;">
 
-8.9 (3.6)
+8.9 (3.6)
 
 </td>
 
@@ -820,17 +820,17 @@ df1 %>% Output()
 #> <tr>
 #> <td style='padding-left: .5em; padding-right: .2em; text-align: left;'>A</td>
 #> <td style='padding-left: .5em; padding-right: .2em; text-align: left;'>23</td>
-#> <td style='padding-left: .5em; padding-right: .2em; text-align: left;'>4.7 (2.4)</td>
+#> <td style='padding-left: .5em; padding-right: .2em; text-align: left;'>4.7&nbsp;(2.4)</td>
 #> </tr>
 #> <tr>
 #> <td style='padding-left: .5em; padding-right: .2em; text-align: left;'>B</td>
 #> <td style='padding-left: .5em; padding-right: .2em; text-align: left;'>14</td>
-#> <td style='padding-left: .5em; padding-right: .2em; text-align: left;'>4.1 (2.3)</td>
+#> <td style='padding-left: .5em; padding-right: .2em; text-align: left;'>4.1&nbsp;(2.3)</td>
 #> </tr>
 #> <tr>
 #> <td style='padding-left: .5em; padding-right: .2em; text-align: left;'>C</td>
 #> <td style='padding-left: .5em; padding-right: .2em; text-align: left;'>56</td>
-#> <td style='padding-left: .5em; padding-right: .2em; text-align: left;'>8.9 (3.6)</td>
+#> <td style='padding-left: .5em; padding-right: .2em; text-align: left;'>8.9&nbsp;(3.6)</td>
 #> </tr>
 #> <tr>
 #> <td style='padding-left: .5em; padding-right: .2em; border-bottom: 2px solid grey; text-align: left;'>D</td>
@@ -919,7 +919,7 @@ A
 
 <td style="padding-left: .5em; padding-right: .2em; text-align: left;">
 
-4.7 (2.4)
+4.7 (2.4)
 
 </td>
 
@@ -941,7 +941,7 @@ B
 
 <td style="padding-left: .5em; padding-right: .2em; text-align: left;">
 
-4.1 (2.3)
+4.1 (2.3)
 
 </td>
 
@@ -963,7 +963,7 @@ C
 
 <td style="padding-left: .5em; padding-right: .2em; text-align: left;">
 
-8.9 (3.6)
+8.9 (3.6)
 
 </td>
 
@@ -1424,3 +1424,1989 @@ bwplot2(e ~ treatment,
 
 reset_lattice()
 ```
+
+## A few methods for making tables in rmarkdown
+
+Quelle: <https://gist.github.com/benmarwick/8ad99f35d5e4caa06492>
+
+<https://github.com/yihui/printr>
+<https://github.com/jalapic/simpletable>
+<https://github.com/renkun-ken/formattable>
+
+``` r
+my_data <- head(iris)
+names(my_data) <- c(letters[1:ncol(iris)])
+```
+
+``` r
+library("knitr")
+kable(my_data)
+```
+
+<table>
+
+<thead>
+
+<tr>
+
+<th style="text-align:right;">
+
+a
+
+</th>
+
+<th style="text-align:right;">
+
+b
+
+</th>
+
+<th style="text-align:right;">
+
+c
+
+</th>
+
+<th style="text-align:right;">
+
+d
+
+</th>
+
+<th style="text-align:left;">
+
+e
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:right;">
+
+5.1
+
+</td>
+
+<td style="text-align:right;">
+
+3.5
+
+</td>
+
+<td style="text-align:right;">
+
+1.4
+
+</td>
+
+<td style="text-align:right;">
+
+0.2
+
+</td>
+
+<td style="text-align:left;">
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+4.9
+
+</td>
+
+<td style="text-align:right;">
+
+3.0
+
+</td>
+
+<td style="text-align:right;">
+
+1.4
+
+</td>
+
+<td style="text-align:right;">
+
+0.2
+
+</td>
+
+<td style="text-align:left;">
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+4.7
+
+</td>
+
+<td style="text-align:right;">
+
+3.2
+
+</td>
+
+<td style="text-align:right;">
+
+1.3
+
+</td>
+
+<td style="text-align:right;">
+
+0.2
+
+</td>
+
+<td style="text-align:left;">
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+4.6
+
+</td>
+
+<td style="text-align:right;">
+
+3.1
+
+</td>
+
+<td style="text-align:right;">
+
+1.5
+
+</td>
+
+<td style="text-align:right;">
+
+0.2
+
+</td>
+
+<td style="text-align:left;">
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+5.0
+
+</td>
+
+<td style="text-align:right;">
+
+3.6
+
+</td>
+
+<td style="text-align:right;">
+
+1.4
+
+</td>
+
+<td style="text-align:right;">
+
+0.2
+
+</td>
+
+<td style="text-align:left;">
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+5.4
+
+</td>
+
+<td style="text-align:right;">
+
+3.9
+
+</td>
+
+<td style="text-align:right;">
+
+1.7
+
+</td>
+
+<td style="text-align:right;">
+
+0.4
+
+</td>
+
+<td style="text-align:left;">
+
+setosa
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+``` r
+library("xtable")
+print(xtable(my_data), type = "html", include.rownames=FALSE, html.table.attributes=list("border='0' cellpadding='5' "))
+```
+
+<!-- html table generated in R 4.0.0 by xtable 1.8-4 package -->
+
+<!-- Sun May 31 08:56:53 2020 -->
+
+<table border="0" cellpadding="5">
+
+<tr>
+
+<th>
+
+a
+
+</th>
+
+<th>
+
+b
+
+</th>
+
+<th>
+
+c
+
+</th>
+
+<th>
+
+d
+
+</th>
+
+<th>
+
+e
+
+</th>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+5.10
+
+</td>
+
+<td align="right">
+
+3.50
+
+</td>
+
+<td align="right">
+
+1.40
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+4.90
+
+</td>
+
+<td align="right">
+
+3.00
+
+</td>
+
+<td align="right">
+
+1.40
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+4.70
+
+</td>
+
+<td align="right">
+
+3.20
+
+</td>
+
+<td align="right">
+
+1.30
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+4.60
+
+</td>
+
+<td align="right">
+
+3.10
+
+</td>
+
+<td align="right">
+
+1.50
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+5.00
+
+</td>
+
+<td align="right">
+
+3.60
+
+</td>
+
+<td align="right">
+
+1.40
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+5.40
+
+</td>
+
+<td align="right">
+
+3.90
+
+</td>
+
+<td align="right">
+
+1.70
+
+</td>
+
+<td align="right">
+
+0.40
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+</table>
+
+``` r
+library(xtable)
+print(xtable(my_data), type = 'html')
+```
+
+<!-- html table generated in R 4.0.0 by xtable 1.8-4 package -->
+
+<!-- Sun May 31 08:56:53 2020 -->
+
+<table border="1">
+
+<tr>
+
+<th>
+
+</th>
+
+<th>
+
+a
+
+</th>
+
+<th>
+
+b
+
+</th>
+
+<th>
+
+c
+
+</th>
+
+<th>
+
+d
+
+</th>
+
+<th>
+
+e
+
+</th>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+1
+
+</td>
+
+<td align="right">
+
+5.10
+
+</td>
+
+<td align="right">
+
+3.50
+
+</td>
+
+<td align="right">
+
+1.40
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+2
+
+</td>
+
+<td align="right">
+
+4.90
+
+</td>
+
+<td align="right">
+
+3.00
+
+</td>
+
+<td align="right">
+
+1.40
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+3
+
+</td>
+
+<td align="right">
+
+4.70
+
+</td>
+
+<td align="right">
+
+3.20
+
+</td>
+
+<td align="right">
+
+1.30
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+4
+
+</td>
+
+<td align="right">
+
+4.60
+
+</td>
+
+<td align="right">
+
+3.10
+
+</td>
+
+<td align="right">
+
+1.50
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+5
+
+</td>
+
+<td align="right">
+
+5.00
+
+</td>
+
+<td align="right">
+
+3.60
+
+</td>
+
+<td align="right">
+
+1.40
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+6
+
+</td>
+
+<td align="right">
+
+5.40
+
+</td>
+
+<td align="right">
+
+3.90
+
+</td>
+
+<td align="right">
+
+1.70
+
+</td>
+
+<td align="right">
+
+0.40
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+</table>
+
+``` r
+library(xtable)
+print(xtable(my_data), type = 'html', html.table.attributes = '')
+```
+
+<!-- html table generated in R 4.0.0 by xtable 1.8-4 package -->
+
+<!-- Sun May 31 08:56:53 2020 -->
+
+<table>
+
+<tr>
+
+<th>
+
+</th>
+
+<th>
+
+a
+
+</th>
+
+<th>
+
+b
+
+</th>
+
+<th>
+
+c
+
+</th>
+
+<th>
+
+d
+
+</th>
+
+<th>
+
+e
+
+</th>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+1
+
+</td>
+
+<td align="right">
+
+5.10
+
+</td>
+
+<td align="right">
+
+3.50
+
+</td>
+
+<td align="right">
+
+1.40
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+2
+
+</td>
+
+<td align="right">
+
+4.90
+
+</td>
+
+<td align="right">
+
+3.00
+
+</td>
+
+<td align="right">
+
+1.40
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+3
+
+</td>
+
+<td align="right">
+
+4.70
+
+</td>
+
+<td align="right">
+
+3.20
+
+</td>
+
+<td align="right">
+
+1.30
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+4
+
+</td>
+
+<td align="right">
+
+4.60
+
+</td>
+
+<td align="right">
+
+3.10
+
+</td>
+
+<td align="right">
+
+1.50
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+5
+
+</td>
+
+<td align="right">
+
+5.00
+
+</td>
+
+<td align="right">
+
+3.60
+
+</td>
+
+<td align="right">
+
+1.40
+
+</td>
+
+<td align="right">
+
+0.20
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td align="right">
+
+6
+
+</td>
+
+<td align="right">
+
+5.40
+
+</td>
+
+<td align="right">
+
+3.90
+
+</td>
+
+<td align="right">
+
+1.70
+
+</td>
+
+<td align="right">
+
+0.40
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+</table>
+
+``` r
+library("pander")
+pandoc.table(my_data)
+```
+
+|  a  |  b  |  c  |  d  |   e    |
+| :-: | :-: | :-: | :-: | :----: |
+| 5.1 | 3.5 | 1.4 | 0.2 | setosa |
+| 4.9 |  3  | 1.4 | 0.2 | setosa |
+| 4.7 | 3.2 | 1.3 | 0.2 | setosa |
+| 4.6 | 3.1 | 1.5 | 0.2 | setosa |
+|  5  | 3.6 | 1.4 | 0.2 | setosa |
+| 5.4 | 3.9 | 1.7 | 0.4 | setosa |
+
+``` r
+library("pander")
+pandoc.table(my_data, split.cells = 5)
+```
+
+|  a  |  b  |  c  |  d  |   e    |
+| :-: | :-: | :-: | :-: | :----: |
+| 5.1 | 3.5 | 1.4 | 0.2 | setosa |
+| 4.9 |  3  | 1.4 | 0.2 | setosa |
+| 4.7 | 3.2 | 1.3 | 0.2 | setosa |
+| 4.6 | 3.1 | 1.5 | 0.2 | setosa |
+|  5  | 3.6 | 1.4 | 0.2 | setosa |
+| 5.4 | 3.9 | 1.7 | 0.4 | setosa |
+
+``` r
+pander::panderOptions('table.split.table', 350)
+pander::pandoc.table(my_data, style="rmarkdown")
+```
+
+|  a  |  b  |  c  |  d  |   e    |
+| :-: | :-: | :-: | :-: | :----: |
+| 5.1 | 3.5 | 1.4 | 0.2 | setosa |
+| 4.9 |  3  | 1.4 | 0.2 | setosa |
+| 4.7 | 3.2 | 1.3 | 0.2 | setosa |
+| 4.6 | 3.1 | 1.5 | 0.2 | setosa |
+|  5  | 3.6 | 1.4 | 0.2 | setosa |
+| 5.4 | 3.9 | 1.7 | 0.4 | setosa |
+
+    library("ascii")
+    print(ascii(my_data), type = 'pandoc')
+
+``` r
+library("htmlTable")
+htmlTable(my_data, col.rgroup = c("none", "#F7F7F7"))
+```
+
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+
+<thead>
+
+<tr>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
+
+</th>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+a
+
+</th>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+b
+
+</th>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+c
+
+</th>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+d
+
+</th>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+e
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align: left;">
+
+1
+
+</td>
+
+<td style="text-align: center;">
+
+5.1
+
+</td>
+
+<td style="text-align: center;">
+
+3.5
+
+</td>
+
+<td style="text-align: center;">
+
+1.4
+
+</td>
+
+<td style="text-align: center;">
+
+0.2
+
+</td>
+
+<td style="text-align: center;">
+
+setosa
+
+</td>
+
+</tr>
+
+<tr style="background-color: #f7f7f7;">
+
+<td style="background-color: #f7f7f7; text-align: left;">
+
+2
+
+</td>
+
+<td style="background-color: #f7f7f7; text-align: center;">
+
+4.9
+
+</td>
+
+<td style="background-color: #f7f7f7; text-align: center;">
+
+3
+
+</td>
+
+<td style="background-color: #f7f7f7; text-align: center;">
+
+1.4
+
+</td>
+
+<td style="background-color: #f7f7f7; text-align: center;">
+
+0.2
+
+</td>
+
+<td style="background-color: #f7f7f7; text-align: center;">
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align: left;">
+
+3
+
+</td>
+
+<td style="text-align: center;">
+
+4.7
+
+</td>
+
+<td style="text-align: center;">
+
+3.2
+
+</td>
+
+<td style="text-align: center;">
+
+1.3
+
+</td>
+
+<td style="text-align: center;">
+
+0.2
+
+</td>
+
+<td style="text-align: center;">
+
+setosa
+
+</td>
+
+</tr>
+
+<tr style="background-color: #f7f7f7;">
+
+<td style="background-color: #f7f7f7; text-align: left;">
+
+4
+
+</td>
+
+<td style="background-color: #f7f7f7; text-align: center;">
+
+4.6
+
+</td>
+
+<td style="background-color: #f7f7f7; text-align: center;">
+
+3.1
+
+</td>
+
+<td style="background-color: #f7f7f7; text-align: center;">
+
+1.5
+
+</td>
+
+<td style="background-color: #f7f7f7; text-align: center;">
+
+0.2
+
+</td>
+
+<td style="background-color: #f7f7f7; text-align: center;">
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align: left;">
+
+5
+
+</td>
+
+<td style="text-align: center;">
+
+5
+
+</td>
+
+<td style="text-align: center;">
+
+3.6
+
+</td>
+
+<td style="text-align: center;">
+
+1.4
+
+</td>
+
+<td style="text-align: center;">
+
+0.2
+
+</td>
+
+<td style="text-align: center;">
+
+setosa
+
+</td>
+
+</tr>
+
+<tr style="background-color: #f7f7f7;">
+
+<td style="background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: left;">
+
+6
+
+</td>
+
+<td style="background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: center;">
+
+5.4
+
+</td>
+
+<td style="background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: center;">
+
+3.9
+
+</td>
+
+<td style="background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: center;">
+
+1.7
+
+</td>
+
+<td style="background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: center;">
+
+0.4
+
+</td>
+
+<td style="background-color: #f7f7f7; border-bottom: 2px solid grey; text-align: center;">
+
+setosa
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+``` r
+library(hwriter)
+hwrite(my_data, border=0)
+```
+
+\[1\] "
+
+<table border="\&quot;0\&quot;">
+
+<tr>
+
+<td>
+
+</td>
+
+<td>
+
+a
+
+</td>
+
+<td>
+
+b
+
+</td>
+
+<td>
+
+c
+
+</td>
+
+<td>
+
+d
+
+</td>
+
+<td>
+
+e
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+1
+
+</td>
+
+<td>
+
+5.1
+
+</td>
+
+<td>
+
+3.5
+
+</td>
+
+<td>
+
+1.4
+
+</td>
+
+<td>
+
+0.2
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+2
+
+</td>
+
+<td>
+
+4.9
+
+</td>
+
+<td>
+
+3.0
+
+</td>
+
+<td>
+
+1.4
+
+</td>
+
+<td>
+
+0.2
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+3
+
+</td>
+
+<td>
+
+4.7
+
+</td>
+
+<td>
+
+3.2
+
+</td>
+
+<td>
+
+1.3
+
+</td>
+
+<td>
+
+0.2
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+4
+
+</td>
+
+<td>
+
+4.6
+
+</td>
+
+<td>
+
+3.1
+
+</td>
+
+<td>
+
+1.5
+
+</td>
+
+<td>
+
+0.2
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+5
+
+</td>
+
+<td>
+
+5.0
+
+</td>
+
+<td>
+
+3.6
+
+</td>
+
+<td>
+
+1.4
+
+</td>
+
+<td>
+
+0.2
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+6
+
+</td>
+
+<td>
+
+5.4
+
+</td>
+
+<td>
+
+3.9
+
+</td>
+
+<td>
+
+1.7
+
+</td>
+
+<td>
+
+0.4
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+</table>
+
+"
+
+This one is the most useful, and has a nice guide to customisation here:
+<http://www.ebi.ac.uk/~gpau/hwriter/>
+
+``` r
+library(hwriter)
+cat(hwrite(my_data, border = 0, center=TRUE, table.frame='void', width='300px', table.style='padding: 50px', row.names=FALSE, row.style=list('font-weight:bold')))
+```
+
+<center>
+
+<table frame="void" style="padding: 50px" border="0" width="300px">
+
+<tr>
+
+<td style="font-weight:bold">
+
+a
+
+</td>
+
+<td style="font-weight:bold">
+
+b
+
+</td>
+
+<td style="font-weight:bold">
+
+c
+
+</td>
+
+<td style="font-weight:bold">
+
+d
+
+</td>
+
+<td style="font-weight:bold">
+
+e
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+5.1
+
+</td>
+
+<td>
+
+3.5
+
+</td>
+
+<td>
+
+1.4
+
+</td>
+
+<td>
+
+0.2
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+4.9
+
+</td>
+
+<td>
+
+3.0
+
+</td>
+
+<td>
+
+1.4
+
+</td>
+
+<td>
+
+0.2
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+4.7
+
+</td>
+
+<td>
+
+3.2
+
+</td>
+
+<td>
+
+1.3
+
+</td>
+
+<td>
+
+0.2
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+4.6
+
+</td>
+
+<td>
+
+3.1
+
+</td>
+
+<td>
+
+1.5
+
+</td>
+
+<td>
+
+0.2
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+5.0
+
+</td>
+
+<td>
+
+3.6
+
+</td>
+
+<td>
+
+1.4
+
+</td>
+
+<td>
+
+0.2
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+5.4
+
+</td>
+
+<td>
+
+3.9
+
+</td>
+
+<td>
+
+1.7
+
+</td>
+
+<td>
+
+0.4
+
+</td>
+
+<td>
+
+setosa
+
+</td>
+
+</tr>
+
+</table>
+
+</center>

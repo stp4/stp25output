@@ -264,6 +264,13 @@ knitr::kable(
 
 
 
+
+
+
+
+
+
+
 ## Grafik settings
 
 
@@ -321,5 +328,87 @@ reset_lattice()
 
 
 
+## A few methods for making tables in rmarkdown
+Quelle: https://gist.github.com/benmarwick/8ad99f35d5e4caa06492
+ 
+ 
 
+https://github.com/yihui/printr
+https://github.com/jalapic/simpletable
+https://github.com/renkun-ken/formattable
+ 
+
+```{r}
+my_data <- head(iris)
+names(my_data) <- c(letters[1:ncol(iris)])
+```
+
+```{r results='asis'}
+library("knitr")
+kable(my_data)
+```
+
+```{r results='asis'}
+library("xtable")
+print(xtable(my_data), type = "html", include.rownames=FALSE, html.table.attributes=list("border='0' cellpadding='5' "))
+```
+
+```{r, results = 'asis'}
+library(xtable)
+print(xtable(my_data), type = 'html')
+```
+
+```{r results = 'asis'}
+library(xtable)
+print(xtable(my_data), type = 'html', html.table.attributes = '')
+```
+
+```{r results='asis'}
+library("pander")
+pandoc.table(my_data)
+```
+
+```{r results='asis'}
+library("pander")
+pandoc.table(my_data, split.cells = 5)
+```
+
+```{r, results = 'asis'}
+pander::panderOptions('table.split.table', 350)
+pander::pandoc.table(my_data, style="rmarkdown")
+```
+
+```{}
+library("ascii")
+print(ascii(my_data), type = 'pandoc')
+```
+
+```{r}
+library("htmlTable")
+htmlTable(my_data, col.rgroup = c("none", "#F7F7F7"))
+```
+
+```{r results='asis'}
+library(hwriter)
+hwrite(my_data, border=0)
+```
+
+This one is the most useful, and has a nice guide to customisation here: http://www.ebi.ac.uk/~gpau/hwriter/
+
+
+```{r results='asis'}
+library(hwriter)
+cat(
+  hwrite(
+    my_data,
+    border = 0,
+    center = TRUE,
+    table.frame = 'void',
+    width = '300px',
+    table.style = 'padding: 50px',
+    row.names = FALSE,
+    row.style = list('font-weight:bold')
+  )
+)
+```
 

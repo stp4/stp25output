@@ -3,7 +3,7 @@ Type: Package
 Encoding: UTF-8
 Title: Output
 Version: 0.4.5
-Date: 2020-02-22
+Date: 2020-05-25
 Author: Wolfgang Peter
 Maintainer: Wolfgang Peter <w.peter@statistik-peter.at>
 Description: Reports erstellen die Tabellen und Texte werden dabei als HTML ausgegeben.
@@ -26,4 +26,4 @@ Suggests:
     testthat
 VignetteBuilder: knitr
 LazyData: TRUE
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

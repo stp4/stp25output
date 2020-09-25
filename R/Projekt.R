@@ -233,6 +233,14 @@ End <- function(anhang = FALSE,
   }
 }
 
+#' @rdname Projekt
+#' @export
+Stop <- function(...) {
+  End(...)
+  stop("\n\nAbbruch durch den Benutzer!\n")
+}
+
+
 
 #' @rdname Projekt
 #' @description Rechnung(): setzt ein Datum und Beendet mit Ende und stop die Auswertung
@@ -432,7 +440,7 @@ get_scriptpath <- function() {
 
 
 
-#' cleansing_umlaute cleansing
+#'  cleansing
 #' 
 #' Data cleansing 
 #' 

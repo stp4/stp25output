@@ -19,3 +19,5 @@ pagebreak <- function() {
       HTML_default('<br style="page-break-before: always">') 
   else cat("\n\n***\n\n")
 }
+
+ 

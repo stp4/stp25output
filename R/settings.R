@@ -141,6 +141,21 @@ stp25_options <- function() {
 #' #set_my_options(mittelwert=list(include_name=FALSE)))
 #' 
 #' 
+#'  
+#'   
+#' set_my_options(style_mean = list(line_break = '<br>'))
+#' set_my_options(prozent = list(null_percent_sign = '.'))
+#' set_my_options(mittelwert = list(mean.style = 2, median.style = "IQR"), 
+#'                prozent=list(style=2))
+#' set_my_options(caption= "include.n") 
+#' 
+#' # Tab 4: Charakteristik (N=119) 
+#' # Item                 m
+#' # sex                 Sex                   
+#' # 1                 Female          53 (45%)
+#' # 2                   Male          66 (55%)
+#' # age Age (years) (median) 43.00 (IQR 15.50)
+#' 
 default_stp25_opt <-
   function (myformat = "",
             fig_folder = "Fig",
