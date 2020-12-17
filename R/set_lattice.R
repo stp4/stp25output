@@ -1,3 +1,11 @@
+
+
+# Muss überarbeitet werden da es nicht funktioniert !!!!!
+
+
+
+
+
 #' MySet
 #'
 #' Initialisiert Lattice ladet die noetigen Pakete und Formatiert die Lattice Grafiken

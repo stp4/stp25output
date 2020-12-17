@@ -31,23 +31,6 @@
 
 
 
-#' updateList
-#' 
-#' noch nicht benutzt von Lattice
-#' @param x old list
-#' @param val new value
-#' @noRd
-updateList <- function(x, val)
-{
-  if (is.null(x))
-    x <- list()
-  modifyList(x, val)
-}
-
-
-
- 
-
 
 
 #' @importFrom graphics par

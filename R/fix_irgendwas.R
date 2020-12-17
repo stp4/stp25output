@@ -2,8 +2,7 @@
 #' 
 #' Repariert Levels und labels und Zahlen
 #'
-#' fix_to_data_frame input Matrix over Vektor Output( Source =Colnames + Daten )
- 
+#'  
 #'
 #' fix_levels ist fuer dta %>% gather(Parameter, Wert, x1:x5)  %>% fix_levels(dta)
 #' fix_colnames ist fuer Formatieren in der Funktion \code{Output()}
@@ -47,14 +46,14 @@ fix_colnames<- function(x, col_names=NULL, translate= TRUE){
 
 #fix_header<- function(){}
 
-#' @rdname fix_irgendwas
-#' @param ... alles weiter an data.frame
-#' @export
-fix_data_frame2 <- function(...){
-
-  ## Hmisc::format.df  #Format a Data Frame or Matrix for LaTeX or HTML
-  fix_format(data.frame(...))
-}
+# @rdname fix_irgendwas
+# @param ... alles weiter an data.frame
+# @export
+# fix_data_frame2 <- function(...){
+# 
+#   ## Hmisc::format.df  #Format a Data Frame or Matrix for LaTeX or HTML
+#   fix_format(data.frame(...))
+# }
 
 
 
