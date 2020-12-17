@@ -10,12 +10,15 @@ HTML_Start <- function (Projektname = "Demo",
                         withprompt = "HTML> ",
                         .extension = "html",
                         .myDir = getwd(),
-                        .filename = cleansing_umlaute(Projektname),
+                        .filename = stp25tools::cleansing_umlaute(Projektname),
                         .output.dir = file.path(.myDir, html_folder),
                         .HTML.file  = file.path(.output.dir, paste(.filename, ".", .extension, sep = "")),
                         .css.file = file.path(.output.dir, "layout.css")){
   if (Projektname == "Demo")
     setwd("C:/Users/wpete/Dropbox/3_Forschung/R-Project")
+  #  path.expand("~")
+  
+  
   #-- Fehler Abfangen
   if (options()$prompt[1] == withprompt) {
     options(prompt = "> ")
@@ -37,6 +40,38 @@ HTML_Start <- function (Projektname = "Demo",
   )
   
 }
+
+#' HTML Kopf erstellen
+#' @noRd
+html_open <- function(title, file, layout.css = "layout.css"){
+  cat(
+    paste0(
+      '<!DOCTYPE html>
+<html>
+<head>
+<title>',  title, '</title>
+<link rel=stylesheet href="', layout.css, '" type=text/css>
+</head>
+<body>
+
+')
+    , file = file, append = FALSE)
+  
+}
+
+#' HTML-Fuss
+#' @noRd 
+html_close <-
+  function(date = format(Sys.time(), "%a %d %b %Y %H:%M:%S "),
+           file = HTMLGetFile()){
+    cat(
+      paste0('<p>', date, '</p>\n</body>\n</html> '),
+      sep = "",
+      append = TRUE,
+      file = file
+    )
+  }
+
 
 #' @rdname Projekt
 #' @export
@@ -76,47 +111,10 @@ HTMLGetFile <- function (){
 }
 
 
-# Kopie von R2HTML::HTMLGetFile
-# @noRd
-# GetContrasts <- function (){
-#   if (exists("old.contrasts", .HTMLEnv))
-#     get("old.contrasts", .HTMLEnv)
-#   else
-#      c("contr.treatment", "contr.poly")
-#   }
 
 
-#' HTML-Fuss
-#' @noRd 
-html_close <-
-  function(date = format(Sys.time(), "%a %d %b %Y %H:%M:%S "),
-           file = HTMLGetFile()){
-    cat(
-      paste0('<p>', date, '</p>\n</body>\n</html> '),
-      sep = "",
-      append = TRUE,
-      file = file
-    )
-  }
 
 
-#' HTML Kopf erstellen
-#' @noRd
-html_open <- function(title, file, layout.css = "layout.css"){
-cat(
-  paste0(
-'<!DOCTYPE html>
-<html>
-<head>
-<title>',  title, '</title>
-<link rel=stylesheet href="', layout.css, '" type=text/css>
-</head>
-<body>
-
-')
- , file = file, append = FALSE)
-   
-}
 
 
 #' CSS erstellen
@@ -248,35 +246,41 @@ creat_folder <- function(output.dir, fig_folder, css.file=NULL) {
 #'
 #' @param contrasts,withprompt,OutDec,extension,file zu fixierende einstellungen
 #' @noRd
-projekt_settings <- function(contrasts=NULL, withprompt="> ", OutDec=NULL, extension="txt", file=NULL) {
-  options(prompt = withprompt) 
-  oldc <- getOption("contrasts") 
-
-  if (!is.null(contrasts)) {
-    options(contrasts = contrasts)
-    cat(
-      "\nKontraste von " ,
-      paste(oldc, collapse = ", "),
-      "auf\n",
-      paste(contrasts, collapse = ", "),
-      " umgestellt!\n"
-    )
+projekt_settings <-
+  function(contrasts = NULL,
+           withprompt = "> ",
+           OutDec = NULL,
+           extension = "txt",
+           file = NULL) {
+    options(prompt = withprompt)
+    oldc <- getOption("contrasts")
+    
+    if (!is.null(contrasts)) {
+      options(contrasts = contrasts)
+      cat(
+        "\nKontraste von " , paste(oldc, collapse = ", "),
+        "auf\n", paste(contrasts, collapse = ", "), " umgestellt!\n"
+      )
+    }
+    
+    if (is.null(OutDec))
+      OutDec <- options()$OutDec
+    else
+      options(OutDec = OutDec)
+    
+    set_default_params(list(
+      Tab_Index = 0,
+      Abb_Index = 0,
+      file.name.index = 0
+    ))
+    
+    set_my_options(output = extension)
+    
+    assign("old.contrasts", oldc, envir = .HTMLEnv)
+    assign("old.par", par(no.readonly = TRUE), envir = .HTMLEnv)
+    assign(".HTML.file", file, .HTMLEnv)
+    
   }
-
-  if (is.null(OutDec))  OutDec <- options()$OutDec
-  else  options(OutDec = OutDec)
-  
-  set_default_params(list(Tab_Index = 0, 
-                          Abb_Index = 0, 
-                          file.name.index = 0))
-  
-  set_my_options(output = extension)
- 
-  assign("old.contrasts", oldc, envir = .HTMLEnv)
-  assign("old.par", par(no.readonly = TRUE), envir = .HTMLEnv)
-  assign(".HTML.file", file, .HTMLEnv)
-  
-}
 
 
 

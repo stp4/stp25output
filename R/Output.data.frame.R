@@ -194,6 +194,10 @@ else if ( output == "html" | output=="markdown_html") {
           ...
         )
       }
+      
+      # Copy-Paste problem mit Word
+      res<- gsub( "grey;", "black;", res)
+      
       if (output == "html") {
         HTML_BR()
         HTML_CENTER(res)
@@ -301,33 +305,8 @@ Output.list <- function(x,
 
 
 
-#' @rdname Output
-#' @description Output.matrix: umwandeln in einen data.frame
-#' @export
-#' 
-Output.matrix <- function(x,
-                          output =  which_output(),
-                          ...) {
-  Output(fix_to_data_frame(x), output=output, ...)
-}
 
 
-
-#' @rdname Output
-#' @description Output.stp25: experimenteller Prototyp
-#' @export
-#' 
-Output.stp25 <- function(x,
-                         output =  which_output(),
-                         ...) {
-  # noch nicht getestet
-  if (is.list(x)) {
-    for (i in i:length(x))
-      Output.data.frame(x[[i]], output=output, ...)
-  }
-  else
-    Output.data.frame(x, output=output, ...)
-}
 
 #' Header aufbereiten
 #'

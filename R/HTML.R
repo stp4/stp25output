@@ -94,11 +94,11 @@ else
   HTML_default(x, output)
 }
 #' @rdname HTML_
-#' @description HTML_CENTER <center> zentrieren
+#' @description HTML_CENTER   zentrieren
 #' @export
 HTML_CENTER <- function (x, output = which_output()){
   if (output == "html")
-    HTML_default(paste0("<center>", x, "</center>"), output)
+    HTML_default(paste0("<div align='center'>", x, "</div>"), output)
 else
   HTML_default(x, output)
 }

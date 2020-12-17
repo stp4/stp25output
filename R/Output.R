@@ -28,7 +28,40 @@ Output <- function(x, ...) {
   UseMethod("Output")
 }
 
-
+#' @rdname Output
+#'
+Output.default <- function(x,            
+                           caption = NULL,
+                           note = NULL,
+                           output =  which_output(),
+                           print_col = NULL,
+                           col_names = NULL, 
+                           fix_colnames = options()$stp25$language != "",
+                           add_row = NULL,
+                           css.table = 'padding-left: .5em; padding-right: .2em;',
+                           css.cell = 'padding-left: .5em; padding-right: .2em;',
+                           booktabs = TRUE,
+                           latex_options = c("hold_position"),
+                           linesep = "",
+                           align = "l",
+                           ...) {
+  #  cat("\nin Output.default class: ",class(x)[1], " \n")
+  Output( stp25tools::fix_to_df(x),  
+          caption = caption,
+          note = note,
+          output =  output,
+          print_col = print_col,
+          col_names = col_names, 
+          fix_colnames = fix_colnames,
+          add_row = add_row,
+          css.table =css.table,
+          css.cell = css.cell,
+          booktabs = booktabs,
+          latex_options = latex_options,
+          linesep = linesep,
+          align=align) 
+  
+}
 
 
 #' @rdname Output
@@ -99,9 +132,6 @@ Output.vector <- function(x,
     x
 }
 
-
-
-
 #' @rdname Output
 #' @description Output.htmlTable: Verarbeitet htmlTable-Objekt als auch Listen
 #'  oder auch einfach nur ein string. Die Tabelle mit Header usw ist dabei
@@ -111,14 +141,12 @@ Output.htmlTable <- function(x,
                              output = which_output(), ...) {
   if (output == "html") {
     if (is.list(x))
-      # von htmlTable
-      HTML_CENTER(x[[1]])
+      HTML_CENTER( gsub("grey;", "black;", x[[1]]))
     else
-      HTML_CENTER(x)
+      HTML_CENTER(gsub("grey;", "black;", x))
   }
   else if (output == "markdown") {
     if (is.list(x))
-      # von htmlTable
       print(x[[1]])
     else
       print(x)
@@ -134,16 +162,6 @@ Output.NULL <- function(x, ...) {
   if (!exists("Tab_Index"))
     cat("\nNach Tabelle ", Tab_Index, " ist der Output NULL!\n")
 }
-#' @rdname Output
-#'
-Output.default <- function(x, ...) {
-  cat("\nin Output.default class: ",class(x)[1], " \n")
- Output( broom::tidy(x), ...) 
-  
-}
-
-
-
 
 
 
