@@ -10,6 +10,8 @@
 #+ setup, include=FALSE
 knitr::opts_chunk$set(echo = TRUE, warnings=FALSE)
 require(stpvers)
+require(lattice)
+require(effects)
 note<- "Auswertung für die Puplikationen in medizinische Fachzeitschriften."
 
 #+ setup2
@@ -49,6 +51,13 @@ DF2 <-data.frame(
 )
 
 
+#+ plot-1
+
+coplot(uptake ~ conc | Plant, data = CO2, show.given = FALSE, type = "b")
+## fit the data for the first plant
+
+ 
+head(CO2[Cs(uptake, conc, Plant)])
 
 #+ default1, results='asis'
 
@@ -89,5 +98,15 @@ APA_Table(fit1, include.odds = TRUE)
 
 
 #+
-tab<-APA_Table(fit1, include.odds = TRUE, output=FALSE)
+pagebreak()
+
+tab<-APA_Table(fit1, fit2, include.odds = TRUE, output=FALSE)
 tab %>% Output()
+
+Tbll_reg(fit1, fit2, include.odds = TRUE) %>% Output( )
+
+
+
+
+#+ plot
+plot(1)
