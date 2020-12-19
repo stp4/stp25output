@@ -1,9 +1,9 @@
-#' Ausgabe von Tabellen
-#'
-#' Output.data.frame ist die Standart-Funktion fuer die
-#' Ausgabe. Sie Arbeitet mit \code{htmlTable}, die einzelnen
+#' @rdname Output
+#' @description  Output.data.frame ist die Standart-Funktion fuer die
+#' Ausgabe. Sie Arbeitet mit htmlTable, die einzelnen
 #' Header-Ebenen werden ueber Header1_M, Header1_SD gesteuert.
 #' Auch die Funktionen Output.table und xtabl arbeiten ueber diese Funktion.
+#' 
 #' @param x dataframe
 #' @param caption,note  Ueberschrift Fussnote
 #' @param output welcher output, text, html, markdown
@@ -13,9 +13,10 @@
 #'  padding-left: .5em; padding-right: .2em; Output.data.frame (htmlTable)
 #' @param booktabs,latex_options an kableExtra
 #' @param linesep linesep = ""  linesep = c("", "", "\\midrule")
+#' @param rgroup,n.rgroup,cgroup,n.cgroup an htmlTable
 #' @param ...  
 #'
-#' @return null
+#' @return nix
 #' @export
 #'
 #' @examples
@@ -63,7 +64,6 @@
 #' 
 #' 
 #' # df1 %>%  Output(linesep = c("", "", "\\midrule"))
-
 #' 
 Output.data.frame <-
   function(x,
@@ -80,37 +80,53 @@ Output.data.frame <-
            latex_options = c("hold_position"),
            linesep = "",
            align = "l",
+           
+           # htmlTable
+           # header = NULL,
+           # rnames = NULL,
+           # rowlabel = NULL,
+           # tfoot = NULL,
+           # label = NULL,
+           rgroup = attr(x, "rgroup", TRUE),
+           n.rgroup =  attr(x, "n.rgroup", TRUE),
+           cgroup = NULL,
+           n.cgroup = NULL,
+           # tspanner = NULL,
+           # n.tspanner = NULL,
+           # total = NULL,
+           # ctable = TRUE,
+           # compatibility = getOption("htmlTableCompat", "LibreOffice"),
+           # cspan.rgroup = "all",
+           # escape.html = FALSE,
+      
            ...) {
-    
+# abbruch bei output=FALSE bei TRUE Ausgabe als Text    
 if (nrow(x) == 0)  return(NULL)
-    # abbruch bei output=FALSE bei TRUE Ausgabe als Text
-    if (is.logical(output)) {
+  
+if (is.logical(output)) {
       if (output)
         output <- "text"
       else
         return(NULL)
     }
     
-
-    
-    # Zellen-Spalten bearbeiten
+# Zellen-Spalten bearbeiten
 if (!is.null(print_col)) {
       x <- x[print_col]
-    }
+}
 else if (all(x[, 2] == "")) {
-      # loeschen der leeren Spalte bei APA2
-      
-if (!is.null(col_names)) {
-        if (length(names(x)) == length(col_names))
-          names(x) <- col_names
-         
-        else
-          warnings("Die col_names stimmen nicht!")
-       fix_colnames <- FALSE  
-         
-      }
-      x <- x[,-2]
-    }
+# loeschen der leeren Spalte bei APA2
+  if (!is.null(col_names)) {
+          if (length(names(x)) == length(col_names))
+            names(x) <- col_names
+           
+          else
+            warnings("Die col_names stimmen nicht!")
+         fix_colnames <- FALSE  
+           
+        }
+        x <- x[,-2]
+}
     
 if (!is.null(col_names)) {
       if (length(names(x)) == length(col_names))
@@ -118,8 +134,10 @@ if (!is.null(col_names)) {
       else
         warnings("Die col_names stimmen nicht!")
       fix_colnames <- FALSE 
-    }
+}
     
+    
+  
 tbl <- tbl_header(x, fix_colnames = fix_colnames)
     
 if (!is.null(add_row)) {
@@ -127,49 +145,49 @@ if (!is.null(add_row)) {
     }
     
 if (output == "docx") {
-    #  warnings("In spin-word geht Word.doc  nicht weil die Ausgabe nicht an knit_print weitergegeben wird. 
-    # Alternative APA(..., output=FALSE) %>% Output()")
-      
-return(Output_word(x,
-                         caption, 
-                         note, 
-                         output,
-                         print_col, 
-                         col_names, 
-                         fix_colnames))
-      
-}
-    
+# In spin-word geht Word.doc  nicht weil die Ausgabe nicht an knit_print weitergegeben wird. 
+# Alternative APA(..., output=FALSE) %>% Output()")
+  return(Output_word(x,
+                     caption,
+                     note,
+                     output,
+                     print_col,
+                     col_names,
+                     fix_colnames))
   
-    
+}
     
 if (output == "text") {
   caption <- Caption(caption, attr(x, "caption"))
-  note <- Note(note, attr(x, "note"))  
-      if (!is.null(tbl$header_above))
-        names(x) <-
-          ifelse(tbl$header_above2 == "",
-                 tbl$header,
-                 paste0(tbl$header_above2, "_", tbl$header))
-      else{
-        names(x) <- tbl$header
-      }
-      cat("\n", caption, "\n")
-      print(x)
-      if (is.character(note))  cat("\n", note, "\n\n")
-    }
+  note <- Note(note, attr(x, "note"))
+  if (!is.null(tbl$header_above))
+    names(x) <-
+    ifelse(tbl$header_above2 == "",
+           tbl$header,
+           paste0(tbl$header_above2, "_", tbl$header))
+  else{
+    names(x) <- tbl$header
+  }
+  cat("\n", caption, "\n")
+  print(x)
+  if (is.character(note))
+    cat("\n", note, "\n\n")
+}
 else if ( output == "html" | output=="markdown_html") {
   caption <- Caption(caption, attr(x, "caption"))
   note <- Note(note, attr(x, "note"))  
-      x <- insert_nbsp(x)
+      
       tbl$header <-  gsub(" +", '&nbsp;', tbl$header)
       tbl$cgroup <-  gsub(" +", '&nbsp;', tbl$cgroup)
+      
       if (is.null(tbl$header_above)) {
         res <- htmlTable::htmlTable(
-          x,
+          insert_nbsp(x),
           caption = caption,
           header = tbl$header,
           rnames = FALSE,
+          rgroup = rgroup,
+          n.rgroup = n.rgroup,
           align = align,
           tfoot = note,
           escape.html = FALSE,
@@ -180,10 +198,12 @@ else if ( output == "html" | output=="markdown_html") {
       }
       else{
         res <- htmlTable::htmlTable(
-          x,
+          insert_nbsp(x),
           caption = caption,
           header = tbl$header,
           rnames = FALSE,
+          rgroup = rgroup,
+          n.rgroup = n.rgroup,
           cgroup = tbl$cgroup,
           n.cgroup = tbl$n.cgroup,
           align = align,
