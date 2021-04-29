@@ -133,11 +133,13 @@ Head<- function( ...,
 
 #' @rdname Text
 #' @description  Anmerkung() ist ein blauer Text.
+#' @param prafix Anmerkung
 #' @export
-Anmerkung <- function(...)
+Anmerkung <- function(..., prafix = "Anmerkung"){
   HTML_default(
-    paste('<p style="color: #0000FF"><b>Anmerkung:</b> <br>
+    paste0('<p style="color: #0000FF"><b>',prafix, ':</b> <br>
           ', paste0(...), "</p><br>"))
+  }
 #  Text('<div style="color:#0000FF"><b>Anmerkung:</b><br>', ..., "<br></div>")
 
 
@@ -166,14 +168,43 @@ Kunde <- function(x = "",
 
 
 #' @rdname Text
-#' @param lib Paketname
-#' @description  CitationLib(car) gibt Pakete beschreibungen aus.
+#' @param ... namen der Librarys
+#' @param style,.bibstyle an format
+#' @param output html oder text
+#' @return character
 #' @export
-CitationLib<-function(lib){
-    x<- citation(lib)
-    paste0(x$author[1],", (", x$year, "), ", x$title, ", URL ", x$url)
+#'
+#' @examples
+#' 
+#' citation_library(base,Hmisc,car,lattice)
+#' 
+citation_library <- function(...,
+                             style = "text",
+                             .bibstyle = NULL,
+                             output="text") {
+  libs <-
+    sapply(lazyeval::lazy_dots(...), function(x)
+      as.character(x[1]))
+  
+  res <-  format(citation(), style, .bibstyle)
+  
+  for (lib in libs) {
+    x <- citation(lib)
+    y <- format(x, style, .bibstyle)
+    #  res <- append(res,  "\n  ")
+    res <- append(res, y)
   }
- 
+  
+  if(output=="text")
+    gsub("[<>]", "", paste(res, collapse = "\n\n"))
+  else if(output=="html")
+    paste("<p>", 
+          paste( gsub("[<>]", "",res) , collapse = "</p> <p>"),
+          "</p>")
+  else res
+  
+}
+
 
 
 #' @rdname Text
