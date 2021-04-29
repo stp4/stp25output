@@ -1,35 +1,7 @@
-
-
-
 .onLoad <- function(libname, pkgname)
 {
   options("stp25" = default_stp25_opt() )
 }
-
-
-#geloescht 
-
-
-
-# when_attached <- function(pkg, action) {
-#   if (is_attached(pkg)) {
-#     action
-#   } else {
-#      setHook(packageEvent(pkg, "attach"), function(...) action)
-#   }
-# }
-# 
-# is_attached <- function(pkg) paste0("package:", pkg) %in% search()
-# 
-
-
- 
-# Start a new environment to hold the session key so all other functions can access it
-# See http://trestletech.com/2013/04/package-wide-variablescache-in-r-package/
-
-# session_stp <- new.env(parent = emptyenv())
-
-
 
 
 
@@ -42,8 +14,6 @@
 
 
  
-
-
 #' @importFrom magrittr %>%
 #' @export
 magrittr::`%>%`
