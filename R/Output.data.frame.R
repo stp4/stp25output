@@ -302,20 +302,25 @@ invisible(x)
 #' @export
 #' 
 Output.list <- function(x,
-                        output =  which_output(),
-                        ...) {
+                        caption="",
+                        note ="",
+                        output =  which_output()) {
   if (output == "docx") {
     if (length(x) > 1)
       Text("Weitere Tabellen:", names(x)[-1])
     x <- x[[1]]
-    return(Output_word(x,
-                       output = output,
-                       ...))
+    return(Output_word(x, caption = caption,
+                       note = note,
+                       output = output 
+                       ))
   } else {
     res <- list()
     for (i in 1:length(x))
-      res[[i]] <- Output(x[[i]],
-                         output = output, ...)
+      res[[i]] <- Output(x[[i]], 
+                         caption = caption,
+                         note = note,
+                         output = output
+                         )
     
     
     invisible(x)

@@ -35,13 +35,8 @@ which_output <- function() {
       if(in_formats=="html")  in_formats <- "markdown_html"
       else if(in_formats=="beamer")  in_formats <- "latex"
       else if(in_formats=="gfm")  in_formats <- "markdown_html"   #github_document
-      
-      
-    }
-    
-  }  
-  
-  in_formats[1]
- 
-  }
+      }
+    }  
+    in_formats[1]
+   }
 

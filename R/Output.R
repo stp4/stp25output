@@ -29,7 +29,8 @@ Output <- function(x, ...) {
 }
 
 #' @rdname Output
-#'
+#' @export
+#' 
 Output.default <- function(x,            
                            caption = NULL,
                            note = NULL,
@@ -111,10 +112,18 @@ Output.xtable <- function(x,
 
 
 #' @rdname Output
-Output.character <- function(x, output = which_output(), ...) {
-  if (output=="html" | output=="markdown_html") {
-    if (any(class(x) == "texregTable"))
+#' @export
+#'
+Output.character <- function(x,
+                             caption = NULL,
+                             note = NULL,
+                             output = which_output()) {
+  if (output == "html" | output == "markdown_html") {
+    if (any(class(x) == "texregTable") | grepl("<table", x)) {
+      Text(Caption(caption))
       HTML_CENTER(x)
+      Text(Note(note))
+    }
     else
       HTML_P(x)
   }
@@ -123,6 +132,8 @@ Output.character <- function(x, output = which_output(), ...) {
 }
 
 #' @rdname Output
+#' @export
+#' 
 Output.vector <- function(x,
                           output = which_output(),
                           ...) {
@@ -166,6 +177,7 @@ Output.NULL <- function(x, ...) {
 
 
 #' @rdname Output
+#' @export
 #'
 Output.psychobject <- function(x, 
                                digits = c(2, 2, 1, 3, 2, 2), 

@@ -1,5 +1,6 @@
 
 
+
 # Muss überarbeitet werden da es nicht funktioniert !!!!!
 
 
@@ -120,7 +121,7 @@
 #'  #windows(7,4)
 #'  #  bwplot(yield ~ site|year, barley )
 #'  #  End()
-#'  
+#'
 MySet <- function(col = NULL,
                   pch = 15:18,
                   lty = 1:3,
@@ -212,17 +213,17 @@ MySet <- function(col = NULL,
 
 
 #' set_lattice
-#' 
+#'
 #' @name set_lattice
 #'
 #' @param pch,lty,cex parameter an plot
 #' @param col.bar Farben
 #' @param ... nicht benutzt
 #'
-#' @return im Hintergrund oopt unt opar sowie  invisible(lattice::trellis.par.get()) 
+#' @return im Hintergrund oopt unt opar sowie  invisible(lattice::trellis.par.get())
 #'
 #' @examples
-#' #' 
+#' #'
 #' set.seed(2)
 #' n <- 20 * 3 * 2
 #' DF <- data.frame(
@@ -234,22 +235,22 @@ MySet <- function(col = NULL,
 #'   treatment = gl(3, n / 3, labels = c("UG1", "UG2", "KG"))[sample.int(n)],
 #'   sex = gl(2, n / 2, labels = c("male", "female"))
 #' )
-#' 
-#' 
-#' 
+#'
+#'
+#'
 #' set_lattice_ggplot()
 #' bwplot2(e ~ treatment,
 #'         DF,
 #'         groups = sex,
 #'         auto.key = list(columns = 2))
-#' 
-#' 
+#'
+#'
 #' set_lattice_bw()
 #' bwplot2(e ~ treatment,
 #'         DF,
 #'         groups = sex,
 #'         auto.key = list(columns = 2))
-#'  
+#'
 NULL
 
 
@@ -263,7 +264,7 @@ set_lattice_ggplot <- function(pch = 15:18,
                                col = NULL,
                                # "#00BA38" "#00BFC4" "#619CFF" "#F564E3" "#F8766D" "#B79F00"
                                col.bar = NULL ,
-                               strip.background.col =c("grey80", "grey70", "grey60"),
+                               strip.background.col = c("grey80", "grey70", "grey60"),
                                # "grey20"
                                ...) {
   reset_lattice()
@@ -276,8 +277,12 @@ set_lattice_ggplot <- function(pch = 15:18,
     col.bar <- lattice::trellis.par.get()$plot.polygon$col
   
   lattice::trellis.par.set(
-    strip.background=list(col=strip.background.col),
-    axis.text = list(cex = 0.8, lineheight = 0.9, col = "#000000"),
+    strip.background = list(col = strip.background.col),
+    axis.text = list(
+      cex = 0.8,
+      lineheight = 0.9,
+      col = "#000000"
+    ),
     superpose.symbol = list(col = col, pch = pch),
     superpose.polygon = list(col = col, border = "transparent"),
     plot.polygon = list(col = col.bar),
@@ -288,15 +293,15 @@ set_lattice_ggplot <- function(pch = 15:18,
     # box.umbrella = list(),
   )
   
-  invisible(lattice::trellis.par.get()) 
+  invisible(lattice::trellis.par.get())
 }
 
 
 
 #' @rdname set_lattice
 #' @param  strip.background.col set_lattice_bw: "white" sonst  c("grey80", "grey70", "grey60"),
-#' @param  col Farbe 
-#'   rosa-himmelblau brewer.pal(8,"Set3")[c(3,4)] 
+#' @param  col Farbe
+#'   rosa-himmelblau brewer.pal(8,"Set3")[c(3,4)]
 #' Grau   grey.colors(5, start = 0.3, end = 0.9) oder gray(seq(0,.9,len = 25))
 #' @description set_lattice_bw:  schwarz-weis lattice-Theme
 #' @export
@@ -306,14 +311,13 @@ set_lattice_bw <- function(pch = 15:18,
                            col = grey.colors(7, start = 0.3, end = 0.9),
                            col.bar =  "grey50",
                            strip.background.col = "white",
-                           
-                           
                            ...) {
   reset_lattice()
-  theme <- lattice::standard.theme(color = FALSE)  # name = "pdf", name = .Device,
+  theme <-
+    lattice::standard.theme(color = FALSE)  # name = "pdf", name = .Device,
   lattice::trellis.par.set(theme)
   lattice::trellis.par.set(
-    strip.background=list(col=strip.background.col),
+    strip.background = list(col = strip.background.col),
     #  axis.text = list(cex = 0.8,lineheight = 0.9,col = "grey20"),
     superpose.symbol = list(pch = pch, fill = col, col = col) ,
     superpose.polygon = list(col = col, border = "transparent"),
@@ -323,9 +327,9 @@ set_lattice_bw <- function(pch = 15:18,
     plot.symbol = list(pch = 1),
     # box.rectangle =list(),
     # box.umbrella = list(),
-    strip.shingle=list(col=col)
+    strip.shingle = list(col = col)
   )
-  invisible(lattice::trellis.par.get()) 
+  invisible(lattice::trellis.par.get())
 }
 
 #' @rdname set_lattice
@@ -333,6 +337,7 @@ set_lattice_bw <- function(pch = 15:18,
 #' @description  set_lattice: set and reset of lattice default options
 #' @export
 set_lattice <- function(theme = NULL) {
+  
   if (exists("opar"))
     lattice::trellis.par.set(opar)
   else
@@ -357,9 +362,3 @@ set_lattice <- function(theme = NULL) {
 reset_lattice <- function(...) {
   set_lattice()
 }
-
-
-
-
-
-
