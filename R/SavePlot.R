@@ -12,6 +12,8 @@
 #' @param filename Text 
 #' @param save_plot speichern als file = TRUE,
 #' @param output nur wichtig bei html
+#' @param out.type	 name of the output device: can 
+#' be "pdf", or "cairo" 
 #'
 #' @return
 #' @export
@@ -28,7 +30,8 @@ SavePlot <- function(caption = "",
                      filename = "",
                      save_plot = TRUE,
                      output =  which_output(),
-                     res=72
+                     res=72,
+                     out.type="pdf"
                   
                     ) {
   abb <- Abb(filename, caption)
@@ -82,7 +85,8 @@ SavePlot <- function(caption = "",
       abb$Name <- paste0(abb$Name, ".pdf")
       try(dev.copy2pdf(file = abb$Name,
                        width = w,
-                       height = h))
+                       height = h,
+                       out.type=out.type))
     HTML_S(abb$Nam)
     HTML_BR()
   }
