@@ -68,9 +68,9 @@ set_my_options <- function(...) {
 #' @description get_my_options: Abruf der Optionen
 #' @param x Library = "stp25"
 #' @export
-get_my_options <- function(x = "stp25")
+get_my_options <- function(x = "stp25"){
   getOption(x) ## namespace:base>
-
+}
 
 #' @rdname settings
 #' @description set_default_params: Speichern von Variablen im Global Envirment

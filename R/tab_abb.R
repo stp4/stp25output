@@ -14,10 +14,10 @@ NULL
 #' 
 Tab <- function (caption = "")
 {
-  if (!exists("Tab_Index"))
-    Tab_Index <<- 1
-  else
-    Tab_Index <<- Tab_Index + 1
+  if (!exists("Tab_Index")) Tab_Index <<- 1
+  else  if( is.numeric(Tab_Index) )   Tab_Index <<- Tab_Index + 1
+ # else  Tab_Index <- as.character(Tab_Index)
+  
   paste0("Tab ", Tab_Index, ": ", caption)
 }
  

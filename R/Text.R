@@ -129,8 +129,38 @@ Text.character <- function(...,
 Head<- function( ...,
                  style=3,
                  char = "-"){
-  Text(..., style = style, char = char)}
+  Text(..., style = style, char = char)
+  
+}
 
+
+#' @rdname Text
+#' @export
+Head1<- function( ... ){
+  pagebreak()
+  Text(..., style = 1, char = "-")
+}
+#' @rdname Text
+#' @export
+Head2<- function( ... ){
+  pagebreak()
+  Text(..., style = 2, char = "-")
+}
+#' @rdname Text
+#' @export
+Head3<- function( ... ){
+  Text(..., style = 3, char = "-")
+}
+#' @rdname Text
+#' @export
+Head4<- function( ... ){
+  Text(..., style = 4, char = "-")
+}
+#' @rdname Text
+#' @export
+Head5<- function( ... ){
+  Text(..., style = 5, char = "-")
+}
 #' @rdname Text
 #' @description  Anmerkung() ist ein blauer Text.
 #' @param prafix Anmerkung
